@@ -1,0 +1,97 @@
+<div class="view-cart-container">
+    <div class="left-container">
+        <div class="address-card">
+            <div class="address-div">
+                <span class="deliver-text">Deliver to: </span>
+                <span class="address-text">Noida - 41367</span>
+            </div>
+            <div class="change-btn">
+                <button mat-flat-button>Change</button>
+            </div>
+        </div>
+        <ng-container *ngIf="cartItems?.length; else emptyBasket;" >
+            <ng-container *ngFor="let item of cartItems; let i = index">
+                <div class="item-card">
+                    <div class="img-div">
+                        <img [src]="item?.imgUrls[0]" alt="">
+                    </div>
+                    <div class="details-container">
+                        <div class="right-top-item">
+                            <div class="item-description">{{item?.itemDescription}}</div>
+                            <div class="delivery-days">Delivery in 2 days, Wed</div>
+                        </div>
+                        <div class="badge-rating-review">
+                            <div class="rating-badge">
+                                <span class="rating">{{item?.ratingsAndReviewsDetails?.overAllRating | decimal: 1}}</span>
+                                <mat-icon>star</mat-icon>
+                            </div>
+                            <div class="ratings">{{item?.ratingsAndReviewsDetails?.numberOfRating}} Ratings</div>
+                            <div class="and">&</div>
+                            <div class="reviews">{{item?.ratingsAndReviewsDetails?.numberOfReview}} Reviews</div>
+                        </div>
+                        <div class="extra-off">Extra {{(item?.markedPrice - item?.sellingPrice) | currency}} off</div>
+                        <div class="price-details">
+                            <div class="selling-price">{{item?.sellingPrice | currency}}</div>
+                            <div class="margin-price">{{item?.markedPrice | currency}}</div>
+                            <div class="discount-percent">{{item?.discountPercent | decimal: 0}}% off</div>
+                        </div>
+                        <div class="item-count-container">
+                            <div class="update-qty-right">
+                                <button mat-flat-button (click)="updateQty(i, 'remove')">
+                                    <mat-icon>remove</mat-icon>
+                                </button>
+                                <input type="number" [min]="0" appIntegersOnly [value]="item?.numberOfItem" (input)="updateQty(i, 'directChange', $event)">
+                                <button mat-flat-button (click)="updateQty(i, 'add')">
+                                    <mat-icon>add</mat-icon>
+                                </button>
+                            </div>
+                            <button mat-flat-button class="remove-btn" (click)="removeItemsToCart(item)">REMOVE</button>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </ng-container>
+        <ng-template #emptyBasket>
+            <div class="empty-cart-card">
+                <div class="img-div">
+                    <img src="/assets/img/empty-cart/1.webp" alt="">
+                </div>
+                <div class="empty-cart-text">Your cart is empty!</div>
+                <div class="add-items-to-now">Add items to it now.</div>
+                <div class="shop-now-btn">
+                    <button mat-flat-button (click)="home()">Shop now</button>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+    <div *ngIf="cartItems?.length" class="right-container">
+        <div class="right-sticky-container">
+            <div class="price-details">PRICE DETAILS</div>
+            <div class="price-detail-div">
+                <div class="price-div">
+                    <span>Price ({{cartItems.length}} item)</span>
+                    <span>{{calculateMarkedPrice() | currency}}</span>
+                </div>
+                <div class="discount-div">
+                    <span>Discount</span>
+                    <span>- {{calculateDiscount() | currency}}</span>
+                </div>
+                <div class="deliver-charges">
+                    <span>Delivery-charges</span>
+                    <span>{{claculateDeliverCharges()}}</span>
+                </div>
+                <div class="total-amt-div">
+                    <span>Total Amount</span>
+                    <span>{{calculateSellingPrice() | currency}}</span>
+                </div>
+                <div class="saving">
+                    You will save {{calculateDiscount() | currency}} on this order
+                </div>
+                <div class="place-order">
+                    <button mat-flat-button>PLACE ORDER</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

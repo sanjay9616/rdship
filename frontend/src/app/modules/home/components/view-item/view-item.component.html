@@ -1,0 +1,336 @@
+<section class="top-container">
+    <div class="left-container">
+        <div class="img-container">
+            <div class="sticky-img-div">
+                <div class="selected-img-icons">
+                    <div class="selected-img">
+                        <img [src]="imgUrl" alt="">
+                    </div>
+                    <div class="icons-div">
+                        <button mat-flat-button (click)="$event.stopPropagation();" [ngClass]="{ 'active' : itemDetails?.isFavorite }">
+                            <mat-icon>favorite</mat-icon>
+                        </button>
+                        <button mat-flat-button [matMenuTriggerFor]="overallCustomerExposure">
+                            <mat-icon>share</mat-icon>
+                        </button>
+                        <mat-menu #overallCustomerExposure="matMenu" (click)="$event.stopPropagation()">
+                            <div (click)="$event.stopPropagation()" class="mat-menu-container">
+                                <button mat-flat-button class="whatsapp">
+                                    <i class="ri-whatsapp-fill"></i>
+                                </button>
+                                <button mat-flat-button class="facebook">
+                                    <i class="ri-facebook-circle-fill"></i>
+                                </button>
+                                <button mat-flat-button class="linkedin">
+                                    <i class="ri-linkedin-box-fill"></i>
+                                </button>
+                                <button mat-flat-button class="twitter">
+                                    <i class="ri-twitter-fill"></i>
+                                </button>
+                                <button mat-flat-button class="mail">
+                                    <i class="ri-mail-fill"></i>
+                                </button>
+                            </div>
+                        </mat-menu>
+                    </div>
+                </div>
+                <div class="all-img-div">
+                    <ng-container *ngFor="let img of itemDetails?.imgUrls">
+                        <div class="img-div" (click)="selectImg(img)" [ngClass]="{ 'active' : img == imgUrl }">
+                            <img [src]="img" alt="error">
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+        <div class="item-details-container">
+            <div class="item-description">{{itemDetails?.itemDescription}}</div>
+            <div class="badge-rating-review">
+                <div class="rating-badge">
+                    <span class="rating">{{itemDetails?.ratingsAndReviewsDetails?.overAllRating | decimal: 1}}</span>
+                    <mat-icon>star</mat-icon>
+                </div>
+                <div class="ratings">{{itemDetails?.ratingsAndReviewsDetails?.numberOfRating}} Ratings</div>
+                <div class="and">&</div>
+                <div class="reviews">{{itemDetails?.ratingsAndReviewsDetails?.numberOfReview}} Reviews</div>
+            </div>
+            <div class="extra-off">Extra {{(itemDetails.markedPrice - itemDetails.sellingPrice) | currency}} off</div>
+            <div class="price-details">
+                <div class="selling-price">{{itemDetails.sellingPrice | currency}}</div>
+                <div class="margin-price">{{itemDetails.markedPrice | currency}}</div>
+                <div class="discount-percent">{{itemDetails?.discountPercent | decimal: 0}}% off</div>
+            </div>
+            <!-- <form [formGroup]="formGroup" class="form">
+                <ng-container *ngFor="let obj of unit">
+                    <div class="unit-details">
+                        <div class="label">{{obj.view}}</div>
+                        <div class="mat-radio-group">
+                            <mat-radio-group aria-label="Select an option" [formControlName]="obj.unit">
+                                <ng-container *ngFor="let option of obj.list">
+                                    <div class="radio-button" [ngClass]="{ 'active' : option.value == formGroup.get(obj.unit)?.value }">
+                                        <mat-radio-button [value]="option.value" (change)="changeUnitOfItem(obj.unit, $event)">{{option.value + ' ' + option.unit}}</mat-radio-button>
+                                    </div>
+                                </ng-container>
+                            </mat-radio-group>
+                        </div>
+                    </div>
+                </ng-container>
+            </form> -->
+            <div class="description-div">
+                <div class="description-heading">Highlights</div>
+                <div class="description">
+                        <ng-container *ngFor="let point of itemDetails.highLights">
+                            <div class="point">{{point}}</div>
+                        </ng-container>
+                </div>
+            </div>
+            <div class="product-specification">
+                <div class="heading-3">Product Specifications</div>
+                <table>
+                    <ng-container *ngFor="let item of itemDetails.specifications | keyvalue">
+                        <tr>
+                            <td>{{item.key}}</td>
+                            <td>{{item.value}}</td>
+                        </tr>
+                    </ng-container>
+                </table>
+            </div>
+            <div class="rating-and-review-container">
+                <div class="rating-top-heading">
+                    <div class="heading-3">Reviews & Ratings</div>
+                    <button mat-flat-button class="rate-product">Rate Product</button>
+                </div>
+                <div class="heading-content">
+                    <div class="left-section">
+                        <div class="overall-rating">
+                            <span class="rating">{{itemDetails?.ratingsAndReviewsDetails?.overAllRating | decimal: 1}}</span>
+                            <mat-icon>star</mat-icon>
+                        </div>
+                        <div class="rating-summary">Average Rating based on {{itemDetails?.ratingsAndReviewsDetails?.numberOfRating}} ratings and {{itemDetails?.ratingsAndReviewsDetails?.numberOfReview}} reviews</div>
+                    </div>
+                    <div class="right-section">
+                        <div class="progressbar-container">
+                            <span class="rating-badge">
+                                <span class="rating">5</span>
+                                <mat-icon>star</mat-icon>
+                            </span>
+                            <span class="progressbar-div five">
+                                <mat-progress-bar mode="determinate" [value]="(itemDetails?.ratingsAndReviewsDetails?.totalFive)/(itemDetails?.ratingsAndReviewsDetails?.numberOfRating)*100"></mat-progress-bar>
+                            </span>
+                            <span class="users-count">
+                                {{itemDetails?.ratingsAndReviewsDetails?.totalFive}}
+                            </span>
+                        </div>
+                        <div class="progressbar-container">
+                            <span class="rating-badge">
+                                <span class="rating">4</span>
+                                <mat-icon>star</mat-icon>
+                            </span>
+                            <span class="progressbar-div four">
+                                <mat-progress-bar mode="determinate" [value]="(itemDetails?.ratingsAndReviewsDetails?.totalFour)/(itemDetails?.ratingsAndReviewsDetails?.numberOfRating)*100"></mat-progress-bar>
+                            </span>
+                            <span class="users-count">
+                                {{itemDetails?.ratingsAndReviewsDetails?.totalFour}}
+                            </span>
+                        </div>
+                        <div class="progressbar-container">
+                            <span class="rating-badge">
+                                <span class="rating">3</span>
+                                <mat-icon>star</mat-icon>
+                            </span>
+                            <span class="progressbar-div three">
+                                <mat-progress-bar mode="determinate" [value]="(itemDetails?.ratingsAndReviewsDetails?.totalThree)/(itemDetails?.ratingsAndReviewsDetails?.numberOfRating)*100"></mat-progress-bar>
+                            </span>
+                            <span class="users-count">
+                                {{itemDetails?.ratingsAndReviewsDetails?.totalThree}}
+                            </span>
+                        </div>
+                        <div class="progressbar-container">
+                            <span class="rating-badge">
+                                <span class="rating">2</span>
+                                <mat-icon>star</mat-icon>
+                            </span>
+                            <span class="progressbar-div two">
+                                <mat-progress-bar mode="determinate" [value]="(itemDetails?.ratingsAndReviewsDetails?.totalTwo)/(itemDetails?.ratingsAndReviewsDetails?.numberOfRating)*100"></mat-progress-bar>
+                            </span>
+                            <span class="users-count">
+                                {{itemDetails?.ratingsAndReviewsDetails?.totalTwo}}
+                            </span>
+                        </div>
+                        <div class="progressbar-container">
+                            <span class="rating-badge">
+                                <span class="rating">1</span>
+                                <mat-icon>star</mat-icon>
+                            </span>
+                            <span class="progressbar-div one">
+                                <mat-progress-bar mode="determinate" [value]="(itemDetails?.ratingsAndReviewsDetails?.totalOne)/(itemDetails?.ratingsAndReviewsDetails?.numberOfRating)*100"></mat-progress-bar>
+                            </span>
+                            <span class="users-count">
+                                {{itemDetails?.ratingsAndReviewsDetails?.totalOne}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <ng-container *ngFor="let rating of reviews; let i = index">
+                    <div *ngIf="i < 2" class="rating-detail-container">
+                        <div class="rating-given">
+                            <div class="rating-star">
+                                <mat-icon [ngClass]="{ 'active' : rating.rating >= 1 }">star</mat-icon>
+                                <mat-icon [ngClass]="{ 'active' : rating.rating >= 2 }">star</mat-icon>
+                                <mat-icon [ngClass]="{ 'active' : rating.rating >= 3 }">star</mat-icon>
+                                <mat-icon [ngClass]="{ 'active' : rating.rating >= 4 }">star</mat-icon>
+                                <mat-icon [ngClass]="{ 'active' : rating.rating >= 5 }">star</mat-icon>
+                            </div>
+                            <div class="verified-purchase">Verified Purchase</div>
+                        </div>
+                        <div class="name">{{rating?.name}}</div>
+                        <div class="date">{{rating?.rating | date: 'dd-MMM-yyyy'}}</div>
+                        <div class="review-content">{{rating?.review}}
+                            <span class="like-dislike">
+                                <div class="like-dislike-div like">
+                                    <button mat-flat-button>
+                                        <mat-icon>thumb_up</mat-icon>
+                                        <span class="count">0</span>
+                                    </button>
+                                </div>
+                                <div class="like-dislike-div dislike">
+                                    <button mat-flat-button>
+                                        <mat-icon>thumb_down</mat-icon>
+                                        <span class="count">0</span>
+                                    </button>
+                                </div>
+                            </span>
+                        </div>
+                    </div>
+                    <div *ngIf="i >= 2 && isShowViewMore" class="rating-detail-container">
+                        <div class="rating-given">
+                            <div class="rating-star">
+                                <mat-icon [ngClass]="{ 'active' : rating.rating >= 1 }">star</mat-icon>
+                                <mat-icon [ngClass]="{ 'active' : rating.rating >= 2 }">star</mat-icon>
+                                <mat-icon [ngClass]="{ 'active' : rating.rating >= 3 }">star</mat-icon>
+                                <mat-icon [ngClass]="{ 'active' : rating.rating >= 4 }">star</mat-icon>
+                                <mat-icon [ngClass]="{ 'active' : rating.rating >= 5 }">star</mat-icon>
+                            </div>
+                            <div class="verified-purchase">Verified Purchase</div>
+                        </div>
+                        <div class="name">{{rating?.name}}</div>
+                        <div class="date">{{rating?.rating | date: 'dd-MMM-yyyy'}}</div>
+                        <div class="review-content">{{rating?.review}}
+                            <span class="like-dislike">
+                                <div class="like-dislike-div like">
+                                    <button mat-flat-button>
+                                        <mat-icon>thumb_up</mat-icon>
+                                        <span class="count">0</span>
+                                    </button>
+                                </div>
+                                <div class="like-dislike-div dislike">
+                                    <button mat-flat-button>
+                                        <mat-icon>thumb_down</mat-icon>
+                                        <span class="count">0</span>
+                                    </button>
+                                </div>
+                            </span>
+                        </div>
+                    </div>
+                </ng-container>
+                <button *ngIf="!isShowViewMore && reviews?.length" mat-flat-button class="view-more-review" (click)="viewMoreReview()">
+                    VIEW {{itemDetails?.ratingsAndReviewsDetails?.numberOfReview - 2}} MORE HELPFUL REVIEW >
+                </button>
+            </div>
+            <div class="asked-questions-container">
+                <div class="heading-3">Questions and Answers</div>
+                <div class="questions-answer">
+                    <div class="question">Q1: What is the maximum weight carrying capacity?</div>
+                    <div class="answer">Ans: Upto 125kgs.</div>
+                </div>
+                <div class="questions-answer">
+                    <div class="question">Q2: What is the maximum weight carrying capacity?</div>
+                    <div class="answer">Ans: Upto 125kgs.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="right-container">
+        <div class="sticky-right-container">
+            <div class="price-details">
+                <div class="selling-price">{{itemDetails.sellingPrice | currency}}</div>
+                <div class="margin-price">{{itemDetails.markedPrice | currency}}</div>
+                <div class="discount-percent">{{itemDetails?.discountPercent | decimal: 0}}% off</div>
+            </div>
+            <div class="extra-off">Extra {{(itemDetails.markedPrice - itemDetails.sellingPrice) | currency}} off</div>
+            <div class="update-qty">
+                <div>Update Qty</div>
+                <div class="update-qty-right">
+                    <button mat-flat-button (click)="updateQty('remove')">
+                        <mat-icon>remove</mat-icon>
+                    </button>
+                    <input type="number" [formControl]="numberOfItem" [min]="0" appIntegersOnly (input)="updateQty()">
+                    <button mat-flat-button (click)="updateQty('add')">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                </div>
+            </div>
+            <button mat-flat-button class="primary add-to-cart-btn" (click)="addItemsToCart(itemDetails)">
+                <mat-icon>shopping_cart</mat-icon>
+                <span>ADD TO CART</span>
+            </button>
+            <button mat-flat-button class="primary buy-now-btn" (click)="buyNow()">
+                BUY NOW
+            </button>
+            <div class="delivery-detail">Delivery Details</div>
+            <mat-form-field appearance="outline">
+                <input matInput placeholder="Enter your pincode">
+                <button mat-flat-button matPrefix class="location-btn">
+                    <mat-icon> location_on</mat-icon>
+                </button>
+                <button mat-flat-button matSuffix class="check-btn">
+                    CHECK
+                </button>
+            </mat-form-field>
+            <div class="check-service">Check serviceability at your location</div>
+        </div>
+    </div>
+</section>
+<section class="buttom-container">
+    <div class="similar-product-header">
+        <span>Similar Products</span>
+    </div>
+    <div class="similar-produc-div">
+        <ng-container *ngFor="let product of similarProducts">
+            <div class="similar-items" (click)="viewItemDetail(product)">
+                <div class="item">
+                    <div class="favorite" (click)="$event.stopPropagation();" [ngClass]="{ 'active' : product?.isFavorite }">
+                        <button mat-flat-button>
+                            <mat-icon>favorite</mat-icon>
+                        </button>
+                    </div>
+                    <div class="image-div">
+                        <img [src]="product?.imgUrls[0]" alt="">
+                    </div>
+                    <div class="text-div">
+                        <div class="text">{{product?.itemDescription}}</div>
+                    </div>
+                    <div class="calculation-div">
+                        <div class="price">
+                            <div class="selling-price">{{product?.sellingPrice | currency}}</div>
+                            <div class="margin-price">{{product?.markedPrice | currency}}</div>
+                            <div class="off">{{product?.discountPercent | decimal: 0}}% off</div>
+                        </div>
+                        <div class="rating-badge">
+                            <span class="rating">{{product?.ratingsAndReviewsDetails?.overAllRating | decimal: 1}}</span>
+                            <mat-icon>star</mat-icon>
+                        </div>
+                    </div>
+                    <div class="button-section">
+                        <button mat-flat-button [disabled]="true">
+                            {{product?.unit?.list[0].value}} {{product?.unit?.list[0].unit}}
+                                {{product?.unit?.list[0].packOf > 1 ? ', Pack of ' + product?.unit?.list[0].packOf :
+                                ''}}
+                        </button>
+                        <button mat-flat-button (click)="addItemsToCart(product)">ADD Item</button>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</section>

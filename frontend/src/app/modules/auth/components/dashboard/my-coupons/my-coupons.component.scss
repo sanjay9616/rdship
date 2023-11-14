@@ -1,0 +1,111 @@
+section {
+    .top-heading {
+        background-color: #FFFFFF;
+        box-shadow: 0 3px 6px rgb(0 0 0 / 16%);
+        padding: 1rem;
+        color: #111112;
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+    .item-card {
+        background-color: #FFFFFF;
+        box-shadow: 0 3px 6px #00000029;
+        margin-top: 0.5rem;
+        padding: 1rem;
+
+        .top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            .flat-top {
+                color: #26a541;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                font-size: 16px;
+                font-weight: 500;
+            }
+
+            .valid-till {
+                font-size: 14px;
+                color: #878787;
+                white-space: nowrap;
+                font-weight: 500;
+            }
+        }
+
+        .buttom {
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            .flat-buttom {
+                font-size: 14px;
+                color: #212121;
+            }
+
+            .terms-condition {
+                font-size: 14px;
+                color: #2874f0;
+                cursor: pointer;
+                font-weight: 500;
+            }
+        }
+
+    }
+
+    .empty-cart-card {
+        background-color: #FFFFFF;
+        box-shadow: 0 3px 6px #00000029;
+        margin-top: 0.5rem;
+        padding: 1rem;
+
+        .img-div {
+            width: 100%;
+            height: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            img {
+                max-width: 100%;
+                max-height: 100%;
+            }
+
+        }
+
+        .empty-cart-text {
+            margin-top: 0.5rem;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .add-items-to-now {
+            margin-top: 0.5rem;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .shop-now-btn {
+            margin-top: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            button {
+                background: #2874f0;
+                color: #fff;
+                box-shadow: 0 2px 4px 0 rgb(0 0 0 / 20%);
+                font-size: 12px;
+                width: 200px;
+            }
+        }
+    }
+}

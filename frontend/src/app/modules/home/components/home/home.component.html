@@ -1,0 +1,136 @@
+<section>
+    <ng-image-slider
+        #nav
+        [images]="imageObject"
+        [infinite]="true"
+        [autoSlide]="1"
+        [imageSize]="{ width: '100%', height: 200 }"
+        slideImage="1"
+        (imageClick)="imageClick()"
+        [imagePopup]="false">
+    </ng-image-slider>
+    <section class="buttom-container">
+        <div class="similar-product-header">
+            <span>OUR CATEGORIES</span>
+        </div>
+        <div class="similar-produc-div scrollbar">
+            <ng-container *ngFor="let category of categoryList">
+                <div class="similar-items" [routerLink]="category?.routerLink">
+                    <div class="item">
+                        <div class="image-div">
+                            <img [src]="category?.url" alt="">
+                        </div>
+                        <div class="text-div category-div">
+                            <div class="text category-text">{{category?.type}}</div>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </section>
+    <section class="buttom-container">
+        <div class="similar-product-header">
+            <span>OUR SELLERS</span>
+        </div>
+        <div class="similar-produc-div scrollbar">
+            <ng-container *ngFor="let category of categoryList">
+                <div class="similar-items" [routerLink]="category?.routerLink">
+                    <div class="item">
+                        <div class="image-div">
+                            <img [src]="category?.url" alt="">
+                        </div>
+                        <div class="text-div category-div">
+                            <div class="text category-text">{{category?.type}}</div>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </section>
+    <section class="buttom-container">
+        <div class="similar-product-header">
+            <span>Recently Viewed</span>
+        </div>
+        <div class="similar-produc-div scrollbar">
+            <ng-container *ngFor="let product of recentlyViewedProducts">
+                <div class="similar-items" (click)="viewProduct(product)">
+                    <div class="item">
+                        <div class="favorite" (click)="$event.stopPropagation();" [ngClass]="{ 'active' : product?.isFavorite }">
+                            <button mat-flat-button>
+                                <mat-icon>favorite</mat-icon>
+                            </button>
+                        </div>
+                        <div class="image-div">
+                            <img [src]="product?.imgUrls[0]" alt="">
+                        </div>
+                        <div class="text-div">
+                            <div class="text">{{product?.itemDescription}}</div>
+                        </div>
+                        <div class="calculation-div">
+                            <div class="price">
+                                <div class="selling-price">{{product?.sellingPrice | currency}}</div>
+                                <div class="margin-price">{{product?.markedPrice | currency}}</div>
+                                <div class="off">{{product?.discountPercent | decimal: 0}}% off</div>
+                            </div>
+                            <div class="rating-badge">
+                                <span class="rating">{{product?.ratingsAndReviewsDetails?.overAllRating | decimal: 1}}</span>
+                                <mat-icon>star</mat-icon>
+                            </div>
+                        </div>
+                        <div class="button-section">
+                            <button mat-flat-button [disabled]="true">
+                                {{product?.unit?.list[0].value}} {{product?.unit?.list[0].unit}}
+                                    {{product?.unit?.list[0].packOf > 1 ? ', Pack of ' + product?.unit?.list[0].packOf :
+                                    ''}}
+                            </button>
+                            <button mat-flat-button (click)="addItemsToCart(product)">ADD Item</button>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </section>
+    <section class="buttom-container">
+        <div class="similar-product-header">
+            <span>Top Selling Products</span>
+        </div>
+        <div class="similar-produc-div scrollbar">
+            <ng-container *ngFor="let product of topSellingProducts">
+                <div class="similar-items" (click)="viewProduct(product)">
+                    <div class="item">
+                        <div class="favorite" (click)="$event.stopPropagation();" [ngClass]="{ 'active' : product?.isFavorite }">
+                            <button mat-flat-button>
+                                <mat-icon>favorite</mat-icon>
+                            </button>
+                        </div>
+                        <div class="image-div">
+                            <img [src]="product?.imgUrls[0]" alt="">
+                        </div>
+                        <div class="text-div">
+                            <div class="text">{{product?.itemDescription}}</div>
+                        </div>
+                        <div class="calculation-div">
+                            <div class="price">
+                                <div class="selling-price">{{product?.sellingPrice | currency}}</div>
+                                <div class="margin-price">{{product?.markedPrice | currency}}</div>
+                                <div class="off">{{product?.discountPercent | decimal: 0}}% off</div>
+                            </div>
+                            <div class="rating-badge">
+                                <span class="rating">{{product?.ratingsAndReviewsDetails?.overAllRating | decimal: 1}}</span>
+                                <mat-icon>star</mat-icon>
+                            </div>
+                        </div>
+                        <div class="button-section">
+                            <button mat-flat-button [disabled]="true">
+                                {{product?.unit?.list[0].value}} {{product?.unit?.list[0].unit}}
+                                    {{product?.unit?.list[0].packOf > 1 ? ', Pack of ' + product?.unit?.list[0].packOf :
+                                    ''}}
+                            </button>
+                            <button mat-flat-button (click)="addItemsToCart(product)">ADD Item</button>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </section>
+</section>

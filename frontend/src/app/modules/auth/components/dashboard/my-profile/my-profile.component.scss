@@ -1,0 +1,169 @@
+.profile-section {
+    border-radius: 10px;
+    width: 100%;
+
+    .profile-container {
+        background-color: #FFFFFF;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+
+        .top {
+            border-bottom: 1px solid #ccc;
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            background-color: #F2F2F2;
+            border-radius: 10px 10px 0px 0px;
+
+            span {
+                font-size: 16px;
+                font-weight: 500;
+            }
+        }
+
+        .field-container {
+            padding: 1rem;
+
+            .field-div {
+                display: flex;
+                align-items: center;
+
+                // justify-content: space-between;
+                .mat-mdc-form-field {
+                    width: 70%;
+
+                    ::ng-deep .mat-mdc-form-field-icon-suffix {
+                        width: unset !important;
+
+                        button {
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
+                            padding: 5px;
+                            width: unset !important;
+                        }
+
+                        .verified-btn {
+                            background-color: #E0FDDF;
+                            color: #299E22;
+                        }
+
+                        .not-veified-btn {
+                            background-color: #F8D4D6;
+                            color: #b81410;
+                        }
+
+                        .verify-email-btn {
+                            color: #498de5;
+                            background-color: #F2F2F2;
+                            margin-left: 0.5rem;
+                        }
+                    }
+
+                }
+
+                .edit-btn {
+                    position: relative;
+                    top: -9px;
+                    margin-left: 1rem;
+                    color: #498de5;
+                    background-color: #F2F2F2;
+                    border: 1px solid #498de5;
+                    line-height: 25px;
+                    border-radius: 5px;
+                    width: 80px;
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+
+    .delivery-container {
+        background-color: #FFFFFF;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        margin-top: 1rem;
+
+        .top {
+            border-bottom: 1px solid #ccc;
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            background-color: #F2F2F2;
+            border-radius: 10px 10px 0px 0px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            span {
+                font-size: 16px;
+                font-weight: 500;
+            }
+
+            button {
+                color: #498de5;
+                background-color: #F2F2F2;
+                border: 1px solid #498de5;
+                line-height: 25px;
+                border-radius: 5px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+        }
+
+        .field-container {
+            padding: 1rem;
+
+            .field-div {
+                .badge {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    height: 20px;
+                    width: 20px;
+                    background-color: black;
+                    color: #FFFFFF;
+                    border-radius: 5px;
+                    margin-right: 1rem;
+                    position: relative;
+                    top: -13px;
+
+                    span {
+                        font-size: 12px;
+                        font-weight: 500;
+                    }
+                }
+
+                display: flex;
+                align-items: center;
+
+                .mat-form-field {
+                    margin-right: 1rem;
+                    flex: 1;
+                }
+
+                button {
+                    color: #498de5;
+                    background-color: #F2F2F2;
+                    border: 1px solid #498de5;
+                    line-height: 25px;
+                    border-radius: 5px;
+                    margin-left: auto;
+                    position: relative;
+                    top: -9px;
+                }
+            }
+        }
+    }
+}
+
+::ng-deep .mdc-text-field--disabled .mdc-notched-outline__leading,
+::ng-deep .mdc-text-field--disabled .mdc-notched-outline__notch,
+::ng-deep .mdc-text-field--disabled .mdc-notched-outline__trailing {
+    border: none !important;
+}
+::ng-deep .mat-mdc-form-field-input-control.mat-mdc-form-field-input-control {
+    color: black;
+
+}

@@ -1,0 +1,76 @@
+<form [formGroup]="formGroup" class="profile-section">
+    <div class="profile-container">
+        <div class="top">
+            <span>My Profile</span>
+        </div>
+        <div class="field-container">
+            <div class="field-div">
+                <mat-form-field appearance="outline">
+                    <mat-label>Full Name</mat-label>
+                    <input matInput formControlName="name" type="text" placeholder="Full Name">
+                </mat-form-field>
+                <button mat-flat-button class="edit-btn">Edit</button>
+            </div>
+            <div class="field-div">
+                <mat-form-field appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="email" type="text" placeholder="Email">
+                    <button *ngIf="formGroup.get('isVerified')?.value" matSuffix mat-flat-button class="verified-btn" type="button" disabled>
+                        <span>Verified</span>
+                        <mat-icon>check_circle</mat-icon>
+                    </button>
+                    <ng-container *ngIf="!formGroup.get('isVerified')?.value">
+                        <button matSuffix mat-flat-button class="not-veified-btn" type="button" disabled>
+                            <span>Not Verified</span>
+                            <mat-icon>error</mat-icon>
+                        </button>
+                        <button matSuffix mat-flat-button class="verify-email-btn" type="button">
+                            <span>Verify Email</span>
+                        </button>
+
+                    </ng-container>
+                </mat-form-field>
+                <button mat-flat-button class="edit-btn">Edit</button>
+            </div>
+            <div class="field-div">
+                <mat-form-field appearance="outline">
+                    <mat-label>Mobile Number</mat-label>
+                    <input matInput formControlName="email" type="text" placeholder="Mobile Number">
+                </mat-form-field>
+                <button mat-flat-button class="edit-btn">Edit</button>
+            </div>
+        </div>
+    </div>
+    <div class="delivery-container">
+        <div class="top">
+            <span>Add Delivery Address</span>
+            <button mat-flat-button (click)="addAddress()">
+                <mat-icon>add_circle</mat-icon>
+                <span>Add</span>
+            </button>
+        </div>
+        <div class="field-container">
+            <ng-container *ngFor="let Group of getAddressFormArray?.controls; let i = index">
+                <form [formGroup]="getAddressFormGroupAtIndex(i)" class="field-div">
+                    <div class="badge">
+                        <span>{{i+1}}</span>
+                    </div>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Area, Street, Sector, Village</mat-label>
+                        <input matInput formControlName="area" type="text" placeholder="Area, Street, Sector, Village">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>City/District/Town</mat-label>
+                        <input matInput formControlName="city" type="text" placeholder="City/District/Town">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Pincode</mat-label>
+                        <input matInput formControlName="pincode" type="text" placeholder="Pincode">
+                    </mat-form-field>
+                    <button mat-flat-button class="edit-btn">Edit</button>
+                </form>
+            </ng-container>
+        </div>
+
+    </div>
+</form>

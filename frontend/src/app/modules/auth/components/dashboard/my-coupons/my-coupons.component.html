@@ -1,0 +1,29 @@
+<section>
+    <div class="top-heading">My Coupons ({{couponList.length}})</div>
+    <ng-container *ngIf="couponList?.length; else emptyCouponList;" >
+        <ng-container *ngFor="let item of couponList; let i = index">
+            <div class="item-card">
+                <div class="top">
+                    <div class="flat-top">Flat 1200 off on Mokobara</div>
+                    <div class="valid-till">Valid till 29 Oct, 2023</div>
+                </div>
+                <div class="buttom">
+                    <div class="flat-buttom">Get extra ₹1200 off on 1 item(s) (price inclusive of cashback/coupon)</div>
+                    <div class="terms-condition">View T&C</div>
+                </div>
+            </div>
+        </ng-container>
+    </ng-container>
+    <ng-template #emptyCouponList>
+        <div class="empty-cart-card">
+            <div class="img-div">
+                <img src="/assets/img/empty-cart/1.webp" alt="">
+            </div>
+            <div class="empty-cart-text">Empty Coupons</div>
+            <div class="add-items-to-now">You have no Coupons. Start Shopping!</div>
+            <div class="shop-now-btn">
+                <button mat-flat-button (click)="home()">Shop now</button>
+            </div>
+        </div>
+    </ng-template>
+</section>

@@ -1,0 +1,77 @@
+<section class="header-container">
+    <div class="header-div">
+        <div class="logo" [routerLink]="''">
+            <img src="/assets/img/logo.png" alt="">
+        </div>
+        <div class="search-box-container-desktop">
+            <div class="search-box">
+                <input type="text" placeholder="Search" [formControl]="searchStr" (keyup.enter)="search()">
+                <button mat-flat-button (click)="search()" [disabled]="!searchStr.value?.length">
+                    <mat-icon>search</mat-icon>
+                </button>
+            </div>
+        </div>
+        <div class="acoount-container">
+            <span *ngIf="isAuthenticated">Sanjay</span>
+            <button mat-icon-button [matMenuTriggerFor]="openAcountMenu">
+                <mat-icon>account_circle</mat-icon>
+            </button>
+        </div>
+        <mat-menu #openAcountMenu class="account-menu">
+            <div class="menu-option" [routerLink]="'/account/dashboard/my-profile'">
+                <span>My Profle</span>
+                <i class="ri-account-circle-fill"></i>
+            </div>
+            <div *ngIf="isAuthenticated" class="menu-option" (click)="logout()">
+                <span>Log Out</span>
+                <i class="ri-shut-down-line"></i>
+            </div>
+            <div class="menu-option" [routerLink]="'/account/login'">
+                <span>Log In</span>
+                <i class="ri-shut-down-line"></i>
+            </div>
+            <div class="menu-option" [routerLink]="'/account/signup'">
+                <span>Sign Up</span>
+                <i class="ri-login-circle-line"></i>
+            </div>
+        </mat-menu>
+        <div class="cart-div">
+            <span class="cart-count-div">
+                <span class="cart-count">{{cartItems.length}}</span>
+            </span>
+            <button mat-icon-button class="mat-icon-button" [routerLink]="'/view-cart'">
+                <mat-icon>shopping_cart</mat-icon>
+            </button>
+        </div>
+    </div>
+    <div class="category-div">
+        <button mat-flat-button [matMenuTriggerFor]="Grocery" class="category-btn">Grocery</button>
+        <mat-menu #Grocery class="sub-category-menu">
+            <div class="subcategory-btn-div" (click)="$event.stopPropagation()">
+                <button mat-flat-button class="subcategory-btn">Pasta</button>
+                <button mat-flat-button class="subcategory-btn">Rice</button>
+                <button mat-flat-button class="subcategory-btn">Biscuit</button>
+            </div>
+        </mat-menu>
+        <button mat-flat-button [matMenuTriggerFor]="Medicine" class="category-btn">Medicine</button>
+        <mat-menu #Medicine class="sub-category-menu">
+            <div class="subcategory-btn-div" (click)="$event.stopPropagation()">
+                <button mat-flat-button class="subcategory-btn">Pasta</button>
+                <button mat-flat-button class="subcategory-btn">Rice</button>
+                <button mat-flat-button class="subcategory-btn">Biscuit</button>
+            </div>
+        </mat-menu>
+        <button mat-flat-button class="category-btn">Home & Furniture</button>
+        <button mat-flat-button class="category-btn">Electronics</button>
+        <button mat-flat-button class="category-btn">Fashion</button>
+        <button mat-flat-button class="category-btn">Agricultural</button>
+    </div>
+    <!-- <div class="search-box-container-mobile">
+        <div class="search-box">
+            <input type="text" placeholder="Search" [formControl]="searchStr" (keyup.enter)="search()">
+            <button (click)="search()" [disabled]="!searchStr?.value?.length">
+                <mat-icon mat-flat-button>search</mat-icon>
+            </button>
+        </div>
+    </div> -->
+</section>

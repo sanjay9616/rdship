@@ -1,0 +1,113 @@
+section {
+    display: flex;
+    width: 100%;
+    min-height: calc(100% - 300px);
+
+    .left-section {
+        margin: 1rem;
+        width: 20%;
+        min-width: 200px;
+
+        .top {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background-color: #FFFFFF;
+            border-radius: 10px;
+
+            .profile-icon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                .mat-icon {
+                    color: #b81410;
+                    font-size: 45px;
+                    height: 45px;
+                    width: 45px;
+                }
+            }
+
+            .profile-name {
+                margin-left: 1rem;
+                width: calc(100% - 40px - 1rem);
+
+                .name-heding {
+                    color: #b81410;
+                }
+
+                .name {
+                    color: #b81410;
+                    font-size: 16px;
+                    font-weight: 500;
+                    text-transform: capitalize;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                }
+            }
+        }
+
+        .bottom {
+            background-color: #FFFFFF;
+            border-radius: 10px;
+            margin-top: 1rem;
+
+            .router-link {
+                display: flex;
+                align-items: center;
+                padding: 10px;
+                border-bottom: 1px solid #ccc;
+                cursor: pointer;
+
+                .router-icon {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: #3c3c3c;
+
+                    .mat-icon {
+                        height: 25px;
+                        width: 25px;
+                        font-size: 25px;
+
+                    }
+                }
+
+                .router-name {
+                    margin-left: 10px;
+
+                }
+
+            }
+            & :hover {
+                .mat-icon {
+                    color: #b81410;
+                }
+                .router-name {
+                    color: #b81410;
+                }
+            }
+
+            .active {
+                .mat-icon {
+                    color: #b81410;
+                }
+                .router-name {
+                    color: #b81410;
+                }
+            }
+
+            & :last-child {
+                border: none;
+            }
+        }
+
+    }
+
+    .right-section {
+        margin: 1rem 1rem 1rem 0;
+        flex: 1;
+        width: 80%;
+    }
+}

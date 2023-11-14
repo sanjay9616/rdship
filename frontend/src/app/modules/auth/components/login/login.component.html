@@ -1,0 +1,28 @@
+<div class="signup-container">
+    <div class="signup-div">
+        <form [formGroup]="formGroup" class="signup">
+            <div class="signup-text">Log In</div>
+            <mat-form-field appearance="outline">
+                <mat-label>Enter email</mat-label>
+                <input matInput formControlName="email" type="text" placeholder="Enter email">
+                <mat-error *ngIf="formGroup?.get('email')?.errors?.required">Email is required</mat-error>
+                <mat-error *ngIf="formGroup?.get('email')?.errors?.pattern">Please enter valid email</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Enter password</mat-label>
+                <input matInput formControlName="password" [type]="showPassword ? 'text' : 'password'" placeholder="Enter password">
+                <mat-error *ngIf="formGroup?.get('password')?.errors?.required">Password is required</mat-error>
+                <button *ngIf="!showPassword" matSuffix mat-flat-button  type="button" (click)="togglePasswordVisibility()">
+                    <mat-icon>visibility</mat-icon>
+                </button>
+                <button *ngIf="showPassword" matSuffix mat-flat-button  type="button" (click)="togglePasswordVisibility()">
+                    <mat-icon>visibility_off</mat-icon>
+                </button>
+            </mat-form-field>
+            <div class="login-div">
+                <div [routerLink]="'/account/forget-password'">Forget password</div>
+            </div>
+            <button mat-flat-button class="submit-btn" (click)="login()">Log In</button>
+        </form>
+    </div>
+</div>

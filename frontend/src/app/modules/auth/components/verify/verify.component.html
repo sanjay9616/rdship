@@ -1,0 +1,20 @@
+<div class="signup-container">
+    <div class="signup-div">
+        <form [formGroup]="formGroup" class="signup">
+            <div class="signup-text">Verify your account</div>
+            <mat-form-field appearance="outline">
+                <mat-label>Enter Email</mat-label>
+                <input matInput formControlName="email" type="text" placeholder="Enter email">
+                <mat-error *ngIf="formGroup?.get('email')?.errors?.required">Email is required</mat-error>
+                <mat-error *ngIf="formGroup?.get('email')?.errors?.pattern">Please enter correct email</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Enter mobile number</mat-label>
+                <input matInput formControlName="mobileNo" type="number" placeholder="Enter mobile number">
+                <mat-error *ngIf="formGroup?.get('mobileNo')?.errors?.required">Mobile No. is required</mat-error>
+                <mat-error *ngIf="formGroup?.get('mobileNo')?.errors?.pattern">Mobile No. should be 10 digits</mat-error>
+            </mat-form-field>
+            <button mat-flat-button class="submit-btn" (click)="verifyUser()">Verify</button>
+        </form>
+    </div>
+</div>

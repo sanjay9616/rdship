@@ -1,0 +1,147 @@
+<section>
+    <div class="filter-section">
+        <div class="filter-div">
+            <span class="filter-word">Filters</span>
+            <button mat-flat-button
+                *ngIf="filters?.subCategories?.length || filters?.brands?.length || filters?.customerRatings?.length" 
+                class="clear-all.btn"
+                (click)="clearAll()">
+                CLEAR ALL
+            </button>
+        </div>
+        <div class="department-and-item">
+            <div class="department-container">
+                <div class="department-div">
+                    <span class="department-word">CATEGORIES<span *ngIf="filters?.subCategories?.length"> ({{filters?.subCategories?.length}})</span></span>
+                </div>
+                <div class="search-field">
+                    <mat-form-field appearance="outline">
+                        <input matInput type="text" placeholder="Search" [formControl]="categoryFilterCtrl">
+                    </mat-form-field>
+                </div>
+                <div class="department-section scrollbar">
+                    <ng-container *ngFor="let category of allSubCategoriesOptions; let i = index">
+                        <mat-checkbox [checked]="category?.checked" (change)="markUnmarkSubCategory($event,category.item, i)">{{category?.item}}</mat-checkbox>
+                    </ng-container>
+                </div>
+            </div>
+            <div class="item-container">
+                <div class="item-div">
+                    <span class="item-word">BRAND<span *ngIf="filters?.brands?.length"> ({{filters?.brands?.length}})</span></span>
+                </div>
+                <div class="search-field">
+                    <mat-form-field appearance="outline">
+                        <input matInput type="text" placeholder="Search" [formControl]="brandFilterCtrl">
+                    </mat-form-field>
+                </div>
+                <div class="item-section scrollbar">
+                    <ng-container *ngFor="let brand of allBrandsOptions; let i = index">
+                        <mat-checkbox [checked]="brand?.checked" (change)="markUnmarkBrand($event, brand.item, i)">{{brand?.item}}</mat-checkbox>
+                    </ng-container>
+                </div>
+            </div>
+            <div class="customer-rating-container">
+                <div class="rating-div">
+                    <span class="rating-word">CUSTOMER RATINGS<span *ngIf="filters?.customerRatings?.length"> ({{filters?.customerRatings?.length}})</span></span>
+                </div>
+                <div class="rating-container">
+                    <ng-container *ngFor="let rating of customerRatings; let i = index">
+                        <mat-checkbox [checked]="rating?.checked" (change)="markUnmarkCustomerRating($event, i)">
+                            <!-- {{rating?.view}} -->
+                            <div class="rating-option">
+                                <span class="rating-badge">
+                                    <span class="rating">{{rating?.value}}</span>
+                                    <mat-icon>star</mat-icon>
+                                </span>
+                                <span>& above</span>
+                            </div>
+                        </mat-checkbox>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="item-setion">
+        <div class="top-right-card">
+            <div class="left-card">
+                <div class="gorcery-word">
+                    <span [routerLink]="''">Home </span>
+                    <span>> </span>
+                    <span>{{filters?.category || filters?.searchStr}}</span>
+                </div>
+            </div>
+            <ng-container *ngIf="filters?.subCategories?.length || filters?.brands?.length || filters?.customerRatings?.length">
+                <div class="right-card">
+                    <ng-container *ngFor="let subCategory of filters?.subCategories">
+                        <div class="filter" (click)="removeSubCategoryFilter(subCategory)">
+                            <span>{{subCategory}}</span>
+                            <button mat-icon-button><mat-icon>close</mat-icon></button>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngFor="let brand of filters?.brands">
+                        <div class="filter" (click)="removeBrandFilter(brand)">
+                            <span>{{brand}}</span>
+                            <button mat-icon-button><mat-icon>close</mat-icon></button>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngFor="let rating of filters?.customerRatings">
+                        <div class="filter filter-rating" (click)="removeCustomerRatingFilter(rating)">
+                            <div class="rating-badge">
+                                <span class="rating">{{rating}}</span>
+                                <mat-icon>star</mat-icon>
+                            </div>
+                            <button mat-icon-button><mat-icon>close</mat-icon></button>
+                        </div>
+                    </ng-container>
+                </div>
+            </ng-container>
+        </div>
+        <div class="grocery-items-container">
+            <ng-container *ngFor="let item of pageDetails?.items | paginate: { itemsPerPage: filters.itemsPerPage, currentPage: filters?.currentPage, totalItems: pageDetails?.totalItems }">
+                <div class="grocery-items" (click)="viewItemDetail(item)">
+                    <div class="item">
+                        <div class="favorite" (click)="$event.stopPropagation();" [ngClass]="{ 'active' : item?.isFavorite }">
+                            <button mat-flat-button>
+                                <mat-icon>favorite</mat-icon>
+                            </button>
+                        </div>
+                        <div class="image-div">
+                            <img [src]="item?.imgUrls[0]" alt="">
+                        </div>
+                        <div class="text-div">
+                            <div class="text">{{item?.itemDescription}}</div>
+                        </div>
+                        <div class="calculation-div">
+                            <div class="price">
+                                <div class="min-price">{{item?.sellingPrice | currency}}</div>
+                                <div class="actual-price">{{item?.markedPrice | currency}}</div>
+                                <div class="off">{{item?.discountPercent | decimal: 0}}% off</div>
+                            </div>
+                            <div class="rating-badge">
+                                <span class="rating">{{item?.ratingsAndReviewsDetails?.overAllRating | decimal: 1}}</span>
+                                <mat-icon>star</mat-icon>
+                            </div>
+                        </div>
+                        <div class="button-section">
+                            <button mat-flat-button [disabled]="true">
+                                {{item?.unit?.list[0].value}} {{item?.unit?.list[0].unit}}
+                                {{item?.unit?.list[0].packOf > 1 ? ', Pack of ' + item?.unit?.list[0].packOf :
+                                ''}}
+                            </button>
+                            <button mat-flat-button (click)="addItemsToCart(item)">ADD Item</button>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+        <div class="pagination-div">
+            <div>Showing {{pageDetails?.items?.length}} out of {{pageDetails?.totalItems}} products</div>
+            <pagination-controls *ngIf="20>0" (pageChange)="search($event)"></pagination-controls>
+        </div>
+    </div>
+</section>
+
+<!-- <details>
+    <summary>hjjjjj</summary>
+    kjdskjdskj
+</details> -->

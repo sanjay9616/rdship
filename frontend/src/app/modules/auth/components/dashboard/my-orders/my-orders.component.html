@@ -1,0 +1,96 @@
+<section>
+    <div class="top-heading">
+        <div class="top-heading-text">My Orders ({{orderList.length}})</div>
+        <div class="filter-toggle" [ngClass]="{ 'filter-toggle-active' : isOpenFilter }">
+            <button mat-flat-button (click)="toggleFilter()">
+                Filters
+                <mat-icon>filter_list</mat-icon>
+            </button>
+        </div>
+        <div class="applied-filter">
+            <div class="filter">
+                <span>Cancelled</span>
+                <button mat-icon-button>
+                    <mat-icon>close</mat-icon>
+                </button>
+            </div>
+            <div class="filter">
+                <span>Cancelled</span>
+                <button mat-icon-button>
+                    <mat-icon>close</mat-icon>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="isOpenFilter" class="filter-section">
+        <mat-form-field appearance="outline">
+            <mat-label>Search your orders here</mat-label>
+            <input matInput type="text" placeholder="Search your orders here">
+            <button matSuffix mat-flat-button  type="button">
+                <mat-icon>search</mat-icon>
+            </button>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Order status</mat-label>
+            <mat-select placeholder="Order Status" multiple>
+                <mat-option *ngFor="let status of statusList" [value]="status.value">
+                    {{status.view}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Order time</mat-label>
+            <mat-date-range-input [rangePicker]="orderTime">
+                <input matStartDate placeholder="Start date">
+                <input matEndDate placeholder="End date">
+            </mat-date-range-input>
+            <mat-datepicker-toggle matSuffix [for]="orderTime"></mat-datepicker-toggle>
+            <mat-date-range-picker #orderTime></mat-date-range-picker>
+        </mat-form-field>
+    </div>
+    <ng-container *ngIf="orderList?.length; else emptyWishList;" >
+        <ng-container *ngFor="let item of orderList; let i = index">
+            <div class="item-card">
+                <div class="img-div">
+                    <img [src]="item?.imgUrls[0]" alt="">
+                </div>
+                <div class="details-container">
+                    <div class="right-top-item">
+                        <div class="item-description">{{item?.itemDescription}}</div>
+                        <div class="order-status">
+                            <div class="point"></div>
+                            <div class="order-status-text">On the way</div>
+                        </div>
+                    </div>
+                    <div class="badge-rating-review">
+                        <div class="rating-badge">
+                            <span class="rating">{{item?.ratingsAndReviewsDetails?.overAllRating | decimal: 1}}</span>
+                            <mat-icon>star</mat-icon>
+                        </div>
+                        <div class="ratings">{{item?.ratingsAndReviewsDetails?.numberOfRating}} Ratings</div>
+                        <div class="and">&</div>
+                        <div class="reviews">{{item?.ratingsAndReviewsDetails?.numberOfReview}} Reviews</div>
+                    </div>
+                    <div class="extra-off">Extra {{(item?.markedPrice - item?.sellingPrice) | currency}} off</div>
+                    <div class="price-details">
+                        <div class="selling-price">{{item?.sellingPrice | currency}}</div>
+                        <div class="margin-price">{{item?.markedPrice | currency}}</div>
+                        <div class="discount-percent">{{item?.discountPercent | decimal: 0}}% off</div>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </ng-container>
+    <ng-template #emptyWishList>
+        <div class="empty-cart-card">
+            <div class="img-div">
+                <img src="/assets/img/empty-cart/1.webp" alt="">
+            </div>
+            <div class="empty-cart-text">No Order History!</div>
+            <div class="add-items-to-now">You have no items in your order history. Start shopping with us!</div>
+            <div class="shop-now-btn">
+                <button mat-flat-button (click)="home()">Shop now</button>
+            </div>
+        </div>
+    </ng-template>
+</section>

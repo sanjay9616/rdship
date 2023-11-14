@@ -1,0 +1,49 @@
+<div class="signup-container">
+    <div class="signup-div">
+        <form [formGroup]="formGroup" class="signup">
+            <div class="signup-text">Sign Up</div>
+            <div class="email-phone-div">
+                <mat-form-field appearance="outline" class="st_input">
+                    <mat-label>Enter email</mat-label>
+                    <input matInput formControlName="email" type="email" placeholder="Enter email">
+                    <mat-error *ngIf="formGroup?.get('email')?.errors?.required">Email is required</mat-error>
+                    <mat-error *ngIf="formGroup?.get('email')?.errors?.pattern">Please enter correct email</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="st_input">
+                    <mat-label>Enter molie number</mat-label>
+                    <input matInput formControlName="mobileNo" type="number" placeholder="Enter mobile number">
+                    <mat-error *ngIf="formGroup?.get('mobileNo')?.errors?.required">Mobile No. is required</mat-error>
+                    <mat-error *ngIf="formGroup?.get('mobileNo')?.errors?.pattern">Mobile No. should be 10 digits</mat-error>
+                </mat-form-field>
+            </div>
+            <mat-form-field appearance="outline" class="st_input">
+                <mat-label>Enter password</mat-label>
+                <input matInput formControlName="password" [type]="passwordVisibility.password ? 'text' : 'password'" placeholder="Enter password">
+                <button *ngIf="!passwordVisibility.password" matSuffix mat-flat-button  type="button" (click)="togglePasswordVisibility('password')">
+                    <mat-icon>visibility</mat-icon>
+                </button>
+                <button *ngIf="passwordVisibility.password" matSuffix mat-flat-button  type="button" (click)="togglePasswordVisibility('password')">
+                    <mat-icon>visibility_off</mat-icon>
+                </button>
+                <mat-error *ngIf="formGroup?.get('password')?.errors?.required">Please enter password</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="st_input">
+                <mat-label>Re enter password</mat-label>
+                <input matInput formControlName="password2" type="password" [type]="passwordVisibility.password2 ? 'text' : 'password'" placeholder="Re enter password">
+                <button *ngIf="!passwordVisibility.password2" matSuffix mat-flat-button  type="button" (click)="togglePasswordVisibility('password2')">
+                    <mat-icon>visibility</mat-icon>
+                </button>
+                <button *ngIf="passwordVisibility.password2" matSuffix mat-flat-button  type="button" (click)="togglePasswordVisibility('password2')">
+                    <mat-icon>visibility_off</mat-icon>
+                </button>
+                <mat-error *ngIf="formGroup?.get('password2')?.errors?.required">Please Re enter password</mat-error>
+                <mat-error *ngIf="formGroup?.get('password2')?.errors?.match">Passwords do NOT match</mat-error>
+            </mat-form-field>
+            <div class="login-div">
+                <div>Already have an account?</div>
+                <div [routerLink]="'/account/login'">Login</div>
+            </div>
+            <button mat-flat-button class="submit-btn" (click)="register()">Register</button>
+        </form>
+    </div>
+</div>
