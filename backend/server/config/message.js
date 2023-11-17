@@ -1,4 +1,4 @@
-export const MESSAGES = {
+module.exports = {
     ERROR: {
         SOMETHING_WENT_WRONG: 'Something Went Wrong',
         LOGIN_FAILED: 'Login failed. Please retry again.',
@@ -10,4 +10,4 @@ export const MESSAGES = {
         ACCOUNT_CREATED: 'Account created successfully!',
         LOGIN_SUCCESSFULL: 'Login succesfully!'
     }
-}
+};

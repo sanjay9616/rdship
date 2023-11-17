@@ -3,19 +3,20 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AlertMessageService } from 'src/app/modules/shared/_services/alert-message.service';
 import { AuthService } from '../../_services/auth.service';
 import { MESSAGES } from "src/app/config/message";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.scss'],
-  // encapsulation: ViewEncapsulation.None
 })
 export class SignUpComponent implements OnInit {
 
   formGroup!: FormGroup;
-  passwordVisibility: any = {password: false, password2: false};
+  passwordVisibility: any = { password: false, password2: false };
 
   constructor(private authService: AuthService,
+    private router: Router,
     private alertService: AlertMessageService) { }
 
   ngOnInit(): void {
@@ -36,18 +37,27 @@ export class SignUpComponent implements OnInit {
   }
 
   register() {
-    if(this.formGroup.get('password')?.value && this.formGroup.get('password2')?.value) {
-      if(this.formGroup.get('password')?.value!=this.formGroup?.get('password2')?.value) {
-        this.formGroup?.get('password2')?.setErrors({'match': true})
+    if (this.formGroup.get('password')?.value && this.formGroup.get('password2')?.value) {
+      if (this.formGroup.get('password')?.value != this.formGroup?.get('password2')?.value) {
+        this.formGroup?.get('password2')?.setErrors({ 'match': true })
       }
     }
-    if(this.formGroup?.valid) {
-      this.authService.signUp(this.formGroup.value).subscribe((res: any) => {
-        if(res?.status === 200) {
-          this.alertService.addSuccess(res?.message).show();
+    if (this.formGroup?.valid) {
+      let payload = { ...this.formGroup.value }
+      if (payload.password2) delete payload.password2
+      this.authService.signUp(payload).subscribe((res: any) => {
+        if (res?.status === 200 && res.success) {
+          this.alertService.addSuccess(MESSAGES.SUCCESS.ACCOUNT_CREATED).show();
+          this.router.navigate(['/account/login']);
+        } else {
+          this.alertService.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
         }
       }, (err: any) => {
-        this.alertService.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
+        if (err.error.status == 400 && !err.error.success) {
+          this.alertService.addError(MESSAGES.ERROR.USER_EXITS).show();
+        } else {
+          this.alertService.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
+        }
       })
     }
   }

@@ -3,10 +3,11 @@
     background-repeat: no-repeat;
     background-size: cover;
     width: 100%;
-    height: calc(100% - 296px);
+    height: calc(100% - 290px);
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: 0.5rem;
 
     .signup-div {
         border: 1px solid #ccc;

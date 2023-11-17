@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { ApiService } from "../../shared/_services/api.service";
-import { environment as env } from "src/environments/environment";
+import { environment as env, environment } from "src/environments/environment";
 import { URL_LIST } from "src/app/config/urlList";
 import { ValidationService } from "../../shared/_services/validation.service";
 
@@ -65,27 +65,27 @@ export class AuthService {
   }
 
   login(data: any) {
-    let url: string = `${env.rdShip.baseUrl}${URL_LIST.ACCOUNT.LOGIN.URL}`;
+    let url: string = `${env.rdShip.baseUrl}${URL_LIST.API.ACCOUNT.LOGIN.URL}`;
     return this.apiService.post(url, data);
   }
 
   signUp(data: any) {
-    let url: string = `${env.rdShip.baseUrl}${URL_LIST.ACCOUNT.SIGNUP.URL}`;
+    let url: string = `${env.rdShip.baseUrl}${URL_LIST.API.ACCOUNT.SIGNUP.URL}`;
     return this.apiService.post(url, data);
   }
 
   forgetPassword(data: any) {
-    let url: string = `${env.rdShip.baseUrl}${URL_LIST.ACCOUNT.FORGET_PASSWORD.URL}`;
+    let url: string = `${env.rdShip.baseUrl}${URL_LIST.API.ACCOUNT.FORGET_PASSWORD.URL}`;
     return this.apiService.post(url, data);
   }
 
   verifyUser(data: any) {
-    let url: string = `${env.rdShip.baseUrl}${URL_LIST.ACCOUNT.VERIFY_USER.URL}`;
+    let url: string = `${env.rdShip.baseUrl}${URL_LIST.API.ACCOUNT.VERIFY_USER.URL}`;
     return this.apiService.post(url, data);
   }
 
   updateProfile(data: any) {
-    let url: string = `${env.rdShip.baseUrl}${URL_LIST.ACCOUNT.UPDATE_PROFILE.URL}`;
+    let url: string = `${env.rdShip.baseUrl}${URL_LIST.API.ACCOUNT.UPDATE_PROFILE.URL}`;
     return this.apiService.post(url, data);
   }
 }

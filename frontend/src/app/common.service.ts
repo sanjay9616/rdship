@@ -9,12 +9,12 @@ export class CommonService {
     cartItems: Array<any> = [];
     users: Array<any> = [
         {
-            userId: 'userId1',
+            userId: 'userId1',//
             name: 'Sanjay Kumar',
-            mobileNumber: '9616410411',
+            mobileNumber: '9616410411',//
             gender: "Male",
-            email: 'sanjay.18bit1109@abes.ac.in',
-            password: 'Sanjay@123456',
+            email: 'sanjay.18bit1109@abes.ac.in',//
+            password: 'Sanjay@123456',//
             isVerified: true,
             address: [{area: 'Kalwari Nankar', city: 'Siddharth Nagar', pincode: '272192'}],
             recentlyViewItems: [],

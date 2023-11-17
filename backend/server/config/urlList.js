@@ -1,5 +1,5 @@
-export const URL_LIST = {
-    API : {
+module.exports = {
+    API: {
         ACCOUNT: {
             LOGIN: {
                 URL: 'account/login',
@@ -17,5 +17,10 @@ export const URL_LIST = {
                 URL: 'account/update-profile',
             },
         }
+    },
+    DATABASE: {
+        DATABASE_NAME: {
+            URL: 'mongodb://localhost:27017/rdship'
+        }
     }
-}
+};

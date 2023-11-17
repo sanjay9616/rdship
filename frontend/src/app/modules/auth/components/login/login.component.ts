@@ -16,7 +16,8 @@ export class LoginComponent implements OnInit {
   constructor(private authService: AuthService,
     private commonService: CommonService,
     private router: Router,
-    private alertService: AlertMessageService) { }
+    private alertService: AlertMessageService,
+    private authservice: AuthService) { }
 
   formGroup!: FormGroup;
   showPassword: boolean = false;
@@ -37,16 +38,24 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    if(this.formGroup.valid) {
-      let res: any = this.commonService.login(this.formGroup?.value);
-      if(res?.status === 200 && res?.success) {
-        this.authService.setToken(res?.data?.userId);
-        this.alertService.addSuccess(res?.message || 'Login Successful').show();
-        this.router.navigate(['/']);//auth Gaurd - set user details in service
-      } else {
-        this.alertService.addError(res?.message || 'Login failed! Try again.').show();
-        this.formGroup.reset();
-      }
+    if (this.formGroup.valid) {
+      this.authService.login(this.formGroup.value).subscribe((res: any) => {
+        if(res.status == 200 && res.success) {
+          this.alertService.addSuccess(MESSAGES.SUCCESS.LOGIN_SUCCESSFULL).show();
+          this.router.navigate(['/']);//auth Gaurd - set user details in service
+          console.log('res', res);
+        } else {
+          this.alertService.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
+        }
+      }, (err: any) => {
+        if (err.error.status == 400 && !err.error.success) {
+          this.alertService.addError(MESSAGES.ERROR.INVALID_CREDENTIAL).show();
+        } else {
+          this.alertService.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
+        }
+      })
+
     }
   }
+
 }
