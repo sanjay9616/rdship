@@ -3,6 +3,7 @@ const { ObjectId } = require('mongodb')
 const { connectToDb, getDb } = require('./db')
 const app = express()
 const cors = require('cors');
+const URL = require('./config/urlList');
 // const authRouter = require('./routes/auth')
 
 
@@ -108,49 +109,49 @@ app.patch('/books/:id', (req, res) => {
     }
 })
 
-
-app.post('/account/signup', (req, res) => {
-    (async () => {
-        const isUserExit = await isCheckUserExits(req.body.email)
-        if (!isUserExit) {
-            const user = req.body
-            user.name = null
-            user.gender = null
-            user.isVerified = false
-            user.address = []
-            user.recentlyViewItems = []
-            user.cartItems = []
-            user.orderList = []
-            user.wishList = []
-            user.couponList = []
-            user.notificationList = []
-            db.collection('account')
-                .insertOne(user)
-                .then(result => {
-                    res.status(200).json({ data: result, status: 200, message: 'Account created successfully', success: true })
-                })
-                .catch((err) => {
-                    res.status(500).json({ data: null, status: 500, message: 'Could not create new account', success: false })
-                })
-        } else {
-            res.status(400).json({ data: null, status: 400, message: 'User Already Exits', success: false })
-        }
-    })()
+app.post(URL.API.ACCOUNT.SIGNUP.URL, (req, res) => {
+    db.collection('account').findOne({ email: req.body.email })
+        .then((result) => {
+            if (result == null) {
+                const user = req.body
+                user.name = null
+                user.gender = null
+                user.isVerified = false
+                user.address = []
+                user.recentlyViewItems = []
+                user.cartItems = []
+                user.orderList = []
+                user.wishList = []
+                user.couponList = []
+                user.notificationList = []
+                db.collection('account').insertOne(user)
+                    .then((result) => {
+                        if (result.acknowledged) {
+                            res.status(200).json({ data: result, status: 200, message: 'Account created successfully', success: true })
+                        } else {
+                            res.status(500).json({ data: null, status: 500, success: false, message: 'Something went wrong!' })
+                        }
+                    })
+                    .catch((err) => {
+                        res.status(500).json({ data: null, status: 500, success: false, message: 'Something went wrong!' })
+                    })
+            } else {
+                res.status(409).json({ data: null, status: 409, message: 'User Already Exits', success: false })
+            }
+        })
+        .catch((err) => {
+            res.status(500).json({ data: null, status: 500, success: false, message: 'Something went wrong!' })
+        })
 })
 
-async function isCheckUserExits(email) {
-    const isExits = await db.collection('account').findOne({email: email})
-    return isExits == null ? false : true
-}
-
-app.post('/account/login', (req, res) => {
+app.post(URL.API.ACCOUNT.LOGIN.URL, (req, res) => {
     db.collection('account')
         .findOne({ email: req.body.email, password: req.body.password })
         .then((result) => {
-            if(result) {
-                res.status(200).json({data: result, status: 200, success: true, message: 'User login successfully!'})
+            if (result) {
+                res.status(200).json({ data: result, status: 200, success: true, message: 'User login successfully!' })
             } else {
-                res.status(400).json({ data: null, status: 400, success: false, message: 'Invalid login credential'})
+                res.status(400).json({ data: null, status: 400, success: false, message: 'Invalid Credential' })
             }
         })
         .catch((err) => {
@@ -158,3 +159,58 @@ app.post('/account/login', (req, res) => {
         })
 
 })
+
+app.patch(URL.API.ACCOUNT.VERIFY_USER.URL, (req, res) => {
+    db.collection('account').findOne({ email: req.body.email, mobileNo: req.body.mobileNo })
+        .then((result) => {
+            if (result == null) {
+                res.status(401).json({ data: null, status: 401, success: false, message: 'Invalid Credential' })
+            } else if (result.isVerified) {
+                res.status(409).json({ data: null, status: 409, success: false, message: 'User already verified' })
+            } else if (result.isVerified == false) {
+                db.collection('account').updateOne({ email: req.body.email, mobileNo: req.body.mobileNo }, { $set: { isVerified: true } })
+                    .then((result) => {
+                        if (result.acknowledged && result.matchedCount == 1 && result.modifiedCount == 1) {
+                            res.status(200).json({ data: result, status: 200, success: true, message: 'User login successfully!' })
+                        }
+                    })
+                    .catch((err) => {
+                        res.status(500).json({ data: null, status: 500, success: false, message: 'Something went wrong!' })
+                    })
+            } else {
+                res.status(500).json({ data: null, status: 500, success: false, message: 'Something went wrong!' })
+            }
+        })
+        .catch((err) => {
+            res.status(500).json({ data: null, status: 500, success: false, message: 'Something went wrong!' })
+        })
+
+})
+
+app.patch(URL.API.ACCOUNT.FORGET_PASSWORD.URL, (req, res) => {
+    db.collection('account').findOne({ email: req.body.email })
+        .then((result) => {
+            if (result) {
+                db.collection('account').updateOne({ email: req.body.email }, { $set: { password: req.body.password } })
+                    .then((result) => {
+                        if (result.acknowledged && result.modifiedCount == 1 && result.matchedCount == 1) {
+                            res.status(200).json({ data: null, status: 200, success: true, message: "Password updated successfully" })
+                        } else if (result.acknowledged && result.modifiedCount == 0 && result.matchedCount == 1) {
+                            res.status(409).json({ data: null, status: 409, success: false, message: 'Please enter new password' })
+                        } else {
+                            res.status(500).json({ data: null, status: 500, success: false, message: 'Something went wrong!' })
+                        }
+                    })
+                    .catch((err) => {
+                        res.status(500).json({ data: null, status: 500, success: false, message: 'Something went wrong!' })
+                    })
+
+            } else {
+                res.status(401).json({ data: null, status: 401, success: false, message: "User doesn't exists" })
+            }
+        })
+        .catch((err) => {
+            res.status(500).json({ data: null, status: 500, success: false, message: 'Something went wrong!' })
+        })
+})
+

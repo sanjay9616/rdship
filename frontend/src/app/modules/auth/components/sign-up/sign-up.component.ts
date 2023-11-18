@@ -53,8 +53,8 @@ export class SignUpComponent implements OnInit {
           this.alertService.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
         }
       }, (err: any) => {
-        if (err.error.status == 400 && !err.error.success) {
-          this.alertService.addError(MESSAGES.ERROR.USER_EXITS).show();
+        if (err.error.status == 409 && !err.error.success) {
+          this.alertService.addWarning(MESSAGES.ERROR.USER_EXITS).show();
         } else {
           this.alertService.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
         }

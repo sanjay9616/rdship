@@ -11,10 +11,10 @@ import { MESSAGES } from 'src/app/config/message';
 export class ForgetPasswordComponent implements OnInit {
 
   formGroup!: FormGroup;
-  passwordVisibility: any = {password: false, password2: false};
+  passwordVisibility: any = { password: false, password2: false };
 
   constructor(private authService: AuthService,
-    private alertMessage: AlertMessageService) { }
+    private alertService: AlertMessageService) { }
 
   ngOnInit(): void {
     this.initFormGroup();
@@ -33,18 +33,27 @@ export class ForgetPasswordComponent implements OnInit {
   }
 
   submit() {
-    if(this.formGroup.get('password')?.value && this.formGroup.get('password2')?.value) {
-      if(this.formGroup.get('password')?.value!=this.formGroup?.get('password2')?.value) {
-        this.formGroup?.get('password2')?.setErrors({'match': true})
+    if (this.formGroup.get('password')?.value && this.formGroup.get('password2')?.value) {
+      if (this.formGroup.get('password')?.value != this.formGroup?.get('password2')?.value) {
+        this.formGroup?.get('password2')?.setErrors({ 'match': true })
       }
     }
-    if(this.formGroup.valid) {
-      this.authService.forgetPassword(this.formGroup.value).subscribe((res: any) => {
-        if(res?.status == 200) {
-
+    if (this.formGroup.valid) {
+      let payload = { email: this.formGroup.get('email')?.value, password: this.formGroup.get('password')?.value }
+      this.authService.forgetPassword(payload).subscribe((res: any) => {
+        if (res?.status == 200 && res?.success) {
+          this.alertService.addSuccess(MESSAGES.SUCCESS.PASSWORD_UPDATED).show();
+        } else {
+          this.alertService.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
         }
       }, (err: any) => {
-        this.alertMessage.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG);
+        if (err.error.status == 401 && !err.error.success) {
+          this.alertService.addError(MESSAGES.ERROR.USER_NOT_EXISS).show();
+        } else if (err.error.status == 409 && !err.error.success) {
+          this.alertService.addError(MESSAGES.ERROR.ENTER_NEW_PASSWORD).show();
+        } else {
+          this.alertService.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
+        }
       })
     }
   }

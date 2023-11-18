@@ -21,6 +21,12 @@ export class ApiService {
       .pipe(tap(this.handleSuccess, this.handleError));
   }
 
+  public patch(url: string, data: any, options?: any): Observable<any> {
+    return this.http
+      .patch(this.createUrl(url), data, options)
+      .pipe(tap(this.handleSuccess, this.handleError));
+  }
+
   public put(url: string, data: any): Observable<any> {
     return this.http
       .put(this.createUrl(url), data)

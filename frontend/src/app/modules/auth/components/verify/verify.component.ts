@@ -30,11 +30,19 @@ export class VerifyComponent implements OnInit {
   verifyUser() {
     if(this.formGroup.valid) {
       this.authService.verifyUser(this.formGroup.value).subscribe((res: any) => {
-        if(res?.status == 200) {
-
+        if(res?.status == 200 && res?.success) {
+          this.alertService.addSuccess(MESSAGES.SUCCESS.VERIFY_SUCCESSFULL).show();
+        } else {
+          this.alertService.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
         }
       }, (err: any) => {
-        this.alertService.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG);
+        if (err.error.status == 401 && !err.error.success) {
+          this.alertService.addError(MESSAGES.ERROR.INVALID_CREDENTIAL).show();
+        } else if(err.error.status == 409 && !err.error.success) {
+          this.alertService.addWarning('User already verified').show();
+        } else {
+          this.alertService.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
+        }
       })
     }
   }

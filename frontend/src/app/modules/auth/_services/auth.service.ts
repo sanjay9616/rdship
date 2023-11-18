@@ -76,12 +76,12 @@ export class AuthService {
 
   forgetPassword(data: any) {
     let url: string = `${env.rdShip.baseUrl}${URL_LIST.API.ACCOUNT.FORGET_PASSWORD.URL}`;
-    return this.apiService.post(url, data);
+    return this.apiService.patch(url, data);
   }
 
   verifyUser(data: any) {
     let url: string = `${env.rdShip.baseUrl}${URL_LIST.API.ACCOUNT.VERIFY_USER.URL}`;
-    return this.apiService.post(url, data);
+    return this.apiService.patch(url, data);
   }
 
   updateProfile(data: any) {
