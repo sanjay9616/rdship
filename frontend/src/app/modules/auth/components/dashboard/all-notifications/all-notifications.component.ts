@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonService } from 'src/app/common.service';
+import { URL_LIST } from 'src/app/config/urlList';
 
 @Component({
   selector: 'app-all-notifications',
@@ -19,7 +20,7 @@ export class AllNotificationsComponent {
   ngOnInit(): void {}
 
   home() {
-    this.router.navigate(['/']);
+    this.router.navigate([URL_LIST.ROUTING_PATHS.HOME]);
   }
 
 }

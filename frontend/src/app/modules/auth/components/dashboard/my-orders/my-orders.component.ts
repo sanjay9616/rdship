@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonService } from 'src/app/common.service';
+import { URL_LIST } from 'src/app/config/urlList';
 
 @Component({
   selector: 'app-my-orders',
@@ -26,7 +27,8 @@ export class MyOrdersComponent implements OnInit {
   }
 
   home() {
-    this.router.navigate(['/']);
+    this.router.navigate([URL_LIST.ROUTING_PATHS.HOME]);
+
   }
 
   toggleFilter() {

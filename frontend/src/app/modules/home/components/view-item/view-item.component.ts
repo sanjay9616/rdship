@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CommonService } from 'src/app/common.service';
 import { FormControl, Validators } from '@angular/forms';
 import { AlertMessageService } from 'src/app/modules/shared/_services/alert-message.service';
+import { URL_LIST } from 'src/app/config/urlList';
 
 @Component({
   selector: 'app-view-item',
@@ -82,14 +83,14 @@ export class ViewItemComponent implements OnInit {
     let found: boolean = this.commonService.addItemsToCart(item);
     if(!found) {
       this.alertMessageService.addSuccess('Item added successfully').show();
-      this.router.navigate(['/view-cart']);
+      this.router.navigate([URL_LIST.ROUTING_PATHS.VIEW_CART]);
     } else {
       this.alertMessageService.addError('Item already added').show();
     }
   }
 
   buyNow() {
-    this.router.navigate(['/view-cart'])
+    this.router.navigate([URL_LIST.ROUTING_PATHS.VIEW_CART]);
   }
 
 }

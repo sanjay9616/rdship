@@ -7,6 +7,7 @@ export const MESSAGES = {
         INVALID_CREDENTIAL: 'Invalid Credential!',
         USER_NOT_EXISS: "User doesn't exists",
         ENTER_NEW_PASSWORD: "Please enter new password",
+        LOGIN_FIRST: "Please login first, you don't have permission",
     },
     SUCCESS: {
         ACCOUNT_CREATED: 'Account created successfully!',

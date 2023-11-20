@@ -3,6 +3,7 @@ import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map, startWith } from 'rxjs/operators';
 import { CommonService } from 'src/app/common.service';
+import { URL_LIST } from 'src/app/config/urlList';
 import { AlertMessageService } from 'src/app/modules/shared/_services/alert-message.service';
 
 @Component({
@@ -181,7 +182,7 @@ export class ItemsComponent implements OnInit {
     let found: boolean = this.commonService.addItemsToCart(item);
     if(!found) {
       this.alertMessageService.addSuccess('Item added successfully').show();
-      this.router.navigate(['/view-cart']);
+      this.router.navigate([URL_LIST.ROUTING_PATHS.VIEW_CART]);
     } else {
       this.alertMessageService.addError('Item already added').show();
     }

@@ -145,7 +145,7 @@ app.post(URL.API.ACCOUNT.SIGNUP.URL, (req, res) => {
 })
 
 app.post(URL.API.ACCOUNT.LOGIN.URL, (req, res) => {
-    db.collection('account')
+    db.collection('account') // add check if email does not exits
         .findOne({ email: req.body.email, password: req.body.password })
         .then((result) => {
             if (result) {
@@ -212,5 +212,19 @@ app.patch(URL.API.ACCOUNT.FORGET_PASSWORD.URL, (req, res) => {
         .catch((err) => {
             res.status(500).json({ data: null, status: 500, success: false, message: 'Something went wrong!' })
         })
+})
+
+app.get(URL.API.ACCOUNT.AUTH_DATA.URL, (req, res) => {
+    if (ObjectId.isValid(req.params.id)) {
+        db.collection('account').findOne({ _id: new ObjectId(req.params.id)})
+            .then((result) => {
+                res.status(200).json({ data: result, status: 200, success: true, message: "User data fetched successfully" })
+            })
+            .catch((err) => {
+                res.status(500).json({ data: null, status: 500, success: false, message: 'Something went wrong!' })
+            })
+    } else {
+        res.status(500).json({ data: null, status: 500, success: false, message: 'Not a valid document id' })
+    }
 })
 

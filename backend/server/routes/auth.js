@@ -3,7 +3,6 @@ const app = express()
 const router = express.Router();
 
 app.post('/account/login', (req, res) => {
-    console.log('-------------');
     db.collection('account')
         .findOne({ email: req.body.email, password: req.body.password })
         .then((result) => {

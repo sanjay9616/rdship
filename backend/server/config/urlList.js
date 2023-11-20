@@ -16,6 +16,9 @@ module.exports = {
             UPDATE_PROFILE: {
                 URL: '/account/update-profile',
             },
+            AUTH_DATA: {
+                URL: '/account/auth-data/:id'
+            }
         }
     },
     DATABASE: {

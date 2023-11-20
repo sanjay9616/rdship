@@ -9,8 +9,8 @@ import { ValidationService } from "../../shared/_services/validation.service";
 })
 export class AuthService {
 
-  static readonly USER_ID = 'token';
-  static readonly AUTH_TOKEN = 'token';
+  static readonly USER_ID = '_id';
+  static readonly AUTH_TOKEN = '_id';
   static readonly SALESOPS_TOKEN = 'Authorization';
   static readonly AUTHORIZATION_TOKEN = 'Authorization';
   static readonly AUTH_USER_ID = 'idUser';
@@ -24,22 +24,17 @@ export class AuthService {
   constructor(private apiService: ApiService,
     private validationService: ValidationService) { }
 
-  setToken(USER_ID: string) {
+  setId(USER_ID: string) {
     localStorage.setItem(AuthService.AUTH_TOKEN, USER_ID);
   }
 
-  demoApi() {
-    let url = 'http://localhost:3000/books'
-    return this.apiService.get(url)
-  }
-
-  getgetToken() {
-    return localStorage.getItem(AuthService.AUTH_TOKEN);
+  getgetId() {
+    return localStorage.getItem(AuthService.USER_ID);
 
   }
 
-  clearToken() {
-    localStorage.removeItem(AuthService.AUTH_TOKEN);
+  clearId() {
+    localStorage.removeItem(AuthService.USER_ID);
   }
 
   setUserDetail(user: any) {
@@ -87,5 +82,10 @@ export class AuthService {
   updateProfile(data: any) {
     let url: string = `${env.rdShip.baseUrl}${URL_LIST.API.ACCOUNT.UPDATE_PROFILE.URL}`;
     return this.apiService.post(url, data);
+  }
+
+  getAuthData(id: any) {
+    let url: string = `${env.rdShip.baseUrl}${URL_LIST.API.ACCOUNT.AUTH_DATA.URL}/${id}`;
+    return this.apiService.get(url);
   }
 }

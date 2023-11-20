@@ -5,6 +5,7 @@ import { CommonService } from 'src/app/common.service';
 import { AlertMessageService } from 'src/app/modules/shared/_services/alert-message.service';
 import { NgImageSliderComponent } from 'ng-image-slider';
 import { AuthService } from 'src/app/modules/auth/_services/auth.service';
+import { URL_LIST } from 'src/app/config/urlList';
 
 @Component({
   selector: 'app-home',
@@ -50,17 +51,7 @@ export class HomeComponent implements OnInit {
     private authService: AuthService
   ) { }
 
-  ngOnInit(): void {
-    console.log(document.getElementById("slider")?.firstChild);
-    this.demoApi()
-  }
-
-  demoApi() {
-    this.authService.demoApi().subscribe((res: any) => {
-      console.log('res----', res);
-    })
-
-  }
+  ngOnInit(): void {}
 
   imageClick() {
     console.log(this.slider);
@@ -75,7 +66,7 @@ export class HomeComponent implements OnInit {
     let found: boolean = this.commonService.addItemsToCart(item);
     if (!found) {
       this.alertMessageService.addSuccess('Item added successfully').show();
-      this.router.navigate(['/view-cart']);
+      this.router.navigate([URL_LIST.ROUTING_PATHS.VIEW_CART]);
     } else {
       this.alertMessageService.addError('Item already added').show();
     }

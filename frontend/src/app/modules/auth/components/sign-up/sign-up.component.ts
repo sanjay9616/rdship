@@ -4,6 +4,7 @@ import { AlertMessageService } from 'src/app/modules/shared/_services/alert-mess
 import { AuthService } from '../../_services/auth.service';
 import { MESSAGES } from "src/app/config/message";
 import { Router } from '@angular/router';
+import { URL_LIST } from 'src/app/config/urlList';
 
 @Component({
   selector: 'app-sign-up',
@@ -48,7 +49,7 @@ export class SignUpComponent implements OnInit {
       this.authService.signUp(payload).subscribe((res: any) => {
         if (res?.status === 200 && res.success) {
           this.alertService.addSuccess(MESSAGES.SUCCESS.ACCOUNT_CREATED).show();
-          this.router.navigate(['/account/login']);
+          this.router.navigate([URL_LIST.ROUTING_PATHS.LOGIN]);
         } else {
           this.alertService.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
         }

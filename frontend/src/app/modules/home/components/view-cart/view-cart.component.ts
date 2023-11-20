@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonService } from 'src/app/common.service';
+import { URL_LIST } from 'src/app/config/urlList';
 import { AlertMessageService } from 'src/app/modules/shared/_services/alert-message.service';
 
 @Component({
@@ -21,7 +22,7 @@ export class ViewCartComponent implements OnInit {
   }
 
   home() {
-    this.router.navigate(['/']);
+    this.router.navigate([URL_LIST.ROUTING_PATHS.HOME]);
   }
 
   updateQty(i: number, addOrRemove: string, event?: any) {

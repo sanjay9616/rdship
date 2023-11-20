@@ -12,7 +12,7 @@
             </div>
         </div>
         <div class="acoount-container">
-            <span *ngIf="isAuthenticated">Sanjay</span>
+            <span *ngIf="authService.isAuthenticated">{{authService.userDetail.name || authService.userDetail.email}}</span>
             <button mat-icon-button [matMenuTriggerFor]="openAcountMenu">
                 <mat-icon>account_circle</mat-icon>
             </button>
@@ -22,7 +22,7 @@
                 <span>My Profle</span>
                 <i class="ri-account-circle-fill"></i>
             </div>
-            <div *ngIf="isAuthenticated" class="menu-option" (click)="logout()">
+            <div *ngIf="authService.isAuthenticated" class="menu-option" (click)="logout()">
                 <span>Log Out</span>
                 <i class="ri-shut-down-line"></i>
             </div>
@@ -37,7 +37,7 @@
         </mat-menu>
         <div class="cart-div">
             <span class="cart-count-div">
-                <span class="cart-count">{{cartItems.length}}</span>
+                <span class="cart-count">{{authService.userDetail.cartItems?.length || 0}}</span>
             </span>
             <button mat-icon-button class="mat-icon-button" [routerLink]="'/view-cart'">
                 <mat-icon>shopping_cart</mat-icon>

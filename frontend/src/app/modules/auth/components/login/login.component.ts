@@ -5,6 +5,7 @@ import { AuthService } from '../../_services/auth.service';
 import { MESSAGES } from "src/app/config/message";
 import { CommonService } from 'src/app/common.service';
 import { Router } from '@angular/router';
+import { URL_LIST } from 'src/app/config/urlList';
 
 @Component({
   selector: 'app-login',
@@ -40,10 +41,11 @@ export class LoginComponent implements OnInit {
   login() {
     if (this.formGroup.valid) {
       this.authService.login(this.formGroup.value).subscribe((res: any) => {
-        if(res.status == 200 && res.success) {
+        if (res.status == 200 && res.success) {
           this.alertService.addSuccess(MESSAGES.SUCCESS.LOGIN_SUCCESSFULL).show();
-          this.router.navigate(['/']);//auth Gaurd - set user details in service
-          console.log('res', res);
+          this.authService.setId(res.data._id);
+          this.getAuthData()
+          this.router.navigate([URL_LIST.ROUTING_PATHS.HOME]);
         } else {
           this.alertService.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
         }
@@ -54,8 +56,18 @@ export class LoginComponent implements OnInit {
           this.alertService.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
         }
       })
-
     }
+  }
+
+  getAuthData() {
+    this.authService.getAuthData(localStorage.getItem('_id')).subscribe((res) => {
+      if (res?.status == 200 && res?.success) {
+        this.authService.setUserDetail(res.data);
+        this.authService.setIsAuthenticated(true);
+      }
+    }, (err: any) => {
+      this.alertService.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
+    })
   }
 
 }

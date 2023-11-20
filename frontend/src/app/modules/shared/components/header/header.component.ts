@@ -13,16 +13,12 @@ export class HeaderComponent implements OnInit {
 
   constructor(private router: Router,
     private commonService: CommonService,
-    private authService: AuthService) { }
+    public authService: AuthService) { }
 
     searchStr: FormControl = new FormControl(null);
-    isAuthenticated: boolean = this.authService.isAuthenticated;
-    user: any = this.authService.getUserDetail();
-    cartItems: Array<any> = Object.keys(this.user).length ? this.user.cartItems : this.commonService.cartItems;
+    // cartItems: Array<any> = Object.keys(this.user).length ? this.user.cartItems : this.commonService.cartItems;
 
-  ngOnInit(): void {
-    console.log('getUserDetail - HeaderComponent', this.authService.getUserDetail());
-  }
+  ngOnInit(): void {}
 
   search() {
     if(this.searchStr.value) this.router.navigate([`searchStr/${this.searchStr.value}`]);
@@ -30,9 +26,9 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    this.authService.clearToken();
+    this.authService.clearId();
     this.authService.clearUserDetail();
-    this.isAuthenticated = this.authService.isAuthenticated;
+    this.authService.setIsAuthenticated(false);
   }
 
 }
