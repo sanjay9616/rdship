@@ -79,8 +79,8 @@ export class AuthService {
     return this.apiService.patch(url, data);
   }
 
-  updateProfile(data: any) {
-    let url: string = `${env.rdShip.baseUrl}${URL_LIST.API.ACCOUNT.UPDATE_PROFILE.URL}`;
+  updateProfile(id: string, data: any) {
+    let url: string = `${env.rdShip.baseUrl}${URL_LIST.API.ACCOUNT.UPDATE_PROFILE.URL}/${id}`;
     return this.apiService.post(url, data);
   }
 

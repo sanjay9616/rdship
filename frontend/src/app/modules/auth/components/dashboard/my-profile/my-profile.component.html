@@ -1,76 +1,94 @@
-<form [formGroup]="formGroup" class="profile-section">
-    <div class="profile-container">
-        <div class="top">
-            <span>My Profile</span>
+<form [formGroup]="formGroup" class="profile-container">
+    <div class="personal-info-container">
+        <div *ngIf="userInfo?.isVerified" class="verifed-bg">Verifed</div>
+        <div *ngIf="!userInfo?.isVerified" class="verifed-bg">Not Verifed</div>
+        <div class="personal-info-header">
+            <span class="personal-info-text">Personal Information</span>
+            <button *ngIf="getIsDiblePersonalInfoCard" mat-flat-button type="button" (click)="editPersonalInfo()">Edit</button>
+            <button *ngIf="!getIsDiblePersonalInfoCard" mat-flat-button type="button" (click)="savePersonalInfo()">Save</button>
+            <button *ngIf="!userInfo?.isVerified" mat-flat-button type="button" (click)="verifyUserInfo()">Verify</button>
         </div>
-        <div class="field-container">
-            <div class="field-div">
-                <mat-form-field appearance="outline">
-                    <mat-label>Full Name</mat-label>
-                    <input matInput formControlName="name" type="text" placeholder="Full Name">
-                </mat-form-field>
-                <button mat-flat-button class="edit-btn">Edit</button>
-            </div>
-            <div class="field-div">
-                <mat-form-field appearance="outline">
-                    <mat-label>Email</mat-label>
-                    <input matInput formControlName="email" type="text" placeholder="Email">
-                    <button *ngIf="formGroup.get('isVerified')?.value" matSuffix mat-flat-button class="verified-btn" type="button" disabled>
-                        <span>Verified</span>
-                        <mat-icon>check_circle</mat-icon>
-                    </button>
-                    <ng-container *ngIf="!formGroup.get('isVerified')?.value">
-                        <button matSuffix mat-flat-button class="not-veified-btn" type="button" disabled>
-                            <span>Not Verified</span>
-                            <mat-icon>error</mat-icon>
-                        </button>
-                        <button matSuffix mat-flat-button class="verify-email-btn" type="button">
-                            <span>Verify Email</span>
-                        </button>
-
-                    </ng-container>
-                </mat-form-field>
-                <button mat-flat-button class="edit-btn">Edit</button>
-            </div>
-            <div class="field-div">
-                <mat-form-field appearance="outline">
-                    <mat-label>Mobile Number</mat-label>
-                    <input matInput formControlName="email" type="text" placeholder="Mobile Number">
-                </mat-form-field>
-                <button mat-flat-button class="edit-btn">Edit</button>
-            </div>
+        <div class="personal-info-fields">
+            <mat-form-field appearance="outline">
+                <mat-label>Full Name</mat-label>
+                <input matInput formControlName="name" type="text" placeholder="Enter Full Name">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Your Gender</mat-label>
+                <mat-select formControlName="gender" placeholder="Select your gender">
+                    <mat-option value="male">Male</mat-option>
+                    <mat-option value="female">Female</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Email Address</mat-label>
+                <input matInput formControlName="email" type="text" placeholder="Enter Email Address">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Mobile Number</mat-label>
+                <input matInput formControlName="mobileNo" type="text" placeholder="Enter Mobile Number">
+            </mat-form-field>
         </div>
     </div>
-    <div class="delivery-container">
-        <div class="top">
-            <span>Add Delivery Address</span>
-            <button mat-flat-button (click)="addAddress()">
-                <mat-icon>add_circle</mat-icon>
-                <span>Add</span>
+    <div *ngIf="getAddessFromArray.length; else emptyAddress" class="deliver-address-container">
+        <div class="delivery-address-header">
+            <span class="delivery-address-text">Delivery Addresses</span>
+            <button *ngIf="getAddessFromArray.disabled" mat-flat-button type="button" (click)="editDeliverAddress()">Edit</button>
+            <button *ngIf="!getAddessFromArray.disabled" [disabled]="getAddessFromArray.invalid" mat-flat-button type="button" (click)="saveDeliveryAddress()">Save</button>
+        </div>
+        <div class="inv-tbl">
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                <ng-container matColumnDef="serialNumber">
+                    <th mat-header-cell *matHeaderCellDef>S. No.</th>
+                    <td mat-cell *matCellDef="let element; let i = index">
+                        <span>{{i + 1}}</span>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="area">
+                    <th mat-header-cell *matHeaderCellDef>Area, Street, Sector, Village</th>
+                    <td mat-cell *matCellDef="let element">
+                        <input matInput [formControl]="element.get('area')" [title]="element?.get('area')?.errors?.required ? 'Area is required' : ''" type="text" placeholder="Area/Street/Sector/Village">
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="city">
+                    <th mat-header-cell *matHeaderCellDef>City/District/Town</th>
+                    <td mat-cell *matCellDef="let element">
+                        <input matInput [formControl]="element.get('city')" [title]="element?.get('city')?.errors?.required ? 'City is required' : ''" type="text" placeholder="City/District/Town">
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="pinCode">
+                    <th mat-header-cell *matHeaderCellDef>Pin Code</th>
+                    <td mat-cell *matCellDef="let element">
+                        <input matInput [formControl]="element.get('pinCode')" [title]="element?.get('pinCode')?.errors?.required ? 'Pin Code is required' : ''" type="text" placeholder="Enter Pin Code">
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef>Actions</th>
+                    <td mat-cell *matCellDef="let element; let i = index">
+                        <div class="actions-sec">
+                            <button *ngIf="getAddessFromArray.valid && i == getAddessFromArray.length - 1" type="button" (click)="addDeliveryAddress()">
+                                <i class="ri-add-circle-line"></i>
+                                <span class="btn-info">Add</span>
+                            </button>
+                            <button type="button" (click)="removeDeliveryAddress(i)">
+                                <i class="ri-delete-bin-line"></i>
+                                <span class="btn-info">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </div>
+    </div>
+    <ng-template #emptyAddress>
+        <div class="empty-address">
+            <div class="empty-address-text">Empty Delivery Address</div>
+            <button mat-flat-button type="button" (click)="addDeliveryAddress()">
+                <mat-icon>add</mat-icon>
+                <span>Add New Delivery Address</span>
             </button>
         </div>
-        <div class="field-container">
-            <ng-container *ngFor="let Group of getAddressFormArray?.controls; let i = index">
-                <form [formGroup]="getAddressFormGroupAtIndex(i)" class="field-div">
-                    <div class="badge">
-                        <span>{{i+1}}</span>
-                    </div>
-                    <mat-form-field appearance="outline">
-                        <mat-label>Area, Street, Sector, Village</mat-label>
-                        <input matInput formControlName="area" type="text" placeholder="Area, Street, Sector, Village">
-                    </mat-form-field>
-                    <mat-form-field appearance="outline">
-                        <mat-label>City/District/Town</mat-label>
-                        <input matInput formControlName="city" type="text" placeholder="City/District/Town">
-                    </mat-form-field>
-                    <mat-form-field appearance="outline">
-                        <mat-label>Pincode</mat-label>
-                        <input matInput formControlName="pincode" type="text" placeholder="Pincode">
-                    </mat-form-field>
-                    <button mat-flat-button class="edit-btn">Edit</button>
-                </form>
-            </ng-container>
-        </div>
-
-    </div>
+    </ng-template>
 </form>

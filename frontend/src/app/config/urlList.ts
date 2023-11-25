@@ -11,7 +11,7 @@ export const URL_LIST = {
                 URL: '/account/forget-password',
             },
             VERIFY_USER: {
-                URL: '/account/verify-user',
+                URL: '/account/verify',
             },
             UPDATE_PROFILE: {
                 URL: '/account/update-profile',
@@ -25,6 +25,6 @@ export const URL_LIST = {
         HOME: '/',
         LOGIN: '/account/login',
         VIEW_CART: '/view-cart',
-
+        VERIFY_USER: '/account/verify',
     }
 }

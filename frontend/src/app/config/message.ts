@@ -8,11 +8,13 @@ export const MESSAGES = {
         USER_NOT_EXISS: "User doesn't exists",
         ENTER_NEW_PASSWORD: "Please enter new password",
         LOGIN_FIRST: "Please login first, you don't have permission",
+        ENTER_NEW_DETAILS: "Not updated any details!",
     },
     SUCCESS: {
         ACCOUNT_CREATED: 'Account created successfully!',
         LOGIN_SUCCESSFULL: 'Login succesfully!',
         VERIFY_SUCCESSFULL: 'Verified succesfully!',
         PASSWORD_UPDATED: 'Password updated successfully',
+        PROFILE_UPDATED: "Profile updated successfully"
     }
 }

@@ -49,34 +49,6 @@ app.get('/books', (req, res) => {
         })
 })
 
-app.get('/books/:id', (req, res) => {
-    if (ObjectId.isValid(req.params.id)) {
-        db.collection('books')
-            .findOne({ _id: new ObjectId(req.params.id) })
-            .then((doc) => {
-                res.status(200).json(doc)
-            })
-            .catch((err) => {
-                res.status(500).json({ error: "Could not fetch the document" })
-            })
-    } else {
-        res.status(500).json({ error: "Not a valid document id" })
-    }
-})
-
-app.post('/books', (req, res) => {
-    const book = req.body
-
-    db.collection('books')
-        .insertOne(book)
-        .then(result => {
-            res.status(201).json(result)
-        })
-        .catch(err => {
-            res.status(500).json({ err: 'Could not create new document' })
-        })
-})
-
 app.delete('/books/:id', (req, res) => {
     if (ObjectId.isValid(req.params.id)) {
         db.collection('books')
@@ -89,23 +61,6 @@ app.delete('/books/:id', (req, res) => {
             })
     } else {
         res.status(500).json({ error: 'Could not delete document' })
-    }
-})
-
-app.patch('/books/:id', (req, res) => {
-    const updates = req.body
-
-    if (ObjectId.isValid(req.params.id)) {
-        db.collection('books')
-            .updateOne({ _id: new ObjectId(req.params.id) }, { $set: updates })
-            .then(result => {
-                res.status(200).json(result)
-            })
-            .catch(err => {
-                res.status(500).json({ error: 'Could not update document' })
-            })
-    } else {
-        res.status(500).json({ error: 'Could not update document' })
     }
 })
 
@@ -216,7 +171,7 @@ app.patch(URL.API.ACCOUNT.FORGET_PASSWORD.URL, (req, res) => {
 
 app.get(URL.API.ACCOUNT.AUTH_DATA.URL, (req, res) => {
     if (ObjectId.isValid(req.params.id)) {
-        db.collection('account').findOne({ _id: new ObjectId(req.params.id)})
+        db.collection('account').findOne({ _id: new ObjectId(req.params.id) })
             .then((result) => {
                 res.status(200).json({ data: result, status: 200, success: true, message: "User data fetched successfully" })
             })
@@ -224,7 +179,36 @@ app.get(URL.API.ACCOUNT.AUTH_DATA.URL, (req, res) => {
                 res.status(500).json({ data: null, status: 500, success: false, message: 'Something went wrong!' })
             })
     } else {
-        res.status(500).json({ data: null, status: 500, success: false, message: 'Not a valid document id' })
+        res.status(500).json({ data: null, status: 500, success: false, message: 'Not a valid User id' })
     }
 })
 
+app.post(URL.API.ACCOUNT.UPDATE_PROFILE.URL, (req, res) => {
+    if (ObjectId.isValid(req.params.id)) {
+        db.collection('account').findOne({ _id: new ObjectId(req.params.id) })
+            .then((result) => {
+                db.collection('account').updateOne({ _id: new ObjectId(req.params.id) }, { $set: req.body })
+                    .then((result) => {
+                        if (result.acknowledged && result.matchedCount == 1 && result.modifiedCount == 1) {
+                            db.collection('account').findOne({ _id: new ObjectId(req.params.id) })
+                                .then((result) => {
+                                    res.status(200).json({ data: result, status: 200, success: true, message: 'Profile updated successfully!' });
+                                })
+                                .catch((err) => {
+                                    res.status(500).json({ data: null, status: 500, success: false, message: 'Something went wrong!' })
+                                })
+                        } else if (result.acknowledged && result.modifiedCount == 0 && result.matchedCount == 1) {
+                            res.status(409).json({ data: null, status: 409, success: false, message: 'Not updated anything!' })
+                        }
+                    })
+                    .catch((err) => {
+                        res.status(500).json({ data: null, status: 500, success: false, message: 'Something went wrong!' })
+                    })
+            })
+            .catch((err) => {
+                res.status(500).json({ data: null, status: 500, success: false, message: 'Something went wrong!' })
+            })
+    } else {
+        res.status(500).json({ data: null, status: 500, success: false, message: 'Not a valid User id' })
+    }
+})

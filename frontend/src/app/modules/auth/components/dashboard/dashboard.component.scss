@@ -13,7 +13,7 @@ section {
             align-items: center;
             padding: 10px;
             background-color: #FFFFFF;
-            border-radius: 10px;
+            box-shadow: 0 3px 6px rgb(0 0 0 / 16%);
 
             .profile-icon {
                 display: flex;
@@ -50,7 +50,7 @@ section {
 
         .bottom {
             background-color: #FFFFFF;
-            border-radius: 10px;
+            box-shadow: 0 3px 6px rgb(0 0 0 / 16%);
             margin-top: 1rem;
 
             .router-link {
