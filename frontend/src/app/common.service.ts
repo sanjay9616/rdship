@@ -40,13 +40,21 @@ export class CommonService {
                 numberOfSelling: 11,
                 isAvailable: true,
                 isFavorite: false,
-                unit: {
-                    view: 'Quantity',
-                    value: 'quantity',
-                    list: [
-                        { value: 400, unit: 'g', packOf: 1 },
-                    ]
-                },
+                activeProduct: { quantity: '400 g', pack_of: '1'},
+                filterAttributesList: [
+                    {
+                        name: 'quantity',
+                        items: [
+                            {value: "400 g", selected: true},
+                        ]
+                    },
+                    {
+                        name: 'pack_of',
+                        items: [
+                            {value: "1", selected: true},
+                        ]
+                    }
+                ],
                 imgUrls: [
                     '/assets/images/grocery_pasta_FlipkartSupermartDurumWheatSemolinaFusilliPasta/1.webp',
                     '/assets/images/grocery_pasta_FlipkartSupermartDurumWheatSemolinaFusilliPasta/2.webp',
@@ -134,13 +142,21 @@ export class CommonService {
                 numberOfSelling: 11,
                 isAvailable: true,
                 isFavorite: false,
-                unit: {
-                    view: 'Quantity',
-                    value: 'quantity',
-                    list: [
-                        { value: 500, unit: 'g', packOf: 1 },
-                    ]
-                },
+                activeProduct: { quantity: '500 g', pack_of: '1'},
+                filterAttributesList: [
+                    {
+                        name: 'quantity',
+                        items: [
+                            {value: "500 g", selected: true},
+                        ]
+                    },
+                    {
+                        name: 'pack_of',
+                        items: [
+                            {value: "1", selected: true},
+                        ]
+                    }
+                ],
                 imgUrls: [
                     '/assets/images/grocery_pasta_ChefBasketDurumWheatElbowMacaroniPasta/1.webp',
                     '/assets/images/grocery_pasta_ChefBasketDurumWheatElbowMacaroniPasta/2.webp',
@@ -231,13 +247,21 @@ export class CommonService {
                 numberOfSelling: 11,
                 isAvailable: true,
                 isFavorite: false,
-                unit: {
-                    view: 'Quantity',
-                    value: 'quantity',
-                    list: [
-                        { value: 400, unit: 'g', packOf: 1 },
-                    ]
-                },
+                activeProduct: { quantity: '400 g', pack_of: '1'},
+                filterAttributesList: [
+                    {
+                        name: 'quantity',
+                        items: [
+                            {value: "400 g", selected: true},
+                        ]
+                    },
+                    {
+                        name: 'pack_of',
+                        items: [
+                            {value: "1", selected: true},
+                        ]
+                    }
+                ],
                 imgUrls: [
                     '/assets/images/grocery_pasta_WeikfieldFusilliPasta/1.webp',
                     '/assets/images/grocery_pasta_WeikfieldFusilliPasta/2.webp',
@@ -332,13 +356,21 @@ export class CommonService {
                 numberOfSelling: 177,
                 isAvailable: true,
                 isFavorite: false,
-                unit: {
-                    view: 'Quantity',
-                    value: 'quantity',
-                    list: [
-                        { value: 800, unit: 'g', packOf: 1 },
-                    ]
-                },
+                activeProduct: { quantity: '800 g', pack_of: '1'},
+                filterAttributesList: [
+                    {
+                        name: 'quantity',
+                        items: [
+                            {value: "800 g", selected: true},
+                        ]
+                    },
+                    {
+                        name: 'pack_of',
+                        items: [
+                            {value: "1", selected: true},
+                        ]
+                    }
+                ],
                 imgUrls: [
                     '/assets/images/grocery_biscuit_ParleGOriginalGlucoBiscuitsPlain/1.webp',
                     '/assets/images/grocery_biscuit_ParleGOriginalGlucoBiscuitsPlain/2.webp',
@@ -431,13 +463,21 @@ export class CommonService {
                 numberOfSelling: 27,
                 isAvailable: true,
                 isFavorite: false,
-                unit: {
-                    view: 'Quantity',
-                    value: 'quantity',
-                    list: [
-                        { value: 253, unit: 'g', packOf: 1 },
-                    ]
-                },
+                activeProduct: { quantity: '253 g', pack_of: '1'},
+                filterAttributesList: [
+                    {
+                        name: 'quantity',
+                        items: [
+                            {value: "253 g", selected: true},
+                        ]
+                    },
+                    {
+                        name: 'pack_of',
+                        items: [
+                            {value: "1", selected: true},
+                        ]
+                    }
+                ],
                 imgUrls: [
                     '/assets/images/grocery_biscuit_SunfeastDarkFantasyYumfillsCookieCake/1.webp',
                     '/assets/images/grocery_biscuit_SunfeastDarkFantasyYumfillsCookieCake/2.webp',
@@ -531,13 +571,21 @@ export class CommonService {
                 numberOfSelling: 29,
                 isAvailable: true,
                 isFavorite: false,
-                unit: {
-                    view: 'Quantity',
-                    value: 'quantity',
-                    list: [
-                        { value: 350, unit: 'g', packOf: 1 },
-                    ]
-                },
+                activeProduct: { quantity: '350 g', pack_of: '1'},
+                filterAttributesList: [
+                    {
+                        name: 'quantity',
+                        items: [
+                            {value: "350 g", selected: true},
+                        ]
+                    },
+                    {
+                        name: 'pack_of',
+                        items: [
+                            {value: "1", selected: true},
+                        ]
+                    }
+                ],
                 imgUrls: [
                     '/assets/images/grocery_biscuit_PriyagoldButterDeliteNamkeenBiscuitsSweetSalty/1.webp',
                     '/assets/images/grocery_biscuit_PriyagoldButterDeliteNamkeenBiscuitsSweetSalty/2.webp',
@@ -629,13 +677,21 @@ export class CommonService {
                 numberOfSelling: 62,
                 isAvailable: true,
                 isFavorite: false,
-                unit: {
-                    view: 'Quantity',
-                    value: 'quantity',
-                    list: [
-                        { value: 250, unit: 'g', packOf: 1 },
-                    ]
-                },
+                activeProduct: { quantity: '250 g', pack_of: '1'},
+                filterAttributesList: [
+                    {
+                        name: 'quantity',
+                        items: [
+                            {value: "250 g", selected: true},
+                        ]
+                    },
+                    {
+                        name: 'pack_of',
+                        items: [
+                            {value: "1", selected: true},
+                        ]
+                    }
+                ],
                 imgUrls: [
                     '/assets/images/grocery_biscuit_PatanjaliMarieBiscuit/1.webp',
                     '/assets/images/grocery_biscuit_PatanjaliMarieBiscuit/2.webp',
@@ -727,13 +783,21 @@ export class CommonService {
                 numberOfSelling: 300,
                 isAvailable: true,
                 isFavorite: false,
-                unit: {
-                    view: 'Quantity',
-                    value: 'quantity',
-                    list: [
-                        { value: 560, unit: 'g', packOf: 1 },
-                    ]
-                },
+                activeProduct: { quantity: '560 g', pack_of: '1'},
+                filterAttributesList: [
+                    {
+                        name: 'quantity',
+                        items: [
+                            {value: "560 g", selected: true},
+                        ]
+                    },
+                    {
+                        name: 'pack_of',
+                        items: [
+                            {value: "1", selected: true},
+                        ]
+                    }
+                ],
                 imgUrls: [
                     '/assets/images/grocery_biscuit_OrionChocoPieCreamFilled/1.webp',
                     '/assets/images/grocery_biscuit_OrionChocoPieCreamFilled/2.webp',
@@ -827,13 +891,21 @@ export class CommonService {
                 numberOfSelling: 328,
                 isAvailable: true,
                 isFavorite: false,
-                unit: {
-                    view: 'Quantity',
-                    value: 'quantity',
-                    list: [
-                        { value: 485, unit: 'g', packOf: 5 },
-                    ]
-                },
+                activeProduct: { quantity: '485 g', pack_of: '1'},
+                filterAttributesList: [
+                    {
+                        name: 'quantity',
+                        items: [
+                            {value: "485 g", selected: true},
+                        ]
+                    },
+                    {
+                        name: 'pack_of',
+                        items: [
+                            {value: "1", selected: true},
+                        ]
+                    }
+                ],
                 imgUrls: [
                     '/assets/images/grocery_biscuit_McVitieDarkCookieCreamBiscuitWithGoodnessOfCocoaAndChocolateFlavouredCreamCrackerBiscuit/1.webp',
                     '/assets/images/grocery_biscuit_McVitieDarkCookieCreamBiscuitWithGoodnessOfCocoaAndChocolateFlavouredCreamCrackerBiscuit/2.webp',
@@ -928,13 +1000,21 @@ export class CommonService {
                 numberOfSelling: 228,
                 isAvailable: true,
                 isFavorite: false,
-                unit: {
-                    view: 'Quantity',
-                    value: 'quantity',
-                    list: [
-                        { value: 250, unit: 'g', packOf: 3 },
-                    ]
-                },
+                activeProduct: { quantity: '250 g', pack_of: '1'},
+                filterAttributesList: [
+                    {
+                        name: 'quantity',
+                        items: [
+                            {value: "250 g", selected: true},
+                        ]
+                    },
+                    {
+                        name: 'pack_of',
+                        items: [
+                            {value: "1", selected: true},
+                        ]
+                    }
+                ],
                 imgUrls: [
                     '/assets/images/grocery_biscuit_UnibicChocoKissCookies/1.webp',
                     '/assets/images/grocery_biscuit_UnibicChocoKissCookies/2.webp',
@@ -1029,13 +1109,21 @@ export class CommonService {
                 numberOfSelling: 298,
                 isAvailable: true,
                 isFavorite: false,
-                unit: {
-                    view: 'Quantity',
-                    value: 'quantity',
-                    list: [
-                        { value: 250, unit: 'g', packOf: 3 },
-                    ]
-                },
+                activeProduct: { quantity: '250 g', pack_of: '1'},
+                filterAttributesList: [
+                    {
+                        name: 'quantity',
+                        items: [
+                            {value: "250 g", selected: true},
+                        ]
+                    },
+                    {
+                        name: 'pack_of',
+                        items: [
+                            {value: "1", selected: true},
+                        ]
+                    }
+                ],
                 imgUrls: [
                     '/assets/images/grocery_biscuit_HaldiramKajuButterCookiesCookies/1.webp',
                     '/assets/images/grocery_biscuit_HaldiramKajuButterCookiesCookies/2.webp',
@@ -1128,15 +1216,23 @@ export class CommonService {
                 numberOfSelling: 598,
                 isAvailable: true,
                 isFavorite: false,
-                unit: {
-                    view: 'Quantity',
-                    value: 'quantity',
-                    list: [
-                        { value: 300, unit: 'g', packOf: 2 },
-                        { value: 75, unit: 'g', packOf: 1 },
-                        { value: 300, unit: 'g', packOf: 1 },
-                    ]
-                },
+                activeProduct: { quantity: '300 g', pack_of: '1'},
+                filterAttributesList: [
+                    {
+                        name: 'quantity',
+                        items: [
+                            {value: "300 g", selected: true},
+                            {value: "600 g", selected: false},
+                        ]
+                    },
+                    {
+                        name: 'pack_of',
+                        items: [
+                            {value: "1", selected: true},
+                            {value: "2", selected: false},
+                        ]
+                    }
+                ],
                 imgUrls: [
                     '/assets/images/grocery_biscuit_SunfeastDarkFantasyChocoFillsCreamFilled/1.webp',
                     '/assets/images/grocery_biscuit_SunfeastDarkFantasyChocoFillsCreamFilled/2.webp',
@@ -1211,6 +1307,346 @@ export class CommonService {
                     'Brand': "Sunfeast",
                     'Model Name': "Dark Fantasy Choco Fills",
                     // quantity
+                    'Quantity': '300 g',
+                    'Type': 'Cream Filled',
+                    'Base Flavors': 'Chocolate',
+                    'Organic': 'No',
+                    'Ingredients': "Choco Cream, Sugar, Refined Palm Oil, Cocoa Solids, Wheat Flour, Hydrogenated Vegetables Oils, Invert Syrup, Liquid Glucose, Raising Agents, Butter, Milk Solids, Edible Common Salt and Emulsifiers",
+                    'Food Preference': 'Vegetarian',
+                    'Container Type': 'Box',
+                    'Maximum Shelf Life': '9 Months',
+                    'Nutrient Content': 'NA',
+                },
+
+            },
+            {
+                category: 'Grocery',
+                subCategory: 'Biscuit',
+                itemId: 'grocery_biscuit_SunfeastDarkFantasyChocoFillsCreamFilled',
+                itemDescription: "Sunfeast Dark Fantasy Choco Fills Cream Filled",
+                sellingPrice: 98,
+                markedPrice: 170,
+                numberOfSelling: 598,
+                isAvailable: true,
+                isFavorite: false,
+                activeProduct: { quantity: '300 g', pack_of: '2'},
+                filterAttributesList: [
+                    {
+                        name: 'quantity',
+                        items: [
+                            {value: "300 g", selected: true},
+                            {value: "600 g", selected: false},
+                        ]
+                    },
+                    {
+                        name: 'pack_of',
+                        items: [
+                            {value: "1", selected: false},
+                            {value: "2", selected: true},
+                        ]
+                    }
+                ],
+                imgUrls: [
+                    '/assets/images/grocery_biscuit_SunfeastDarkFantasyChocoFillsCreamFilled/1.webp',
+                    '/assets/images/grocery_biscuit_SunfeastDarkFantasyChocoFillsCreamFilled/2.webp',
+                    '/assets/images/grocery_biscuit_SunfeastDarkFantasyChocoFillsCreamFilled/3.webp',
+                    '/assets/images/grocery_biscuit_SunfeastDarkFantasyChocoFillsCreamFilled/4.webp',
+                    '/assets/images/grocery_biscuit_SunfeastDarkFantasyChocoFillsCreamFilled/5.webp',
+                    '/assets/images/grocery_biscuit_SunfeastDarkFantasyChocoFillsCreamFilled/6.webp',
+                    '/assets/images/grocery_biscuit_SunfeastDarkFantasyChocoFillsCreamFilled/7.webp',
+                    '/assets/images/grocery_biscuit_SunfeastDarkFantasyChocoFillsCreamFilled/8.webp',
+                ],
+                highLights: ['Type: Cream Filled', 'Base Flavor: Chocolate', 'Vegetarian'],
+                ratingsAndReviews: [
+                    {
+                        name: 'Sanjay',
+                        rating: 5,
+                        date: 1688322600000,
+                        review: 'So yammi.. 😋😋',
+                        file: 'Grocery_pasta_DurumWheatSemolina_userId'
+                    },
+                    {
+                        name: 'Dileep',
+                        rating: 4,
+                        date: 1689877800000,
+                        review: 'Very good product 🙂, i bought it with 130 supercoin Good deal👍',
+                        file: 'Grocery_pasta_DurumWheatSemolina_userId'
+                    },
+                    {
+                        name: 'manoj',
+                        rating: 4,
+                        date: 1690050600000,
+                        review: '',
+                        file: ''
+                    },
+                    {
+                        name: 'Mohd Hushain',
+                        rating: 3,
+                        date: 1690569000000,
+                        review: 'Good',
+                        file: 'Grocery_pasta_DurumWheatSemolina_userId'
+                    },
+                    {
+                        name: 'Pavan kumar',
+                        rating: 3,
+                        date: 1612117800000,
+                        review: 'Pasta is good enough',
+                        file: 'Grocery_pasta_DurumWheatSemolina_userId'
+                    },
+                    {
+                        name: 'Ajay Raw',
+                        rating: 4,
+                        date: 1614277800000,
+                        review: '',
+                        file: 'Grocery_pasta_DurumWheatSemolina_userId'
+                    },
+                    {
+                        name: 'Sonal Pandey',
+                        rating: 4,
+                        date: 1614277800000,
+                        review: '',
+                        file: 'Grocery_pasta_DurumWheatSemolina_userId'
+                    },
+                    {
+                        name: 'piyush Pandey',
+                        rating: 3,
+                        date: 1614277800000,
+                        review: '',
+                        file: ''
+                    },
+                ],
+                specifications: {
+                    //pack of
+                    'Brand': "Sunfeast",
+                    'Model Name': "Dark Fantasy Choco Fills",
+                    // quantity
+                    'Quantity': '300 g',
+                    'Type': 'Cream Filled',
+                    'Base Flavors': 'Chocolate',
+                    'Organic': 'No',
+                    'Ingredients': "Choco Cream, Sugar, Refined Palm Oil, Cocoa Solids, Wheat Flour, Hydrogenated Vegetables Oils, Invert Syrup, Liquid Glucose, Raising Agents, Butter, Milk Solids, Edible Common Salt and Emulsifiers",
+                    'Food Preference': 'Vegetarian',
+                    'Container Type': 'Box',
+                    'Maximum Shelf Life': '9 Months',
+                    'Nutrient Content': 'NA',
+                },
+
+            },
+            {
+                category: 'Grocery',
+                subCategory: 'Biscuit',
+                itemId: 'grocery_biscuit_SunfeastDarkFantasyChocoFillsCreamFilled',
+                itemDescription: "Sunfeast Dark Fantasy Choco Fills Cream Filled",
+                sellingPrice: 98,
+                markedPrice: 170,
+                numberOfSelling: 598,
+                isAvailable: true,
+                isFavorite: false,
+                activeProduct: { quantity: '600 g', pack_of: '1'},
+                filterAttributesList: [
+                    {
+                        name: 'quantity',
+                        items: [
+                            {value: "300 g", selected: true},
+                            {value: "600 g", selected: false},
+                        ]
+                    },
+                    {
+                        name: 'pack_of',
+                        items: [
+                            {value: "1", selected: true},
+                            {value: "2", selected: false},
+                        ]
+                    }
+                ],
+                imgUrls: [
+                    '/assets/images/grocery_biscuit_SunfeastDarkFantasyChocoFillsCreamFilled/1.webp',
+                    '/assets/images/grocery_biscuit_SunfeastDarkFantasyChocoFillsCreamFilled/2.webp',
+                    '/assets/images/grocery_biscuit_SunfeastDarkFantasyChocoFillsCreamFilled/3.webp',
+                    '/assets/images/grocery_biscuit_SunfeastDarkFantasyChocoFillsCreamFilled/4.webp',
+                    '/assets/images/grocery_biscuit_SunfeastDarkFantasyChocoFillsCreamFilled/5.webp',
+                    '/assets/images/grocery_biscuit_SunfeastDarkFantasyChocoFillsCreamFilled/6.webp',
+                    '/assets/images/grocery_biscuit_SunfeastDarkFantasyChocoFillsCreamFilled/7.webp',
+                    '/assets/images/grocery_biscuit_SunfeastDarkFantasyChocoFillsCreamFilled/8.webp',
+                ],
+                highLights: ['Type: Cream Filled', 'Base Flavor: Chocolate', 'Vegetarian'],
+                ratingsAndReviews: [
+                    {
+                        name: 'Sanjay',
+                        rating: 5,
+                        date: 1688322600000,
+                        review: 'So yammi.. 😋😋',
+                        file: 'Grocery_pasta_DurumWheatSemolina_userId'
+                    },
+                    {
+                        name: 'Dileep',
+                        rating: 4,
+                        date: 1689877800000,
+                        review: 'Very good product 🙂, i bought it with 130 supercoin Good deal👍',
+                        file: 'Grocery_pasta_DurumWheatSemolina_userId'
+                    },
+                    {
+                        name: 'manoj',
+                        rating: 4,
+                        date: 1690050600000,
+                        review: '',
+                        file: ''
+                    },
+                    {
+                        name: 'Mohd Hushain',
+                        rating: 3,
+                        date: 1690569000000,
+                        review: 'Good',
+                        file: 'Grocery_pasta_DurumWheatSemolina_userId'
+                    },
+                    {
+                        name: 'Pavan kumar',
+                        rating: 3,
+                        date: 1612117800000,
+                        review: 'Pasta is good enough',
+                        file: 'Grocery_pasta_DurumWheatSemolina_userId'
+                    },
+                    {
+                        name: 'Ajay Raw',
+                        rating: 4,
+                        date: 1614277800000,
+                        review: '',
+                        file: 'Grocery_pasta_DurumWheatSemolina_userId'
+                    },
+                    {
+                        name: 'Sonal Pandey',
+                        rating: 4,
+                        date: 1614277800000,
+                        review: '',
+                        file: 'Grocery_pasta_DurumWheatSemolina_userId'
+                    },
+                    {
+                        name: 'piyush Pandey',
+                        rating: 3,
+                        date: 1614277800000,
+                        review: '',
+                        file: ''
+                    },
+                ],
+                specifications: {
+                    //pack of
+                    'Brand': "Sunfeast",
+                    'Model Name': "Dark Fantasy Choco Fills",
+                    // quantity
+                    'Quantity': '300 g',
+                    'Type': 'Cream Filled',
+                    'Base Flavors': 'Chocolate',
+                    'Organic': 'No',
+                    'Ingredients': "Choco Cream, Sugar, Refined Palm Oil, Cocoa Solids, Wheat Flour, Hydrogenated Vegetables Oils, Invert Syrup, Liquid Glucose, Raising Agents, Butter, Milk Solids, Edible Common Salt and Emulsifiers",
+                    'Food Preference': 'Vegetarian',
+                    'Container Type': 'Box',
+                    'Maximum Shelf Life': '9 Months',
+                    'Nutrient Content': 'NA',
+                },
+
+            },
+            {
+                category: 'Grocery',
+                subCategory: 'Biscuit',
+                itemId: 'grocery_biscuit_SunfeastDarkFantasyChocoFillsCreamFilled',
+                itemDescription: "Sunfeast Dark Fantasy Choco Fills Cream Filled",
+                sellingPrice: 98,
+                markedPrice: 170,
+                numberOfSelling: 598,
+                isAvailable: true,
+                isFavorite: false,
+                activeProduct: { quantity: '600 g', pack_of: '2'},
+                filterAttributesList: [
+                    {
+                        name: 'quantity',
+                        items: [
+                            {value: "300 g", selected: false},
+                            {value: "600 g", selected: true},
+                        ]
+                    },
+                    {
+                        name: 'pack_of',
+                        items: [
+                            {value: "1", selected: true},
+                            {value: "2", selected: false},
+                        ]
+                    }
+                ],
+                imgUrls: [
+                    '/assets/images/grocery_biscuit_SunfeastDarkFantasyChocoFillsCreamFilled/1.webp',
+                    '/assets/images/grocery_biscuit_SunfeastDarkFantasyChocoFillsCreamFilled/2.webp',
+                    '/assets/images/grocery_biscuit_SunfeastDarkFantasyChocoFillsCreamFilled/3.webp',
+                    '/assets/images/grocery_biscuit_SunfeastDarkFantasyChocoFillsCreamFilled/4.webp',
+                    '/assets/images/grocery_biscuit_SunfeastDarkFantasyChocoFillsCreamFilled/5.webp',
+                    '/assets/images/grocery_biscuit_SunfeastDarkFantasyChocoFillsCreamFilled/6.webp',
+                    '/assets/images/grocery_biscuit_SunfeastDarkFantasyChocoFillsCreamFilled/7.webp',
+                    '/assets/images/grocery_biscuit_SunfeastDarkFantasyChocoFillsCreamFilled/8.webp',
+                ],
+                highLights: ['Type: Cream Filled', 'Base Flavor: Chocolate', 'Vegetarian'],
+                ratingsAndReviews: [
+                    {
+                        name: 'Sanjay',
+                        rating: 5,
+                        date: 1688322600000,
+                        review: 'So yammi.. 😋😋',
+                        file: 'Grocery_pasta_DurumWheatSemolina_userId'
+                    },
+                    {
+                        name: 'Dileep',
+                        rating: 4,
+                        date: 1689877800000,
+                        review: 'Very good product 🙂, i bought it with 130 supercoin Good deal👍',
+                        file: 'Grocery_pasta_DurumWheatSemolina_userId'
+                    },
+                    {
+                        name: 'manoj',
+                        rating: 4,
+                        date: 1690050600000,
+                        review: '',
+                        file: ''
+                    },
+                    {
+                        name: 'Mohd Hushain',
+                        rating: 3,
+                        date: 1690569000000,
+                        review: 'Good',
+                        file: 'Grocery_pasta_DurumWheatSemolina_userId'
+                    },
+                    {
+                        name: 'Pavan kumar',
+                        rating: 3,
+                        date: 1612117800000,
+                        review: 'Pasta is good enough',
+                        file: 'Grocery_pasta_DurumWheatSemolina_userId'
+                    },
+                    {
+                        name: 'Ajay Raw',
+                        rating: 4,
+                        date: 1614277800000,
+                        review: '',
+                        file: 'Grocery_pasta_DurumWheatSemolina_userId'
+                    },
+                    {
+                        name: 'Sonal Pandey',
+                        rating: 4,
+                        date: 1614277800000,
+                        review: '',
+                        file: 'Grocery_pasta_DurumWheatSemolina_userId'
+                    },
+                    {
+                        name: 'piyush Pandey',
+                        rating: 3,
+                        date: 1614277800000,
+                        review: '',
+                        file: ''
+                    },
+                ],
+                specifications: {
+                    //pack of
+                    'Brand': "Sunfeast",
+                    'Model Name': "Dark Fantasy Choco Fills",
+                    // quantity
+                    'Quantity': '300 g',
                     'Type': 'Cream Filled',
                     'Base Flavors': 'Chocolate',
                     'Organic': 'No',
@@ -1232,13 +1668,21 @@ export class CommonService {
                 numberOfSelling: 508,
                 isAvailable: true,
                 isFavorite: false,
-                unit: {
-                    view: 'Quantity',
-                    value: 'quantity',
-                    list: [
-                        { value: 1, unit: 'kg', packOf: 1 },
-                    ]
-                },
+                activeProduct: { quantity: '1 kg', pack_of: '1'},
+                filterAttributesList: [
+                    {
+                        name: 'quantity',
+                        items: [
+                            {value: "1 kg", selected: true},
+                        ]
+                    },
+                    {
+                        name: 'pack_of',
+                        items: [
+                            {value: "1", selected: true},
+                        ]
+                    }
+                ],
                 imgUrls: [
                     '/assets/images/grocery_biscuit_BritanniaMarieGoldBiscuits1kgBiscotti/1.webp',
                     '/assets/images/grocery_biscuit_BritanniaMarieGoldBiscuits1kgBiscotti/2.webp',
@@ -1331,13 +1775,21 @@ export class CommonService {
                 numberOfSelling: 108,
                 isAvailable: true,
                 isFavorite: false,
-                unit: {
-                    view: 'Quantity',
-                    value: 'quantity',
-                    list: [
-                        { value: 150, unit: 'g', packOf: 1 },
-                    ]
-                },
+                activeProduct: { quantity: '150 g', pack_of: '1'},
+                filterAttributesList: [
+                    {
+                        name: 'quantity',
+                        items: [
+                            {value: "150 g", selected: true},
+                        ]
+                    },
+                    {
+                        name: 'pack_of',
+                        items: [
+                            {value: "1", selected: true},
+                        ]
+                    }
+                ],
                 imgUrls: [
                     '/assets/images/grocery_biscuit_DiaBlissDiabeticFriendlyMilletCookiesWithMoringaLeaf150gCookies/1.webp',
                     '/assets/images/grocery_biscuit_DiaBlissDiabeticFriendlyMilletCookiesWithMoringaLeaf150gCookies/2.webp',
@@ -1431,13 +1883,21 @@ export class CommonService {
                 numberOfSelling: 8,
                 isAvailable: true,
                 isFavorite: false,
-                unit: {
-                    view: 'Quantity',
-                    value: 'quantity',
-                    list: [
-                        { value: 350, unit: 'g', packOf: 1 },
-                    ]
-                },
+                activeProduct: { quantity: '350 g', pack_of: '1'},
+                filterAttributesList: [
+                    {
+                        name: 'quantity',
+                        items: [
+                            {value: "350 g", selected: true},
+                        ]
+                    },
+                    {
+                        name: 'pack_of',
+                        items: [
+                            {value: "1", selected: true},
+                        ]
+                    }
+                ],
                 imgUrls: [
                     '/assets/images/grocery_biscuit_BritanniaNutriChoiceSugarFreeCreamCrackerBiscuit/1.webp',
                     '/assets/images/grocery_biscuit_BritanniaNutriChoiceSugarFreeCreamCrackerBiscuit/2.webp',
@@ -1532,13 +1992,21 @@ export class CommonService {
                 numberOfSelling: 8,
                 isAvailable: true,
                 isFavorite: false,
-                unit: {
-                    view: 'Quantity',
-                    value: 'quantity',
-                    list: [
-                        { value: 150, unit: 'g', packOf: 1 },
-                    ]
-                },
+                activeProduct: { quantity: '150 g', pack_of: '1'},
+                filterAttributesList: [
+                    {
+                        name: 'quantity',
+                        items: [
+                            {value: "150 g", selected: true},
+                        ]
+                    },
+                    {
+                        name: 'pack_of',
+                        items: [
+                            {value: "1", selected: true},
+                        ]
+                    }
+                ],
                 imgUrls: [
                     '/assets/images/grocery_biscuit_BritanniaNutriChoiceSugarFreeCreamCrackerBiscuit2/1.webp',
                     '/assets/images/grocery_biscuit_BritanniaNutriChoiceSugarFreeCreamCrackerBiscuit2/2.webp',
@@ -1633,13 +2101,21 @@ export class CommonService {
                 numberOfSelling: 28,
                 isAvailable: true,
                 isFavorite: true,
-                unit: {
-                    view: 'Quantity',
-                    value: 'quantity',
-                    list: [
-                        { value: 0.25, unit: 'kg', packOf: 1 },
-                    ]
-                },
+                activeProduct: { quantity: '0.25 kg', pack_of: '1'},
+                filterAttributesList: [
+                    {
+                        name: 'quantity',
+                        items: [
+                            {value: "0.25 kg", selected: true},
+                        ]
+                    },
+                    {
+                        name: 'pack_of',
+                        items: [
+                            {value: "1", selected: true},
+                        ]
+                    }
+                ],
                 imgUrls: [
                     '/assets/images/grocery_rice_NaturesmithArborioRiceArborioRiceRaw/1.webp',
                     '/assets/images/grocery_rice_NaturesmithArborioRiceArborioRiceRaw/2.webp',
@@ -1729,13 +2205,21 @@ export class CommonService {
                 numberOfSelling: 238,
                 isAvailable: true,
                 isFavorite: false,
-                unit: {
-                    view: 'Quantity',
-                    value: 'quantity',
-                    list: [
-                        { value: 5, unit: 'kg', packOf: 1 },
-                    ]
-                },
+                activeProduct: { quantity: '5 kg', pack_of: '1'},
+                filterAttributesList: [
+                    {
+                        name: 'quantity',
+                        items: [
+                            {value: "5 kg", selected: true},
+                        ]
+                    },
+                    {
+                        name: 'pack_of',
+                        items: [
+                            {value: "1", selected: true},
+                        ]
+                    }
+                ],
                 imgUrls: [
                     '/assets/images/grocery_rice_IndiaGatePremiumBasmatiRiceLongGrainRaw/1.webp',
                     '/assets/images/grocery_rice_IndiaGatePremiumBasmatiRiceLongGrainRaw/2.webp',
@@ -1828,13 +2312,21 @@ export class CommonService {
                 numberOfSelling: 218,
                 isAvailable: true,
                 isFavorite: false,
-                unit: {
-                    view: 'Quantity',
-                    value: 'quantity',
-                    list: [
-                        { value: 0.5, unit: 'kg', packOf: 1 },
-                    ]
-                },
+                activeProduct: { quantity: '0.5 kg', pack_of: '1'},
+                filterAttributesList: [
+                    {
+                        name: 'quantity',
+                        items: [
+                            {value: "0.5 kg", selected: true},
+                        ]
+                    },
+                    {
+                        name: 'pack_of',
+                        items: [
+                            {value: "1", selected: true},
+                        ]
+                    }
+                ],
                 imgUrls: [
                     '/assets/images/grocery_rice_DaivikOrganicKaruppuKavuniRiceBlackRice500GBlackBlackRiceFullGrainRaw/1.webp',
                     '/assets/images/grocery_rice_DaivikOrganicKaruppuKavuniRiceBlackRice500GBlackBlackRiceFullGrainRaw/2.webp',
@@ -1927,13 +2419,21 @@ export class CommonService {
                 numberOfSelling: 265,
                 isAvailable: true,
                 isFavorite: false,
-                unit: {
-                    view: 'Quantity',
-                    value: 'quantity',
-                    list: [
-                        { value: 1, unit: 'kg', packOf: 1 },
-                    ]
-                },
+                activeProduct: { quantity: '1 kg', pack_of: '1'},
+                filterAttributesList: [
+                    {
+                        name: 'quantity',
+                        items: [
+                            {value: "1 kg", selected: true},
+                        ]
+                    },
+                    {
+                        name: 'pack_of',
+                        items: [
+                            {value: "1", selected: true},
+                        ]
+                    }
+                ],
                 imgUrls: [
                     '/assets/images/grocery_rice_IndiaGateWeightWatchersSpecialBrownRice/1.webp',
                     '/assets/images/grocery_rice_IndiaGateWeightWatchersSpecialBrownRice/2.webp',
@@ -2026,13 +2526,21 @@ export class CommonService {
                 numberOfSelling: 265,
                 isAvailable: true,
                 isFavorite: false,
-                unit: {
-                    view: 'Quantity',
-                    value: 'quantity',
-                    list: [
-                        { value: 1.5, unit: 'kg', packOf: 1 },
-                    ]
-                },
+                activeProduct: { quantity: '1.5 kg', pack_of: '1'},
+                filterAttributesList: [
+                    {
+                        name: 'quantity',
+                        items: [
+                            {value: "1.5 kg", selected: true},
+                        ]
+                    },
+                    {
+                        name: 'pack_of',
+                        items: [
+                            {value: "1", selected: true},
+                        ]
+                    }
+                ],
                 imgUrls: [
                     '/assets/images/grocery_rice_ThanjaiOrganicsThooyamalliRiceJasmineRiceJasmineRiceMediumGrain/1.webp',
                     '/assets/images/grocery_rice_ThanjaiOrganicsThooyamalliRiceJasmineRiceJasmineRiceMediumGrain/2.webp',
@@ -2124,13 +2632,21 @@ export class CommonService {
                 numberOfSelling: 365,
                 isAvailable: true,
                 isFavorite: false,
-                unit: {
-                    view: 'Quantity',
-                    value: 'quantity',
-                    list: [
-                        { value: 10, unit: 'kg', packOf: 1 },
-                    ]
-                },
+                activeProduct: { quantity: '10 kg', pack_of: '1'},
+                filterAttributesList: [
+                    {
+                        name: 'quantity',
+                        items: [
+                            {value: "10 kg", selected: true},
+                        ]
+                    },
+                    {
+                        name: 'pack_of',
+                        items: [
+                            {value: "1", selected: true},
+                        ]
+                    }
+                ],
                 imgUrls: [
                     '/assets/images/grocery_rice_HealthyRiceVillaDIVINESilkyChapRice10KgRatnaRiceMediumGrainParboiled/1.webp',
                     '/assets/images/grocery_rice_HealthyRiceVillaDIVINESilkyChapRice10KgRatnaRiceMediumGrainParboiled/2.webp',
@@ -2221,13 +2737,21 @@ export class CommonService {
                 numberOfSelling: 325,
                 isAvailable: true,
                 isFavorite: false,
-                unit: {
-                    view: 'Quantity',
-                    value: 'quantity',
-                    list: [
-                        { value: 1, unit: 'kg', packOf: 1 },
-                    ]
-                },
+                activeProduct: { quantity: '1 kg', pack_of: '1'},
+                filterAttributesList: [
+                    {
+                        name: 'quantity',
+                        items: [
+                            {value: "1 kg", selected: true},
+                        ]
+                    },
+                    {
+                        name: 'pack_of',
+                        items: [
+                            {value: "1", selected: true},
+                        ]
+                    }
+                ],
                 imgUrls: [
                     '/assets/images/grocery_rice_JeeraAmbemoharGobindobhogRiceRaw/1.webp',
                     '/assets/images/grocery_rice_JeeraAmbemoharGobindobhogRiceRaw/2.webp',

@@ -124,9 +124,10 @@
                         </div>
                         <div class="button-section">
                             <button mat-flat-button [disabled]="true">
-                                {{item?.unit?.list[0].value}} {{item?.unit?.list[0].unit}}
-                                {{item?.unit?.list[0].packOf > 1 ? ', Pack of ' + item?.unit?.list[0].packOf :
-                                ''}}
+                                <ng-container *ngFor="let key of item?.activeProduct | keyvalue; let isLast=last">
+                                    <span *ngIf="!isLast">{{key?.value}} * </span>
+                                    <span *ngIf="isLast">{{key?.value}}</span>
+                                </ng-container>
                             </button>
                             <button mat-flat-button (click)="addItemsToCart(item)">ADD Item</button>
                         </div>

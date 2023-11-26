@@ -25,18 +25,10 @@ export class ViewItemComponent implements OnInit {
   markedPrice: number = 0;
   sellingPrice: number = 0;
   imgUrl: string = '';
-  // formGroup: FormGroup = new FormGroup({});
-  // unit: any = [
-  //   { unit: 'quantity', view: 'Quantity', list: [{ value: 1, unit: 'kg', packOf: 1, itemId: '1kg' }, { value: 2, unit: 'kg', packOf: 2, itemId: '2kg' }] },
-  //   { unit: 'size', view: 'Size', list: [{ value: 1, unit: 'cm', packOf: 1, itemId: '1cm' }, { value: 2, unit: 'cm', packOf: 2, itemId: '2cm' }] }
-  // ]
 
   numberOfItem: FormControl = new FormControl(1);
 
   ngOnInit(): void {
-    // for (let i = 0; i < this.unit.length; i++) {
-    //   this.formGroup.addControl(this.unit[i].unit, new FormControl(this.unit[i].list[0].value));
-    // }
     this.activatedRoute.params.subscribe((routeParams: any) => {
       this.params = routeParams;
       this.itemDetails = this.commonService.items.filter((item: any) => item.itemId == this.params.itemId)[0];
@@ -49,10 +41,6 @@ export class ViewItemComponent implements OnInit {
       this.isShowViewMore = false;
     })
   }
-
-  // changeUnitOfItem(unit: string, event: any) {
-  //   this.formGroup.get(unit)?.patchValue(event.value);
-  // }
 
   selectImg(imgUrl: string) {
     this.imgUrl = imgUrl;

@@ -79,9 +79,10 @@
                         </div>
                         <div class="button-section">
                             <button mat-flat-button [disabled]="true">
-                                {{product?.unit?.list[0].value}} {{product?.unit?.list[0].unit}}
-                                    {{product?.unit?.list[0].packOf > 1 ? ', Pack of ' + product?.unit?.list[0].packOf :
-                                    ''}}
+                                <ng-container *ngFor="let key of product?.activeProduct | keyvalue; let isLast=last">
+                                    <span *ngIf="!isLast">{{key?.value}} * </span>
+                                    <span *ngIf="isLast">{{key?.value}}</span>
+                                </ng-container>
                             </button>
                             <button mat-flat-button (click)="addItemsToCart(product)">ADD Item</button>
                         </div>
@@ -122,9 +123,10 @@
                         </div>
                         <div class="button-section">
                             <button mat-flat-button [disabled]="true">
-                                {{product?.unit?.list[0].value}} {{product?.unit?.list[0].unit}}
-                                    {{product?.unit?.list[0].packOf > 1 ? ', Pack of ' + product?.unit?.list[0].packOf :
-                                    ''}}
+                                <ng-container *ngFor="let key of product?.activeProduct | keyvalue; let isLast=last">
+                                    <span *ngIf="!isLast">{{key?.value}} * </span>
+                                    <span *ngIf="isLast">{{key?.value}}</span>
+                                </ng-container>
                             </button>
                             <button mat-flat-button (click)="addItemsToCart(product)">ADD Item</button>
                         </div>
