@@ -12,6 +12,7 @@ import { ItemsComponent } from "./components/items/items.component";
 import { ViewCartComponent } from "./components/view-cart/view-cart.component";
 import { ViewItemComponent } from "./components/view-item/view-item.component";
 import { NgImageSliderModule } from "ng-image-slider";
+import { RateProductsComponent } from './components/rate-products/rate-products.component';
 
 @NgModule({
     declarations: [
@@ -20,6 +21,7 @@ import { NgImageSliderModule } from "ng-image-slider";
         ItemsComponent,
         ViewCartComponent,
         ViewItemComponent,
+        RateProductsComponent,
     ],
     imports: [
         routing,

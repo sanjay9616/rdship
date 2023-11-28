@@ -4,6 +4,8 @@ import { CommonService } from 'src/app/common.service';
 import { FormControl, Validators } from '@angular/forms';
 import { AlertMessageService } from 'src/app/modules/shared/_services/alert-message.service';
 import { URL_LIST } from 'src/app/config/urlList';
+import { MatDialog } from '@angular/material/dialog';
+import { RateProductsComponent } from '../rate-products/rate-products.component';
 
 @Component({
   selector: 'app-view-item',
@@ -15,7 +17,8 @@ export class ViewItemComponent implements OnInit {
   constructor(private commonService: CommonService,
     private router: Router,
     private alertMessageService: AlertMessageService,
-    private activatedRoute: ActivatedRoute) { }
+    private activatedRoute: ActivatedRoute,
+    public dialog: MatDialog) { }
 
   params: any = {};
   itemDetails: any = {};
@@ -79,6 +82,14 @@ export class ViewItemComponent implements OnInit {
 
   buyNow() {
     this.router.navigate([URL_LIST.ROUTING_PATHS.VIEW_CART]);
+  }
+
+  rateProduct() {
+    const dialogRef = this.dialog.open(RateProductsComponent, {
+      width: '60%',
+      minHeight: '400px',
+      panelClass: 'rate-products',
+    });
   }
 
 }
