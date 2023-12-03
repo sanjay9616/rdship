@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { MESSAGES } from 'src/app/config/message';
 import { URL_LIST } from 'src/app/config/urlList';
 import { AlertMessageService } from 'src/app/modules/shared/_services/alert-message.service';
-import { AuthService } from '../../../_services/auth.service';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-my-profile',

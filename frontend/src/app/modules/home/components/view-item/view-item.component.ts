@@ -86,8 +86,8 @@ export class ViewItemComponent implements OnInit {
 
   rateProduct() {
     const dialogRef = this.dialog.open(RateProductsComponent, {
-      width: '60%',
-      minHeight: '400px',
+      width: '50%',
+      maxHeight: 'unset',
       panelClass: 'rate-products',
     });
   }

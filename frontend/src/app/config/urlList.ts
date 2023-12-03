@@ -1,5 +1,5 @@
 export const URL_LIST = {
-    API : {
+    API: {
         ACCOUNT: {
             LOGIN: {
                 URL: '/account/login',
@@ -19,6 +19,11 @@ export const URL_LIST = {
             AUTH_DATA: {
                 URL: '/account/auth-data',
             },
+        },
+        HOME: {
+            PRODUCT_DETAILS: {
+                URL: '/product/getProduct'
+            }
         }
     },
     ROUTING_PATHS: {

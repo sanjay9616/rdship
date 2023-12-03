@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { CommonService } from 'src/app/common.service';
 import { MESSAGES } from 'src/app/config/message';
 import { URL_LIST } from 'src/app/config/urlList';
-import { AuthService } from 'src/app/modules/auth/_services/auth.service';
+import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { AlertMessageService } from '../../_services/alert-message.service';
 
 @Component({

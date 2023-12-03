@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Form, FormControl, FormControlName, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, startWith } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, map, startWith } from 'rxjs/operators';
 import { CommonService } from 'src/app/common.service';
+import { MESSAGES } from 'src/app/config/message';
 import { URL_LIST } from 'src/app/config/urlList';
 import { AlertMessageService } from 'src/app/modules/shared/_services/alert-message.service';
+import { HomeService } from '../../services/home.service';
 
 @Component({
   selector: 'app-items',
@@ -17,175 +19,176 @@ export class ItemsComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private alertMessageService: AlertMessageService,
     private commonService: CommonService,
+    private homeService: HomeService,
     private router: Router) { }
 
-  filters: any = {
-    searchStr: null,
-    category: null,
-    subCategories: [],
-    brands: [],
-    customerRatings: [],
-    itemsPerPage: 8,
-    currentPage: 1,
-  }
-  customerRatings: Array<any> = [
-    { value: 4, checked: false },
-    { value: 3, checked: false },
-    { value: 2, checked: false },
-    { value: 1, checked: false },
-  ]
+  formGroup!: FormGroup;
+  isOpenFilers: boolean = false;
+  toggleAllBrandsCheckboxState: boolean = false;
+  toggleAllSubcategoriesCheckboxState: boolean = false;
+  routeParams: any = {};
+  subCategoriesListOptions: Array<any> = [];
+  brandsListOptions: Array<any> = [];
+  priceList: Array<any> = [
+    { view: '₹1000 or lower', value: 1000 },
+    { view: '₹900 or lower', value: 900 },
+    { view: '₹800 or lower', value: 800 },
+    { view: '₹700 or lower', value: 700 },
+    { view: '₹600 or lower', value: 600 },
+    { view: '₹500 or lower', value: 500 },
+    { view: '₹400 or lower', value: 400 },
+    { view: '₹300 or lower', value: 300 },
+    { view: '₹200 or lower', value: 200 },
+    { view: '₹100 or lower', value: 100 },
+  ];
+  ratingList: Array<any> = [
+    { view: 5, value: 5 },
+    { view: 4, value: 4 },
+    { view: 3, value: 3 },
+    { view: 2, value: 2 },
+    { view: 1, value: 1 },
+  ];
+  discountPercent: Array<any> = [
+    { view: '70% or more', value: 70 },
+    { view: '60% or more', value: 60 },
+    { view: '50% or more', value: 50 },
+    { view: '40% or more', value: 40 },
+    { view: '30% or more', value: 30 },
+    { view: '20% or more', value: 20 },
+    { view: '10% or more', value: 10 },
+    { view: '0% or more', value: 0 },
+  ];
   pageDetails: any = {};
-  allSubCategories: Array<any> = [];
-  allBrands: Array<any> = [];
-  allSubCategoriesOptions: Array<any> = [];
-  allBrandsOptions: Array<any> = [];
-  categoryFilterCtrl = new FormControl('');
-  brandFilterCtrl = new FormControl('');
+  subCategoryMultiFilterCtrl: FormControl = new FormControl(null);
+  brandMultiFilterCtrl: FormControl = new FormControl(null);
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((routeParams: any) => {
-      this.filters.searchStr = routeParams.searchStr || null;
-      this.filters.category = routeParams.category || null;
-      this.allSubCategories = this.commonSevice.getSubcategoriesByCategory(this.filters.category).map((item: any) => ({item, checked: false}));
-      this.allSubCategoriesOptions = this.commonSevice.getSubcategoriesByCategory(this.filters.category).map((item: any) => ({item, checked: false}));
-      this.allBrands = this.commonSevice.getAllBrandByCategory(this.filters.category).map((item: any) => ({item, checked: false}));
-      this.allBrandsOptions = this.commonSevice.getAllBrandByCategory(this.filters.category).map((item: any) => ({item, checked: false}));
-      this.getPageDetails(this.filters);
-      this.filterCategoryOptionMulti();
-      this.filterBrandOptionMulti();
+      this.routeParams = routeParams;
+    })
+    this.initFormGroup();
+    this.getProductDetails()
+  }
+
+  openCloseFilters() {
+    this.isOpenFilers = !this.isOpenFilers;
+  }
+
+  initFormGroup() {
+    this.formGroup = new FormGroup({
+      searchStr: new FormControl(this.routeParams?.searchStr || null),
+      category: new FormControl(this.routeParams?.category?.length ? [this.routeParams?.category] : []),
+      subCategories: new FormControl([]),
+      brands: new FormControl([]),
+      sellingPrice: new FormControl(null),
+      rating: new FormControl(null),
+      discountPercent: new FormControl(null),
+      itemsPerPage: new FormControl(10),
+      currentPage: new FormControl(1),
+    })
+    this.formGroupValueChanges();
+  }
+
+  formGroupValueChanges() {
+    this.formGroup.valueChanges.pipe(
+      distinctUntilChanged((prev: any, next: any) => JSON.stringify(prev) === JSON.stringify(next))
+    ).subscribe(() => {
+      this.getProductDetails();
+    });
+  }
+
+  getProductDetails() {
+    this.homeService.getProductDetails(this.formGroup?.value).subscribe((res: any) => {
+      if (res?.status == 200 && res?.success) {
+        this.pageDetails = res?.data;
+        this.subCategoryMultiFilterCtrlValueChanges();
+        this.brandMultiFilterCtrlValueChanges();
+      } else {
+        this.alertMessageService.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
+      }
+    }, (err: any) => {
+      this.alertMessageService.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
     })
   }
 
-  filterCategoryOptionMulti() {
-    this.categoryFilterCtrl.valueChanges
+  removeFilter(formControlName: string, i?: number) {
+    if (i == undefined) {
+      this.formGroup.get(formControlName)?.patchValue(null);
+    } else {
+      let formControlValue = this.formGroup.get(formControlName)?.value;
+      formControlValue.splice(i, 1)
+      this.formGroup.get(formControlName)?.patchValue(formControlValue);
+    }
+    this.formGroup.updateValueAndValidity();
+    this.toggleSubCategories();
+    this.toggleBrand();
+  }
+
+  clearFilter() {
+    this.formGroup.reset();
+    this.initFormGroup();
+  }
+
+
+  subCategoryMultiFilterCtrlValueChanges() {
+    this.subCategoryMultiFilterCtrl.valueChanges
       .pipe(
         startWith(''),
-        map((value: any) => this.filterCategoryOptions(value)),
-      ).subscribe();
+        distinctUntilChanged((prev: any, next: any) => JSON.stringify(prev) === JSON.stringify(next))
+      )
+      .subscribe(() => {
+        this.subCategoriesListOptions = this.subCategoryListFilter(this.subCategoryMultiFilterCtrl?.value);
+      });
   }
 
-  filterCategoryOptions(value: string) {
-    const filterValue: string = (value != null || value != undefined) ? value.toString().toLowerCase() : "";
-    this.allSubCategoriesOptions = this.allSubCategories.filter((category: any) => (category.item.toLowerCase()).includes(filterValue)).map((category: any) => ({item: category.item, checked: (this.filters.subCategories.includes(category.item) ? true : false)}));
-  }
-
-  markUnmarkSubCategory(event: any, category: string, i: number) {
-    this.filters.currentPage = 1;
-    if(event.checked && !this.filters.subCategories.includes(category)) {
-      this.filters.subCategories.push(category);
-    } else if(!event.checked && this.filters.subCategories.includes(category)) {
-        const index = this.filters.subCategories.indexOf(category);
-        if(index > -1) {
-          this.filters.subCategories.splice(index, 1);
-        }
-    }
-    this.allSubCategoriesOptions[i].checked = event.checked;
-    this.getPageDetails(this.filters);
-  }
-
-  removeSubCategoryFilter(subCategory: string) {
-    const indexInFilter = this.filters.subCategories.indexOf(subCategory);
-    if(indexInFilter > -1) {
-      this.filters.subCategories.splice(indexInFilter, 1);
-    }
-    this.allSubCategoriesOptions = this.allSubCategoriesOptions.map((item: any) => ({item: item.item, checked: (item.item === subCategory ? false : item.checked)}));
-    this.getPageDetails(this.filters);
-  }
-
-  filterBrandOptionMulti() {
-    this.brandFilterCtrl.valueChanges
+  brandMultiFilterCtrlValueChanges() {
+    this.brandMultiFilterCtrl.valueChanges
       .pipe(
         startWith(''),
-        map((value: any) => this.filterbrandOptions(value)),
-      ).subscribe();
+        distinctUntilChanged((prev: any, next: any) => JSON.stringify(prev) === JSON.stringify(next))
+      )
+      .subscribe(() => {
+        this.brandsListOptions = this.brandListFilter(this.brandMultiFilterCtrl?.value);
+      });
   }
 
-  filterbrandOptions(value: string) {
+  subCategoryListFilter(value: string) {
     const filterValue: string = (value != null || value != undefined) ? value.toString().toLowerCase() : "";
-    this.allBrandsOptions = this.allBrands.filter((brand: any) => (brand.item.toLowerCase()).includes(filterValue)).map((brand: any) => ({item: brand.item, checked: (this.filters.brands.includes(brand.item) ? true : false)}));
+    return this.pageDetails?.subCategories.filter((subcategory: any) => (subcategory).toLowerCase().includes(filterValue));
+
   }
 
-  markUnmarkBrand(event: any, brand: string, i: number) {
-    this.filters.currentPage = 1;
-    if(event.checked && !this.filters.brands.includes(brand)) {
-      this.filters.brands.push(brand);
-    } else if(!event.checked && this.filters.brands.includes(brand)) {
-        const index = this.filters.brands.indexOf(brand);
-        if(index > -1) {
-          this.filters.brands.splice(index, 1);
-        }
-    }
-    this.allBrandsOptions[i].checked = event.checked;
-    this.getPageDetails(this.filters);
+  brandListFilter(value: string) {
+    const filterValue: string = (value != null || value != undefined) ? value.toString().toLowerCase() : "";
+    return this.pageDetails?.brands.filter((brand: any) => (brand).toLowerCase().includes(filterValue));
   }
 
-  removeBrandFilter(brand: string) {
-    const indexInFilter = this.filters.brands.indexOf(brand);
-    if(indexInFilter > -1) {
-      this.filters.brands.splice(indexInFilter, 1);
-    }
-    this.allBrandsOptions = this.allBrandsOptions.map((item: any) => ({item: item.item, checked: (item.item === brand ? false : item.checked)}));
-    this.getPageDetails(this.filters);
+  toggleAllSubCategories(event: boolean) {
+    this.formGroup.get('subCategories')?.patchValue(event ? this.pageDetails.subCategories : []);
   }
 
-  getPageDetails(filters: any) {
-    this.pageDetails = this.commonSevice.getItemsByFilters(filters);
+  toggleAllBrands(event: boolean) {
+    this.formGroup.get('brands')?.patchValue(event ? this.pageDetails.brands : []);
   }
 
-  clearAll() {
-    this.filters = {
-      searchStr: this.activatedRoute.snapshot.params.searchStr,
-      category: this.activatedRoute.snapshot.params.category,
-      subCategories: [],
-      brands: [],
-      customerRatings: [],
-      itemsPerPage: 8,
-      currentPage: 1,
-    };
-    this.allSubCategoriesOptions = this.allSubCategoriesOptions.map((item: any) => ({item: item.item, checked: false}));
-    this.allBrandsOptions = this.allBrandsOptions.map((item: any) => ({item: item.item, checked: false}));
-    this.customerRatings = this.customerRatings.map((item: any) => ({value: item.value, checked: false}));
-    this.getPageDetails(this.filters);
+  toggleSubCategories() {
+    this.toggleAllSubcategoriesCheckboxState = JSON.stringify(this.subCategoriesListOptions) == JSON.stringify(this.formGroup.get('subCategories')?.value)
   }
 
-  markUnmarkCustomerRating(event: any, i: number) {
-    this.filters.currentPage = 1;
-    this.customerRatings[i].checked = event.checked;
-    this.filters.customerRatings = this.customerRatings.filter((rating: any) => rating.checked).map((rating: any) => rating.value);
-    this.getPageDetails(this.filters);
-  }
-
-  removeCustomerRatingFilter(rating: string) {
-    const index = this.filters.customerRatings.indexOf(rating);
-    if (index > -1) {
-      this.filters.customerRatings.splice(index, 1);
-    }
-    this.customerRatings.map((item: any) => {
-      if(item.value === rating) {
-        item.checked = false;
-      }
-    });
-    this.getPageDetails(this.filters);
-  }
-
-  viewItemDetail(item: any) {
-    this.router.navigate([`category/${item.category}/subCategory/${item.subCategory}/itemId/${item.itemId}`]);
+  toggleBrand() {
+    this.toggleAllBrandsCheckboxState = JSON.stringify(this.brandsListOptions) == JSON.stringify(this.formGroup.get('brands')?.value)
   }
 
   search(event: any) {
-    this.filters.currentPage = event;
-    this.getPageDetails(this.filters);
+    this.formGroup.get('currentPage')?.patchValue(event);
   }
 
   addItemsToCart(item: any) {
-    event?.stopPropagation();
-    let found: boolean = this.commonService.addItemsToCart(item);
-    if(!found) {
-      this.alertMessageService.addSuccess('Item added successfully').show();
-      this.router.navigate([URL_LIST.ROUTING_PATHS.VIEW_CART]);
-    } else {
-      this.alertMessageService.addError('Item already added').show();
-    }
+
+  }
+
+  viewItemDetail(item: any) {
+    this.router.navigate([`category/${this.formGroup.get('category')?.value}/subCategory/${item?.subCategory}/itemId/${item?._id}`]);
   }
 
 }

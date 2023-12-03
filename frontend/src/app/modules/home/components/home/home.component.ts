@@ -4,7 +4,7 @@ import { Location } from '@angular/common';
 import { CommonService } from 'src/app/common.service';
 import { AlertMessageService } from 'src/app/modules/shared/_services/alert-message.service';
 import { NgImageSliderComponent } from 'ng-image-slider';
-import { AuthService } from 'src/app/modules/auth/_services/auth.service';
+import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { URL_LIST } from 'src/app/config/urlList';
 
 @Component({

@@ -1,1 +1,24 @@
-<p>rate-products works!</p>
+<div class="rating-and-review-container">
+    <div class="rate-heading">Rate this product</div>
+    <div class="rate-body">
+        <div class="star-body">
+            <button mat-flat-button type="button" (click)="selectRating(1, 'Very Bad')" [ngClass]="{ 'active' : rating >= 1 }"><mat-icon>star</mat-icon></button>
+            <button mat-flat-button type="button" (click)="selectRating(2, 'Bad')" [ngClass]="{ 'active' : rating >= 2 }"><mat-icon>star</mat-icon></button>
+            <button mat-flat-button type="button" (click)="selectRating(3, 'Good')" [ngClass]="{ 'active' : rating >= 3 }"><mat-icon>star</mat-icon></button>
+            <button mat-flat-button type="button" (click)="selectRating(4, 'Very Good')" [ngClass]="{ 'active' : rating >= 4 }"><mat-icon>star</mat-icon></button>
+            <button mat-flat-button type="button" (click)="selectRating(5, 'Excellent')" [ngClass]="{ 'active' : rating >= 5 }"><mat-icon>star</mat-icon></button>
+        </div>
+        <div class="star-value" [ngClass]="'rating-' + rating.toString()">{{ratingText}}</div>
+    </div>
+    <div class="raview-heading">Review this product</div>
+    <div class="review-body">
+        <mat-form-field appearance="outline">
+            <textarea style="resize: none" matInput rows="5"></textarea>
+            <span class="remaining-char">400/500 character</span>
+        </mat-form-field>
+    </div>
+    <div class="btn-div">
+        <button mat-flat-button type="button">Cancel</button>
+        <button mat-flat-button type="button">Submit</button>
+    </div>
+</div>

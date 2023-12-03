@@ -13,6 +13,7 @@ import { ViewCartComponent } from "./components/view-cart/view-cart.component";
 import { ViewItemComponent } from "./components/view-item/view-item.component";
 import { NgImageSliderModule } from "ng-image-slider";
 import { RateProductsComponent } from './components/rate-products/rate-products.component';
+import { NgxMatSelectSearchModule } from "ngx-mat-select-search";
 
 @NgModule({
     declarations: [
@@ -32,7 +33,8 @@ import { RateProductsComponent } from './components/rate-products/rate-products.
         AppMaterialModule,
         SharedModule,
         NgxPaginationModule,
-        NgImageSliderModule
+        NgImageSliderModule,
+        NgxMatSelectSearchModule
     ],
     exports: []
 })

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MESSAGES } from 'src/app/config/message';
 import { AlertMessageService } from 'src/app/modules/shared/_services/alert-message.service';
-import { AuthService } from '../../_services/auth.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-verify',

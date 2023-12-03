@@ -1,0 +1,108 @@
+.rating-and-review-container {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+
+    .rate-heading {
+        font-size: 18px;
+        font-weight: 500;
+        color: #212121;
+    }
+
+    .rate-body {
+        display: flex;
+        align-items: center;
+        margin: 0.5rem 0;
+
+        .star-body {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+
+            button {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 0;
+                padding: 0;
+                min-width: unset;
+                height: 40px;
+                width: 40px;
+                border-radius: 50%;
+                color: #efeff4;
+
+                .mat-icon {
+                    margin: 0;
+                    padding: 0;
+                    width: 100%;
+                    height: 100%;
+                    font-size: 35px;
+                }
+            }
+
+            .active {
+                color: #fdb92c !important;
+            }
+        }
+
+        .star-value {
+            margin-left: 2rem;
+            font-size: 16px;
+        }
+
+        .rating-1 {
+            color: #ff4545;
+        }
+
+        .rating-2 {
+            color: #ff4545;
+        }
+
+        .rating-3 {
+            color: #f59a2a;
+        }
+
+        .rating-4 {
+            color: #809923;
+        }
+
+        .rating-5 {
+            color: #247809;
+        }
+    }
+
+    .raview-heading {
+        font-size: 18px;
+        font-weight: 500;
+        color: #212121;
+        margin-bottom: 0.5rem;
+
+        .review-body {}
+    }
+
+    .btn-div {
+        margin: auto 0 0 auto;
+
+        button {
+            color: #2874f0;
+            background-color: #F2F2F2;
+            box-shadow: 0 3px 6px rgb(0 0 0 / 16%);
+        }
+
+        & :last-child {
+            margin-left: 1rem;
+            background-color: #d9232d;
+            color: #FFFFFF;
+        }
+    }
+}
+
+::ng-deep.mat-mdc-form-field {
+    width: 100% !important;
+
+    .remaining-char {
+        float: right;
+        font-size: 10px;
+        font-weight: 500;
+    }
+}

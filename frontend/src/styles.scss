@@ -185,6 +185,17 @@ body {
     border-width: 1px !important;
 }
 
+.mat-mdc-option {
+    min-height: 35px !important;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    font-family: var(--mdc-typography-body1-font-family, var(--mdc-typography-font-family, Roboto, sans-serif));
+    font-size: var(--mdc-typography-body1-font-size, 12px);
+    line-height: var(--mdc-typography-body1-line-height, 35px);
+    font-weight: var(--mdc-typography-body1-font-weight, 400);
+    letter-spacing: var(--mdc-typography-body1-letter-spacing, 0.03125em)
+}
+
 // mat-form-field css end here
 
 // alert message css starts here

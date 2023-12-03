@@ -3,7 +3,7 @@ import { CanActivate, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { CommonService } from 'src/app/common.service';
 import { MESSAGES } from 'src/app/config/message';
-import { AuthService } from '../../auth/_services/auth.service';
+import { AuthService } from '../../auth/services/auth.service';
 import { AlertMessageService } from '../_services/alert-message.service';
 @Injectable({
   providedIn: 'root'

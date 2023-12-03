@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AlertMessageService } from 'src/app/modules/shared/_services/alert-message.service';
-import { AuthService } from '../../_services/auth.service';
+import { AuthService } from '../../services/auth.service';
 import { MESSAGES } from 'src/app/config/message';
 import { Router } from '@angular/router';
 import { URL_LIST } from 'src/app/config/urlList';
