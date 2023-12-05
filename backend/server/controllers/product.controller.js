@@ -27,13 +27,10 @@ exports.getItemInfo = (req, res) => {
                         res.status(200).json({ data: {itemDetails: itemDetails, similarProducts: similarProducts}, status: 200, success: true, message: "Item data fetched successfully" })
                     })
                     .catch((err) => {
-                        console.log('err111', err)
                         res.status(500).json({ data: null, status: 500, success: false, error: err, message: 'Something went wrong!' })
                     })
             })
             .catch((err) => {
-                console.log('err222', err)
-
                 res.status(500).json({ data: null, status: 500, success: false, error: err, message: 'Something went wrong!' })
             })
     } else {
