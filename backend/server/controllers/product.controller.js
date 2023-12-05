@@ -21,16 +21,19 @@ exports.getItemInfo = (req, res) => {
         product.findOne({ _id: new ObjectId(req.params.id) })
             .then((result) => {
                 let itemDetails = getItem(result);
-                product.find({category: result.category, subCategory: result.subCategory})
+                product.find({_id: {$nin: result._id}, category: result.category, subCategory: result.subCategory}).limit(30)
                     .then((result) => {
-                        let similarProducts = getItems(result.splice(0, 10));
+                        let similarProducts = getItems(result);
                         res.status(200).json({ data: {itemDetails: itemDetails, similarProducts: similarProducts}, status: 200, success: true, message: "Item data fetched successfully" })
                     })
                     .catch((err) => {
+                        console.log('err111', err)
                         res.status(500).json({ data: null, status: 500, success: false, error: err, message: 'Something went wrong!' })
                     })
             })
             .catch((err) => {
+                console.log('err222', err)
+
                 res.status(500).json({ data: null, status: 500, success: false, error: err, message: 'Something went wrong!' })
             })
     } else {
