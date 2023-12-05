@@ -40,7 +40,7 @@
                                 <button mat-flat-button (click)="updateQty(i, 'remove')">
                                     <mat-icon>remove</mat-icon>
                                 </button>
-                                <input type="number" [min]="0" appIntegersOnly [value]="item?.numberOfItem" (input)="updateQty(i, 'directChange', $event)">
+                                <input type="number" [min]="0" [value]="item?.numberOfItem" (input)="updateQty(i, 'directChange', $event)">
                                 <button mat-flat-button (click)="updateQty(i, 'add')">
                                     <mat-icon>add</mat-icon>
                                 </button>

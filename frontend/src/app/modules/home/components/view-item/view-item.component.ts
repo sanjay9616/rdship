@@ -6,6 +6,8 @@ import { AlertMessageService } from 'src/app/modules/shared/_services/alert-mess
 import { URL_LIST } from 'src/app/config/urlList';
 import { MatDialog } from '@angular/material/dialog';
 import { RateProductsComponent } from '../rate-products/rate-products.component';
+import { HomeService } from '../../services/home.service';
+import { MESSAGES } from 'src/app/config/message';
 
 @Component({
   selector: 'app-view-item',
@@ -18,30 +20,54 @@ export class ViewItemComponent implements OnInit {
     private router: Router,
     private alertMessageService: AlertMessageService,
     private activatedRoute: ActivatedRoute,
+    private homeService: HomeService,
     public dialog: MatDialog) { }
 
   params: any = {};
   itemDetails: any = {};
+  itemDetailsCopy: any = {};
   similarProducts: Array<any> = [];
   reviews: Array<any> = [];
   isShowViewMore: boolean = false;
   markedPrice: number = 0;
   sellingPrice: number = 0;
   imgUrl: string = '';
+  numberOfItem: FormControl = new FormControl(null);
 
-  numberOfItem: FormControl = new FormControl(1);
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((routeParams: any) => {
-      this.params = routeParams;
-      this.itemDetails = this.commonService.items.filter((item: any) => item.itemId == this.params.itemId)[0];
-      this.similarProducts = this.commonService.items.filter((item: any) => item.category === this.params.category && item.subCategory === this.params.subCategory);
-      this.reviews = this.itemDetails.ratingsAndReviews.filter((review: any) => review.review);
-      this.imgUrl = this.itemDetails.imgUrls[0];
-      this.markedPrice = this.itemDetails.markedPrice;
-      this.sellingPrice = this.itemDetails.sellingPrice;
-      this.numberOfItem.patchValue(this.itemDetails.numberOfItem);
+      this.params = routeParams?.itemId;
       this.isShowViewMore = false;
+      this.getItemInfo();
+    })
+  }
+
+  updateQty(addRemove?: string) {
+    if(addRemove == 'add') {
+      this.numberOfItem.patchValue(this.numberOfItem?.value + 1);
+    } else if(addRemove == 'remove') {
+      if(this.numberOfItem?.value > 1) this.numberOfItem.patchValue(this.numberOfItem?.value - 1);
+    } else {
+      this.numberOfItem.patchValue(this.numberOfItem?.value);
+    }
+    this.itemDetails.markedPrice = this.itemDetailsCopy.markedPrice * (this.numberOfItem?.value || 1);
+    this.itemDetails.sellingPrice = this.itemDetailsCopy.sellingPrice * (this.numberOfItem?.value || 1);
+  }
+
+  getItemInfo() {
+    this.homeService.getItemInfo(this.params).subscribe((res: any) => {
+      if(res?.status == 200 && res?.success) {
+        this.itemDetails = res?.data?.itemDetails;
+        this.similarProducts = res?.data?.similarProducts;
+        this.itemDetailsCopy = {...res?.data?.itemDetails};
+        this.imgUrl = this.itemDetails?.imgUrls[0];
+        this.numberOfItem.patchValue(this.itemDetails?.numberOfItem)
+      } else {
+        this.alertMessageService.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
+      }
+    }, (err: any) => {
+      this.alertMessageService.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
     })
   }
 
@@ -49,39 +75,16 @@ export class ViewItemComponent implements OnInit {
     this.imgUrl = imgUrl;
   }
 
-  updateQty(addOrRemove?: string) {
-    if(this.numberOfItem.value == 0) this.numberOfItem.patchValue(1);
-    if (addOrRemove == 'add') {
-      this.numberOfItem.patchValue(this.numberOfItem.value + 1);
-    } else if(addOrRemove == 'remove') {
-      if (this.numberOfItem.value > 1) this.numberOfItem.patchValue(this.numberOfItem.value - 1);
-    }
-    this.itemDetails.numberOfItem = this.numberOfItem.value || 1;
-    this.itemDetails.markedPrice = this.itemDetails.numberOfItem * this.markedPrice;
-    this.itemDetails.sellingPrice = this.itemDetails.numberOfItem * this.sellingPrice;
-  }
-
   viewMoreReview() {
     this.isShowViewMore = true;
   }
 
   viewItemDetail(item: any) {
-    this.router.navigate([`category/${item.category}/subCategory/${item.subCategory}/itemId/${item.itemId}`]);
+    this.router.navigate([`view-item/${item?._id}`]);
   }
 
   addItemsToCart(item: any) {
     event?.stopPropagation();
-    let found: boolean = this.commonService.addItemsToCart(item);
-    if(!found) {
-      this.alertMessageService.addSuccess('Item added successfully').show();
-      this.router.navigate([URL_LIST.ROUTING_PATHS.VIEW_CART]);
-    } else {
-      this.alertMessageService.addError('Item already added').show();
-    }
-  }
-
-  buyNow() {
-    this.router.navigate([URL_LIST.ROUTING_PATHS.VIEW_CART]);
   }
 
   rateProduct() {

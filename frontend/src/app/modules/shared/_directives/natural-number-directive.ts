@@ -1,9 +1,9 @@
 import { Directive, ElementRef, HostListener } from '@angular/core';
 
 @Directive({
-  selector: '[appIntegersOnly]'
+  selector: '[naturalNumbersOnly]'
 })
-export class IntegersOnlyDirective {
+export class NaturalNumberDirective {
 
   private navigationKeys:Array<string> = [
     'Backspace',
@@ -42,7 +42,7 @@ export class IntegersOnlyDirective {
       return;
     }
     // Ensure that it is a number and stop the keypress
-    if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+    if ((e.shiftKey || (e.keyCode < 49 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
       e.preventDefault();
     }
   }
@@ -50,14 +50,14 @@ export class IntegersOnlyDirective {
   @HostListener('paste', ['$event'])
   onPaste(event: ClipboardEvent) {
     event.preventDefault();
-    const pastedInput: any = event.clipboardData?.getData('text/plain')?.replace(/\D/g, '') // get a digit-only string
+    const pastedInput: any = event.clipboardData?.getData('text/plain')?.replace(/[^1-9]*/g, '') // get a digit-only string
     document.execCommand('insertText', false, pastedInput);
   }
 
   @HostListener('drop', ['$event'])
   onDrop(event: DragEvent) {
     event.preventDefault();
-    const textData = event.dataTransfer?.getData('text').replace(/\D/g, '');
+    const textData = event.dataTransfer?.getData('text').replace(/[^1-9]*/g, '');
     this.inputElement.focus();
     document.execCommand('insertText', false, textData);
   }

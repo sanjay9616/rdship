@@ -31,7 +31,7 @@ const routes: Routes = [
         component: ViewCartComponent,
     },
     {
-        path: 'category/:category/subCategory/:subCategory/itemId/:itemId',
+        path: 'view-item/:itemId',
         component: ViewItemComponent,
     }
 ];

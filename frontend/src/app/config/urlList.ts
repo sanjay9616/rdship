@@ -23,6 +23,9 @@ export const URL_LIST = {
         HOME: {
             PRODUCT_DETAILS: {
                 URL: '/product/getProduct'
+            },
+            ITEM_INFO: {
+                URL: '/view-item'
             }
         }
     },

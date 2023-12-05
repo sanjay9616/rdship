@@ -280,7 +280,7 @@
                     <button mat-flat-button (click)="updateQty('remove')">
                         <mat-icon>remove</mat-icon>
                     </button>
-                    <input type="number" [formControl]="numberOfItem" [min]="0" appIntegersOnly (input)="updateQty()">
+                    <input type="number" [formControl]="numberOfItem" naturalNumbersOnly (input)="updateQty()">
                     <button mat-flat-button (click)="updateQty('add')">
                         <mat-icon>add</mat-icon>
                     </button>
@@ -290,7 +290,7 @@
                 <mat-icon>shopping_cart</mat-icon>
                 <span>ADD TO CART</span>
             </button>
-            <button mat-flat-button class="primary buy-now-btn" (click)="buyNow()">
+            <button mat-flat-button class="primary buy-now-btn">
                 BUY NOW
             </button>
             <div class="delivery-detail">Delivery Details</div>
@@ -307,7 +307,7 @@
         </div>
     </div>
 </section>
-<section class="buttom-container">
+<section *ngIf="similarProducts?.length" class="buttom-container">
     <div class="similar-product-header">
         <span>Similar Products</span>
     </div>

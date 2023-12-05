@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Form, FormControl, FormControlName, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { debounceTime, distinctUntilChanged, map, startWith } from 'rxjs/operators';
-import { CommonService } from 'src/app/common.service';
+import {  distinctUntilChanged, startWith } from 'rxjs/operators';
 import { MESSAGES } from 'src/app/config/message';
-import { URL_LIST } from 'src/app/config/urlList';
 import { AlertMessageService } from 'src/app/modules/shared/_services/alert-message.service';
 import { HomeService } from '../../services/home.service';
 
@@ -15,10 +13,8 @@ import { HomeService } from '../../services/home.service';
 })
 export class ItemsComponent implements OnInit {
 
-  constructor(private commonSevice: CommonService,
-    private activatedRoute: ActivatedRoute,
+  constructor(private activatedRoute: ActivatedRoute,
     private alertMessageService: AlertMessageService,
-    private commonService: CommonService,
     private homeService: HomeService,
     private router: Router) { }
 
@@ -165,18 +161,20 @@ export class ItemsComponent implements OnInit {
 
   toggleAllSubCategories(event: boolean) {
     this.formGroup.get('subCategories')?.patchValue(event ? this.pageDetails.subCategories : []);
+    this.toggleSubCategories();
   }
 
   toggleAllBrands(event: boolean) {
     this.formGroup.get('brands')?.patchValue(event ? this.pageDetails.brands : []);
+    this.toggleBrand();
   }
 
   toggleSubCategories() {
-    this.toggleAllSubcategoriesCheckboxState = JSON.stringify(this.subCategoriesListOptions) == JSON.stringify(this.formGroup.get('subCategories')?.value)
+    this.toggleAllSubcategoriesCheckboxState = JSON.stringify(this.subCategoriesListOptions) == JSON.stringify(this.formGroup.get('subCategories')?.value);
   }
 
   toggleBrand() {
-    this.toggleAllBrandsCheckboxState = JSON.stringify(this.brandsListOptions) == JSON.stringify(this.formGroup.get('brands')?.value)
+    this.toggleAllBrandsCheckboxState = JSON.stringify(this.brandsListOptions) == JSON.stringify(this.formGroup.get('brands')?.value);
   }
 
   search(event: any) {
@@ -188,7 +186,7 @@ export class ItemsComponent implements OnInit {
   }
 
   viewItemDetail(item: any) {
-    this.router.navigate([`category/${this.formGroup.get('category')?.value}/subCategory/${item?.subCategory}/itemId/${item?._id}`]);
+    this.router.navigate([`view-item/${item?._id}`]);
   }
 
 }

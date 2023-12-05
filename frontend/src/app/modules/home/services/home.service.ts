@@ -20,4 +20,9 @@ export class HomeService {
     return this.apiService.post(url, data);
   }
 
+  getItemInfo(id: string) {
+    let url: string = `${env.rdShip.baseUrl}${URL_LIST.API.HOME.ITEM_INFO.URL}/${id}`;
+    return this.apiService.get(url);
+  }
+
 }
