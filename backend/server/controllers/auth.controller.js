@@ -146,3 +146,31 @@ exports.updateProfile = (req, res) => {
         res.status(500).json({ data: null, status: 500, success: false, message: 'Not a valid User id' })
     }
 }
+
+exports.addItemsToCart = (req, res) => {
+    if (ObjectId.isValid(req.params.id)) {
+        account.findOne({ _id: req.params.id })
+            .then((result) => {
+                let cartItems = result.cartItems
+                let isItemExits = result.cartItems.some((item) => item._id == req.body._id);
+                if (isItemExits) {
+                    res.status(200).json({ data: cartItems, status: 204, success: true, message: 'Item Already Exits in the Cart.' });
+                } else {
+                    account.updateOne({ _id: req.params.id }, { $push: { cartItems: req.body } })
+                        .then((result) => {
+                            if (result.acknowledged && result.matchedCount == 1 && result.modifiedCount == 1) {
+                                res.status(200).json({ data: cartItems, status: 200, success: true, message: 'Item Added Successfully in the Cart.' })
+                            } else {
+                                res.status(500).json({ data: null, status: 500, success: false, error: err, message: 'Something went wrong!' })
+                            }
+                        })
+                        .catch((err) => {
+                            res.status(500).json({ data: null, status: 500, success: false, error: err, message: 'Something went wrong!' })
+                        })
+                }
+            })
+    } else {
+        res.status(500).json({ data: null, status: 500, success: false, message: 'Not a valid User id' })
+    }
+
+}

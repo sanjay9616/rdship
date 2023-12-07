@@ -24,21 +24,19 @@ export class AuthService {
   constructor(private apiService: ApiService,
     private validationService: ValidationService) { }
 
-  setId(USER_ID: string) {
+  setUserId(USER_ID: string) {
     localStorage.setItem(AuthService.AUTH_TOKEN, USER_ID);
   }
 
-  getgetId() {
-    return localStorage.getItem(AuthService.USER_ID);
-
+  getUserId() {
+    return localStorage.getItem(AuthService.USER_ID) || '';
   }
 
-  clearId() {
+  removeUserId() {
     localStorage.removeItem(AuthService.USER_ID);
   }
 
   setUserDetail(user: any) {
-    this.isAuthenticated = true;
     this.userDetail = user;
   }
 

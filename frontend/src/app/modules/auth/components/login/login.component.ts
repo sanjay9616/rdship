@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
       this.authService.login(this.formGroup.value).subscribe((res: any) => {
         if (res.status == 200 && res.success) {
           this.alertService.addSuccess(MESSAGES.SUCCESS.LOGIN_SUCCESSFULL).show();
-          this.authService.setId(res.data._id);
+          this.authService.setUserId(res.data._id);
           this.getAuthData()
           this.router.navigate([URL_LIST.ROUTING_PATHS.HOME]);
         } else {

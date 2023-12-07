@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import {  distinctUntilChanged, startWith } from 'rxjs/operators';
 import { MESSAGES } from 'src/app/config/message';
+import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { AlertMessageService } from 'src/app/modules/shared/_services/alert-message.service';
 import { HomeService } from '../../services/home.service';
 
@@ -14,9 +15,10 @@ import { HomeService } from '../../services/home.service';
 export class ItemsComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute,
-    private alertMessageService: AlertMessageService,
+    private alertMessage: AlertMessageService,
     private homeService: HomeService,
-    private router: Router) { }
+    private router: Router,
+    private authService: AuthService) { }
 
   formGroup!: FormGroup;
   isOpenFilers: boolean = false;
@@ -100,10 +102,10 @@ export class ItemsComponent implements OnInit {
         this.subCategoryMultiFilterCtrlValueChanges();
         this.brandMultiFilterCtrlValueChanges();
       } else {
-        this.alertMessageService.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
+        this.alertMessage.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
       }
     }, (err: any) => {
-      this.alertMessageService.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
+      this.alertMessage.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
     })
   }
 
@@ -182,7 +184,17 @@ export class ItemsComponent implements OnInit {
   }
 
   addItemsToCart(item: any) {
-
+    this.homeService.addItemsToCart(this.authService.getUserId(), item).subscribe((res: any) => {
+      if(res?.status == 204 && res?.success) {
+        this.alertMessage.addWarning('Item Already Exits in the Cart.').show();
+      } else if(res?.status == 200 && res?.success) {
+        this.alertMessage.addSuccess('Item Added Successfully in the Cart.').show();
+      } else {
+        this.alertMessage.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
+      }
+    }, (err: any) => {
+      this.alertMessage.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
+    })
   }
 
   viewItemDetail(item: any) {

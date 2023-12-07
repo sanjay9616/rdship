@@ -25,4 +25,9 @@ export class HomeService {
     return this.apiService.get(url);
   }
 
+  addItemsToCart(id: string, data: any) {
+    let url: string = `${env.rdShip.baseUrl}${URL_LIST.API.ITEMS.ADD_ITEM_TO_CART.URL}/${id}`;
+    return this.apiService.post(url, data);
+  }
+
 }

@@ -23,6 +23,8 @@ export class AuthGuard implements CanActivate {
   getAuthData() {
     this.authService.getAuthData(localStorage.getItem('_id')).subscribe((res) => {
       if(res?.status == 200 && res?.success) {
+        console.log('-------', res.data);
+        
         this.authService.setUserDetail(res.data);
         this.authService.setIsAuthenticated(true);
       }

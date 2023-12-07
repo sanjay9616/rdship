@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonService } from 'src/app/common.service';
 import { URL_LIST } from 'src/app/config/urlList';
+import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { AlertMessageService } from 'src/app/modules/shared/_services/alert-message.service';
 
 @Component({
@@ -13,12 +14,14 @@ export class ViewCartComponent implements OnInit {
 
   constructor(private commonService: CommonService,
     private alertMessageService: AlertMessageService,
-    private router: Router) { }
+    private router: Router,
+    private authService: AuthService) { }
 
-  cartItems: Array<any> = this.commonService.getCartItems();
-  priceDetails: Array<any> = this.cartItems.filter((item: any) => item).map((item: any) => ({markedPrice: Number(item.markedPrice)/Number(item.numberOfItem), sellingPrice: Number(item.sellingPrice)/Number(item.numberOfItem)}));
+  cartItems: Array<any> = [];// call api
 
   ngOnInit(): void {
+    console.log('cartItems', this.cartItems);
+    console.log('authService', this.authService.getIsAuthenticated());
   }
 
   home() {
@@ -26,24 +29,6 @@ export class ViewCartComponent implements OnInit {
   }
 
   updateQty(i: number, addOrRemove: string, event?: any) {
-    if(addOrRemove === 'add') {
-      this.cartItems[i].numberOfItem += 1;
-    } else if(addOrRemove === 'remove') {
-      if(this.cartItems[i].numberOfItem > 1) {
-        this.cartItems[i].numberOfItem -= 1;
-      }
-    } else if(addOrRemove === 'directChange') {
-      if(event.target.value && Number(event.target.value) === 0) {
-        event.target.value = 1;
-        this.cartItems[i].numberOfItem = 1;
-      } else if(event.target.value && Number(event.target.value > 0)) {
-        this.cartItems[i].numberOfItem = event.target.value;
-      } else {
-        this.cartItems[i].numberOfItem = 1;
-      }
-    }
-    this.cartItems[i].markedPrice = this.priceDetails[i].markedPrice * this.cartItems[i].numberOfItem;
-    this.cartItems[i].sellingPrice = this.priceDetails[i].sellingPrice * this.cartItems[i].numberOfItem;
   }
 
   removeItemsToCart(item: any) {

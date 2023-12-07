@@ -18,6 +18,9 @@ module.exports = {
             },
             AUTH_DATA: {
                 URL: '/account/auth-data/:id'
+            },
+            ADD_ITEM_TO_CART: {
+                URL: '/account/addItemToCart/:id'
             }
         }
     },

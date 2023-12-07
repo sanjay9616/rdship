@@ -27,6 +27,11 @@ export const URL_LIST = {
             ITEM_INFO: {
                 URL: '/view-item'
             }
+        },
+        ITEMS: {
+            ADD_ITEM_TO_CART: {
+                URL: '/account/addItemToCart'
+            }
         }
     },
     ROUTING_PATHS: {

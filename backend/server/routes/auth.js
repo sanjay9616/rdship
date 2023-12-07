@@ -13,4 +13,5 @@ module.exports = (app) => {
     app.patch(URL_LIST.API.ACCOUNT.VERIFY_USER.URL, auth.verifyUser);
     app.patch(URL_LIST.API.ACCOUNT.FORGET_PASSWORD.URL, auth.forgetPassword);
     app.post(URL_LIST.API.ACCOUNT.UPDATE_PROFILE.URL, auth.updateProfile);
+    app.post(URL_LIST.API.ACCOUNT.ADD_ITEM_TO_CART.URL, auth.addItemsToCart);
 };

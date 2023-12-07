@@ -30,7 +30,7 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    this.authService.clearId();
+    this.authService.removeUserId();
     this.authService.clearUserDetail();
     this.authService.setIsAuthenticated(false);
     this.alertMessage.addSuccess(MESSAGES.SUCCESS.LOGOUT_SUCCESSFULL).show()
