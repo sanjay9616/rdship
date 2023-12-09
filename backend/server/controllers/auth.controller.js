@@ -147,19 +147,26 @@ exports.updateProfile = (req, res) => {
     }
 }
 
-exports.addItemsToCart = (req, res) => {
-    if (ObjectId.isValid(req.params.id)) {
-        account.findOne({ _id: req.params.id })
+exports.addCartItem = (req, res) => {
+    let userId = req.params.id
+    if (ObjectId.isValid(userId)) {
+        account.findOne({ _id: userId })
             .then((result) => {
                 let cartItems = result.cartItems
                 let isItemExits = result.cartItems.some((item) => item._id == req.body._id);
                 if (isItemExits) {
                     res.status(200).json({ data: cartItems, status: 204, success: true, message: 'Item Already Exits in the Cart.' });
                 } else {
-                    account.updateOne({ _id: req.params.id }, { $push: { cartItems: req.body } })
+                    account.updateOne({ _id: userId }, { $push: { cartItems: req.body } })
                         .then((result) => {
                             if (result.acknowledged && result.matchedCount == 1 && result.modifiedCount == 1) {
-                                res.status(200).json({ data: cartItems, status: 200, success: true, message: 'Item Added Successfully in the Cart.' })
+                                account.findOne({ _id: userId })
+                                    .then((result) => {
+                                        res.status(200).json({ data: result.cartItems, status: 200, success: true, message: 'Item Added Successfully in the Cart.' })
+                                    })
+                                    .catch((err) => {
+                                        res.status(500).json({ data: null, status: 500, success: false, error: err, message: 'Something went wrong!' })
+                                    })
                             } else {
                                 res.status(500).json({ data: null, status: 500, success: false, error: err, message: 'Something went wrong!' })
                             }
@@ -173,4 +180,47 @@ exports.addItemsToCart = (req, res) => {
         res.status(500).json({ data: null, status: 500, success: false, message: 'Not a valid User id' })
     }
 
+}
+
+exports.getCartItems = (req, res) => {
+    let userId = req.params.id
+    if (ObjectId.isValid(userId)) {
+        account.findOne({ _id: userId })
+            .then((result) => {
+                res.status(200).json({ data: result.cartItems, status: 200, success: true, message: 'Cart Items Fetched Successfully.' });
+            })
+            .catch((err) => {
+                res.status(500).json({ data: null, status: 500, success: false, error: err, message: 'Something went wrong!' })
+            })
+    } else {
+        res.status(500).json({ data: null, status: 500, success: false, message: 'Not a valid User id' })
+    }
+}
+
+exports.deleteCartItem = (req, res) => {
+    let userId = req.params.userId
+    let itemId = req.params.itemId
+    if (!ObjectId.isValid(userId)) {
+        res.status(500).json({ data: null, status: 500, success: false, message: 'Not a valid User Id' })
+    } else if (!ObjectId.isValid(userId)) {
+        res.status(500).json({ data: null, status: 500, success: false, message: 'Not a valid Item Id' })
+    } else {
+        account.updateOne({ _id: new ObjectId(userId) }, { $pull: { cartItems: { _id: new ObjectId(itemId) } } })
+            .then((result) => {
+                if (result.acknowledged && result.matchedCount == 1 && result.modifiedCount == 1) {
+                    account.findOne({ _id: userId })
+                        .then((result) => {
+                            res.status(200).json({ data: result.cartItems, status: 200, success: true, message: 'Item Deleted Successfully.' })
+                        })
+                        .catch((err) => {
+                            res.status(500).json({ data: null, status: 500, success: false, error: err, message: 'Something went wrong!' })
+                        })
+                } else if (result.acknowledged && result.modifiedCount == 0 && result.matchedCount == 1) {
+                    res.status(409).json({ data: null, status: 409, success: false, message: "Can't delete Item" })
+                }
+            })
+            .catch((err) => {
+                res.status(500).json({ data: null, status: 500, success: false, error: err, message: 'Something Went Wrong!' })
+            })
+    }
 }

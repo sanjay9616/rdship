@@ -40,12 +40,12 @@
                                 <button mat-flat-button (click)="updateQty(i, 'remove')">
                                     <mat-icon>remove</mat-icon>
                                 </button>
-                                <input type="number" [min]="0" [value]="item?.numberOfItem" (input)="updateQty(i, 'directChange', $event)">
+                                <input type="number" naturalNumbersOnly [value]="item?.numberOfItem" (input)="updateQty(i, $event)">
                                 <button mat-flat-button (click)="updateQty(i, 'add')">
                                     <mat-icon>add</mat-icon>
                                 </button>
                             </div>
-                            <button mat-flat-button class="remove-btn" (click)="removeItemsToCart(item)">REMOVE</button>
+                            <button mat-flat-button class="remove-btn" (click)="deleteCartItem(item)">REMOVE</button>
                         </div>
                     </div>
                 </div>

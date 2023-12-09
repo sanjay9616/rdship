@@ -25,9 +25,19 @@ export class HomeService {
     return this.apiService.get(url);
   }
 
-  addItemsToCart(id: string, data: any) {
-    let url: string = `${env.rdShip.baseUrl}${URL_LIST.API.ITEMS.ADD_ITEM_TO_CART.URL}/${id}`;
+  addCartItem(id: string, data: any) {
+    let url: string = `${env.rdShip.baseUrl}${URL_LIST.API.CART_ITEMS.ADD_ITEM_TO_CART.URL}/${id}`;
     return this.apiService.post(url, data);
+  }
+
+  getCartItems(id: string) {
+    let url: string = `${env.rdShip.baseUrl}${URL_LIST.API.CART_ITEMS.GET_CART_ITEMS.URL}/${id}`;
+    return this.apiService.get(url);
+  }
+
+  deleteCartItem(userId: string, itemId: string) {
+    let url: string = `${env.rdShip.baseUrl}${URL_LIST.API.CART_ITEMS.DELETE_CART_ITEM.URL}/${userId}/${itemId}`;
+    return this.apiService.delete(url);
   }
 
 }

@@ -42,7 +42,10 @@ export class NaturalNumberDirective {
       return;
     }
     // Ensure that it is a number and stop the keypress
-    if ((e.shiftKey || (e.keyCode < 49 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+    if(this.el.nativeElement.value.length == 0 && e.keyCode == 48) { // handle 0
+      e.preventDefault();
+    }
+    if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
       e.preventDefault();
     }
   }

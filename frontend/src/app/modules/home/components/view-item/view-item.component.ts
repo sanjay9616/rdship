@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { RateProductsComponent } from '../rate-products/rate-products.component';
 import { HomeService } from '../../services/home.service';
 import { MESSAGES } from 'src/app/config/message';
+import { AuthService } from 'src/app/modules/auth/services/auth.service';
 
 @Component({
   selector: 'app-view-item',
@@ -21,7 +22,9 @@ export class ViewItemComponent implements OnInit {
     private alertMessageService: AlertMessageService,
     private activatedRoute: ActivatedRoute,
     private homeService: HomeService,
-    public dialog: MatDialog) { }
+    public dialog: MatDialog,
+    private authService: AuthService,
+    private alertMessage: AlertMessageService) { }
 
   params: any = {};
   itemDetails: any = {};
@@ -59,6 +62,7 @@ export class ViewItemComponent implements OnInit {
     this.homeService.getItemInfo(this.params).subscribe((res: any) => {
       if(res?.status == 200 && res?.success) {
         this.itemDetails = res?.data?.itemDetails;
+        console.log('itemDetails', this.itemDetails);
         this.similarProducts = res?.data?.similarProducts;
         this.itemDetailsCopy = {...res?.data?.itemDetails};
         this.imgUrl = this.itemDetails?.imgUrls[0];
@@ -85,6 +89,18 @@ export class ViewItemComponent implements OnInit {
 
   addItemsToCart(item: any) {
     event?.stopPropagation();
+    this.homeService.addCartItem(this.authService.getUserId(), item).subscribe((res: any) => {
+      if(res?.status == 204 && res?.success) {
+        this.alertMessage.addWarning('Item Already Exits in the Cart.').show();
+      } else if(res?.status == 200 && res?.success) {
+        this.authService.setCartItems(res?.data);
+        this.alertMessage.addSuccess('Item Added Successfully in the Cart.').show();
+      } else {
+        this.alertMessage.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
+      }
+    }, (err: any) => {
+      this.alertMessage.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
+    })
   }
 
   rateProduct() {

@@ -44,6 +44,14 @@ export class AuthService {
     return this.userDetail;
   }
 
+  getCartItems() {
+    return this.userDetail.cartItems;
+  }
+
+  setCartItems(items: Array<any>) {
+    this.userDetail.cartItems = items;
+  }
+
   clearUserDetail() {
     this.userDetail = {};
     this.isAuthenticated = false;

@@ -183,11 +183,12 @@ export class ItemsComponent implements OnInit {
     this.formGroup.get('currentPage')?.patchValue(event);
   }
 
-  addItemsToCart(item: any) {
-    this.homeService.addItemsToCart(this.authService.getUserId(), item).subscribe((res: any) => {
+  addCartItem(item: any) {
+    this.homeService.addCartItem(this.authService.getUserId(), item).subscribe((res: any) => {
       if(res?.status == 204 && res?.success) {
         this.alertMessage.addWarning('Item Already Exits in the Cart.').show();
       } else if(res?.status == 200 && res?.success) {
+        this.authService.setCartItems(res?.data);
         this.alertMessage.addSuccess('Item Added Successfully in the Cart.').show();
       } else {
         this.alertMessage.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();

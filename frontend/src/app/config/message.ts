@@ -16,6 +16,7 @@ export const MESSAGES = {
         LOGOUT_SUCCESSFULL: 'Log-out Successfully.',
         VERIFY_SUCCESSFULL: 'Verified Successfully.',
         PASSWORD_UPDATED: 'Password Updated Successfully.',
-        PROFILE_UPDATED: "Profile Updated Successfully."
+        PROFILE_UPDATED: "Profile Updated Successfully.",
+        ITEM_DELETED: "Item Deleted Successfully."
     }
 }

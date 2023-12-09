@@ -28,9 +28,15 @@ export const URL_LIST = {
                 URL: '/view-item'
             }
         },
-        ITEMS: {
+        CART_ITEMS: {
             ADD_ITEM_TO_CART: {
-                URL: '/account/addItemToCart'
+                URL: '/account/add-cart-item'
+            },
+            GET_CART_ITEMS: {
+                URL: '/account/get-cart-items'
+            },
+            DELETE_CART_ITEM: {
+                URL: '/account/delete-cart-item'
             }
         }
     },

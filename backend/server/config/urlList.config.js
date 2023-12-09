@@ -19,8 +19,16 @@ module.exports = {
             AUTH_DATA: {
                 URL: '/account/auth-data/:id'
             },
+        },
+        CART_ITEMS: {
             ADD_ITEM_TO_CART: {
-                URL: '/account/addItemToCart/:id'
+                URL: '/account/add-cart-item/:id'
+            },
+            GET_CART_ITEMS: {
+                URL: '/account/get-cart-items/:id'
+            },
+            DELETE_CART_ITEM: {
+                URL: '/account/delete-cart-item/:userId/:itemId'
             }
         }
     },
