@@ -37,11 +37,11 @@
                         </div>
                         <div class="item-count-container">
                             <div class="update-qty-right">
-                                <button mat-flat-button (click)="updateQty(i, 'remove')">
+                                <button mat-flat-button (click)="updateQty(i, 'remove', item?._id)">
                                     <mat-icon>remove</mat-icon>
                                 </button>
-                                <input type="number" naturalNumbersOnly [value]="item?.numberOfItem" (input)="updateQty(i, $event)">
-                                <button mat-flat-button (click)="updateQty(i, 'add')">
+                                <input type="number" naturalNumbersOnly [value]="item?.numberOfItem" (input)="updateQty(i, $event, item?._id)">
+                                <button mat-flat-button (click)="updateQty(i, 'add', item?._id)">
                                     <mat-icon>add</mat-icon>
                                 </button>
                             </div>
@@ -70,7 +70,7 @@
             <div class="price-detail-div">
                 <div class="price-div">
                     <span>Price ({{cartItems.length}} item)</span>
-                    <span>{{calculateMarkedPrice() | currency}}</span>
+                    <span class="all-item-marked-price">{{calculateMarkedPrice() | currency}}</span>
                 </div>
                 <div class="discount-div">
                     <span>Discount</span>

@@ -29,7 +29,10 @@ module.exports = {
             },
             DELETE_CART_ITEM: {
                 URL: '/account/delete-cart-item/:userId/:itemId'
-            }
+            },
+            UPDATE_CART_QTY: {
+                URL: '/account/update-cart-qty/:userId/:itemId'
+            },
         }
     },
     DATABASE: {

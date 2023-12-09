@@ -312,7 +312,10 @@
                     font-size: 16px;
                     line-height: 30px;
 
-
+                    .all-item-marked-price {
+                        color: #878787;
+                        text-decoration: line-through;
+                    }
                 }
 
                 .discount-div {

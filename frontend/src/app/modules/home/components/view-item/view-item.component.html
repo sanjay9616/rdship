@@ -186,7 +186,7 @@
                         </div>
                     </div>
                 </div>
-                <ng-container *ngFor="let rating of reviews; let i = index">
+                <ng-container *ngFor="let rating of itemDetails?.ratingsAndReviews; let i = index">
                     <div *ngIf="i < 2" class="rating-detail-container">
                         <div class="rating-given">
                             <div class="rating-star">
@@ -248,7 +248,7 @@
                         </div>
                     </div>
                 </ng-container>
-                <button *ngIf="!isShowViewMore && reviews?.length" mat-flat-button class="view-more-review"
+                <button *ngIf="!isShowViewMore && itemDetails?.ratingsAndReviews?.length" mat-flat-button class="view-more-review"
                     (click)="viewMoreReview()">
                     VIEW {{itemDetails?.ratingsAndReviewsDetails?.numberOfReview - 2}} MORE HELPFUL REVIEW >
                 </button>
@@ -280,7 +280,7 @@
                     <button mat-flat-button (click)="updateQty('remove')">
                         <mat-icon>remove</mat-icon>
                     </button>
-                    <input type="number" [formControl]="numberOfItem" naturalNumbersOnly (input)="updateQty()">
+                    <input type="number" [value]="itemDetails?.numberOfItem" naturalNumbersOnly (input)="updateQty($event)">
                     <button mat-flat-button (click)="updateQty('add')">
                         <mat-icon>add</mat-icon>
                     </button>
@@ -341,9 +341,10 @@
                     </div>
                     <div class="button-section">
                         <button mat-flat-button [disabled]="true">
-                            {{product?.unit?.list[0].value}} {{product?.unit?.list[0].unit}}
-                            {{product?.unit?.list[0].packOf > 1 ? ', Pack of ' + product?.unit?.list[0].packOf :
-                            ''}}
+                            <ng-container *ngFor="let key of product?.activeProduct | keyvalue; let isLast=last">
+                                <span *ngIf="!isLast">{{key?.value}} * </span>
+                                <span *ngIf="isLast">{{key?.value}}</span>
+                            </ng-container>
                         </button>
                         <button mat-flat-button (click)="addItemsToCart(product)">ADD Item</button>
                     </div>

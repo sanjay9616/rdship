@@ -37,6 +37,9 @@ export const URL_LIST = {
             },
             DELETE_CART_ITEM: {
                 URL: '/account/delete-cart-item'
+            },
+            UPDATE_CART_QTY: {
+                URL: '/account/update-cart-qty'
             }
         }
     },

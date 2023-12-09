@@ -40,4 +40,9 @@ export class HomeService {
     return this.apiService.delete(url);
   }
 
+  updateCartQty(userId: string, itemId: string, data: any) {
+    let url: string = `${env.rdShip.baseUrl}${URL_LIST.API.CART_ITEMS.UPDATE_CART_QTY.URL}/${userId}/${itemId}`;
+    return this.apiService.patch(url, data);
+  }
+
 }

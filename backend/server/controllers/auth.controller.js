@@ -224,3 +224,35 @@ exports.deleteCartItem = (req, res) => {
             })
     }
 }
+
+exports.updateCartQty = (req, res) => {
+    let userId = req.params.userId
+    let itemId = req.params.itemId
+    if (!ObjectId.isValid(userId)) {
+        res.status(500).json({ data: null, status: 500, success: false, message: 'Not a valid User Id' })
+    } else if (!ObjectId.isValid(userId)) {
+        res.status(500).json({ data: null, status: 500, success: false, message: 'Not a valid Item Id' })
+    } else {
+        if (req.body.numberOfItem > 0) {
+            account.updateOne({ _id: new ObjectId(userId), "cartItems._id": itemId }, { $set: { "cartItems.$.numberOfItem": req.body.numberOfItem } })
+                .then((result) => {
+                    if (result.acknowledged && result.matchedCount == 1 && result.modifiedCount == 1) {
+                        account.findOne({ _id: userId })
+                            .then((result) => {
+                                res.status(200).json({ data: result.cartItems, status: 200, success: true, message: 'Item Quantity Updated Successfully.' })
+                            })
+                            .catch((err) => {
+                                res.status(500).json({ data: null, status: 500, success: false, error: err, message: 'Something went wrong!' })
+                            })
+                    } else if (result.acknowledged && result.modifiedCount == 0 && result.matchedCount == 1) {
+                        res.status(409).json({ data: null, status: 409, success: false, message: `Item Quantity Already ${req.body.numberOfItem}.` })
+                    }
+                })
+                .catch((err) => {
+                    res.status(500).json({ data: null, status: 500, success: false, error: err, message: 'Something Went Wrong!' })
+                })
+        } else {
+            res.status(400).json({ data: null, status: 400, success: false, message: "Item Quantity Should Greater Then 1" })
+        }
+    }
+}

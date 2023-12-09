@@ -45,16 +45,45 @@ export class ViewCartComponent implements OnInit {
     this.router.navigate([URL_LIST.ROUTING_PATHS.HOME]);
   }
 
-  updateQty(i: number, addOrRemove: any) {
+  updateQty(i: number, addOrRemove: any, itemId: string) {
     if (addOrRemove == 'add') {
       this.cartItems[i].numberOfItem += Number(1);
+      this.cartItems[i].markedPrice = Number((Number(this.cartItemsCopy[i].markedPrice) / Number(this.cartItemsCopy[i].numberOfItem)) * (Number(this.cartItems[i].numberOfItem)));
+      this.cartItems[i].sellingPrice = Number((Number(this.cartItemsCopy[i].sellingPrice) / Number(this.cartItemsCopy[i].numberOfItem)) * (Number(this.cartItems[i].numberOfItem)));
+      this.updateCartQty(i, itemId);
     } else if (addOrRemove == 'remove') {
-      if (this.cartItems[i].numberOfItem > 1) this.cartItems[i].numberOfItem -= Number(1);
+      if (this.cartItems[i].numberOfItem > 1) {
+        this.cartItems[i].numberOfItem -= Number(1);
+        this.cartItems[i].markedPrice = Number((Number(this.cartItemsCopy[i].markedPrice) / Number(this.cartItemsCopy[i].numberOfItem)) * (Number(this.cartItems[i].numberOfItem)));
+        this.cartItems[i].sellingPrice = Number((Number(this.cartItemsCopy[i].sellingPrice) / Number(this.cartItemsCopy[i].numberOfItem)) * (Number(this.cartItems[i].numberOfItem)));
+        this.updateCartQty(i, itemId);
+      };
     } else {
-      this.cartItems[i].numberOfItem = Number(addOrRemove.target.value || 1);
+      if (addOrRemove.target.value) {
+        this.cartItems[i].numberOfItem = Number(addOrRemove.target.value || 1);
+        this.cartItems[i].markedPrice = Number((Number(this.cartItemsCopy[i].markedPrice) / Number(this.cartItemsCopy[i].numberOfItem)) * (Number(this.cartItems[i].numberOfItem)));
+        this.cartItems[i].sellingPrice = Number((Number(this.cartItemsCopy[i].sellingPrice) / Number(this.cartItemsCopy[i].numberOfItem)) * (Number(this.cartItems[i].numberOfItem)));
+        this.updateCartQty(i, itemId);
+      }
     }
-    this.cartItems[i].markedPrice = Number((Number(this.cartItemsCopy[i].markedPrice) / Number(this.cartItemsCopy[i].numberOfItem)) * (Number(this.cartItems[i].numberOfItem)));
-    this.cartItems[i].sellingPrice = Number((Number(this.cartItemsCopy[i].sellingPrice) / Number(this.cartItemsCopy[i].numberOfItem)) * (Number(this.cartItems[i].numberOfItem)));
+  }
+
+  updateCartQty(i: number, itemId: string) {
+    this.homeService.updateCartQty(this.authService.getUserId(), itemId, { numberOfItem: this.cartItems[i].numberOfItem }).subscribe((res: any) => {
+      if (res?.status == 200 && res?.success) {
+        this.alertMessage.addSuccess(MESSAGES.SUCCESS.CART_QTY_UPDATED).show();
+      } else {
+        this.alertMessage.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
+      }
+    }, (err: any) => {
+      if (err?.error?.status == 400 && !err?.error?.success) {
+        this.alertMessage.addError(MESSAGES.ERROR.QTY_GREATER_THEN_ONE).show();
+      } else if (err?.error?.status == 409 && !err?.error?.success) {
+        this.alertMessage.addWarning(err?.error?.message).show();
+      } else {
+        this.alertMessage.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
+      }
+    })
   }
 
   deleteCartItem(item: any) {
@@ -94,7 +123,7 @@ export class ViewCartComponent implements OnInit {
   calculateDiscount() {
     let totalDiscount: number = 0;
     for (let i = 0; i < this.cartItems.length; i++) {
-      totalDiscount += Number(Number(this.cartItems[i].markedPrice) - Number(this.cartItems[i].sellingPrice));
+      totalDiscount += Number(this.cartItems[i].markedPrice - this.cartItems[i].sellingPrice);
     }
     return Number(totalDiscount);
   }

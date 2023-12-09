@@ -9,6 +9,8 @@ export const MESSAGES = {
         ENTER_NEW_PASSWORD: "Please Enter New Password.",
         LOGIN_FIRST: "Please Login First, You Don't Have Permission.",
         ENTER_NEW_DETAILS: "Not Updated Any Details.",
+        QTY_GREATER_THEN_ONE: "Item Quantity Shoul Greater Then 1.",
+        CANNOT_UPDATE_QTY: "Item Quantity Can't be Update."
     },
     SUCCESS: {
         ACCOUNT_CREATED: 'Account Created Successfully.',
@@ -17,6 +19,7 @@ export const MESSAGES = {
         VERIFY_SUCCESSFULL: 'Verified Successfully.',
         PASSWORD_UPDATED: 'Password Updated Successfully.',
         PROFILE_UPDATED: "Profile Updated Successfully.",
-        ITEM_DELETED: "Item Deleted Successfully."
+        ITEM_DELETED: "Item Deleted Successfully.",
+        CART_QTY_UPDATED: "Quantity Updated Successfully."
     }
 }

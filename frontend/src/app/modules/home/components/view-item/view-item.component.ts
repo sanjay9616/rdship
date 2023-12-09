@@ -30,13 +30,8 @@ export class ViewItemComponent implements OnInit {
   itemDetails: any = {};
   itemDetailsCopy: any = {};
   similarProducts: Array<any> = [];
-  reviews: Array<any> = [];
   isShowViewMore: boolean = false;
-  markedPrice: number = 0;
-  sellingPrice: number = 0;
   imgUrl: string = '';
-  numberOfItem: FormControl = new FormControl(null);
-
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((routeParams: any) => {
@@ -46,27 +41,25 @@ export class ViewItemComponent implements OnInit {
     })
   }
 
-  updateQty(addRemove?: string) {
+  updateQty(addRemove: any) {
     if(addRemove == 'add') {
-      this.numberOfItem.patchValue(this.numberOfItem?.value + 1);
+      this.itemDetails.numberOfItem += Number(1);
     } else if(addRemove == 'remove') {
-      if(this.numberOfItem?.value > 1) this.numberOfItem.patchValue(this.numberOfItem?.value - 1);
+      if(this.itemDetails.numberOfItem > 1) this.itemDetails.numberOfItem -= Number(1);
     } else {
-      this.numberOfItem.patchValue(this.numberOfItem?.value);
+      this.itemDetails.numberOfItem = Number(addRemove.target.value || 1);
     }
-    this.itemDetails.markedPrice = this.itemDetailsCopy.markedPrice * (this.numberOfItem?.value || 1);
-    this.itemDetails.sellingPrice = this.itemDetailsCopy.sellingPrice * (this.numberOfItem?.value || 1);
+    this.itemDetails.markedPrice = this.itemDetailsCopy.markedPrice * (this.itemDetails.numberOfItem || 1);
+    this.itemDetails.sellingPrice = this.itemDetailsCopy.sellingPrice * (this.itemDetails.numberOfItem || 1);
   }
 
   getItemInfo() {
     this.homeService.getItemInfo(this.params).subscribe((res: any) => {
       if(res?.status == 200 && res?.success) {
         this.itemDetails = res?.data?.itemDetails;
-        console.log('itemDetails', this.itemDetails);
         this.similarProducts = res?.data?.similarProducts;
         this.itemDetailsCopy = {...res?.data?.itemDetails};
         this.imgUrl = this.itemDetails?.imgUrls[0];
-        this.numberOfItem.patchValue(this.itemDetails?.numberOfItem)
       } else {
         this.alertMessageService.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
       }
