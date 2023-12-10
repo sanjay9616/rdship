@@ -31,7 +31,7 @@
                 </ng-container>
                 <ng-container *ngIf="formGroup?.get('sellingPrice')?.value">
                     <div class="filter">
-                        <span>{{formGroup.get('sellingPrice')?.value | currency}} or lower</span>
+                        <span>{{formGroup.get('sellingPrice')?.value - 99 | currency}} - {{formGroup.get('sellingPrice')?.value | currency}}</span>
                         <button mat-icon-button type="button" (click)="removeFilter('sellingPrice')">
                             <mat-icon>close</mat-icon>
                         </button>

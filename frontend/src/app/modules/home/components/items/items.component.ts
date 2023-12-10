@@ -28,16 +28,16 @@ export class ItemsComponent implements OnInit {
   subCategoriesListOptions: Array<any> = [];
   brandsListOptions: Array<any> = [];
   priceList: Array<any> = [
-    { view: '₹1000 or lower', value: 1000 },
-    { view: '₹900 or lower', value: 900 },
-    { view: '₹800 or lower', value: 800 },
-    { view: '₹700 or lower', value: 700 },
-    { view: '₹600 or lower', value: 600 },
-    { view: '₹500 or lower', value: 500 },
-    { view: '₹400 or lower', value: 400 },
-    { view: '₹300 or lower', value: 300 },
-    { view: '₹200 or lower', value: 200 },
-    { view: '₹100 or lower', value: 100 },
+    { view: '₹901 - ₹1000', value: 1000 },
+    { view: '₹801 - ₹900', value: 900 },
+    { view: '₹701 - ₹800', value: 800 },
+    { view: '₹601 - ₹700', value: 700 },
+    { view: '₹501 - ₹600', value: 600 },
+    { view: '₹401 - ₹500', value: 500 },
+    { view: '₹301 - ₹400', value: 400 },
+    { view: '₹201 - ₹300', value: 300 },
+    { view: '₹101 - ₹200', value: 200 },
+    { view: '₹1 - ₹100', value: 100 },
   ];
   ratingList: Array<any> = [
     { view: 5, value: 5 },
@@ -65,7 +65,7 @@ export class ItemsComponent implements OnInit {
       this.routeParams = routeParams;
     })
     this.initFormGroup();
-    this.getProductDetails()
+    this.getProductDetails();
   }
 
   openCloseFilters() {
@@ -89,7 +89,7 @@ export class ItemsComponent implements OnInit {
 
   formGroupValueChanges() {
     this.formGroup.valueChanges.pipe(
-      distinctUntilChanged((prev: any, next: any) => JSON.stringify(prev) === JSON.stringify(next))
+      distinctUntilChanged((prev: any, next: any) => JSON.stringify(prev) == JSON.stringify(next))
     ).subscribe(() => {
       this.getProductDetails();
     });
@@ -101,6 +101,7 @@ export class ItemsComponent implements OnInit {
         this.pageDetails = res?.data;
         this.subCategoryMultiFilterCtrlValueChanges();
         this.brandMultiFilterCtrlValueChanges();
+        this.formGroup.get('currentPage')?.patchValue(1, { emitEvent: false });
       } else {
         this.alertMessage.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
       }
@@ -116,15 +117,15 @@ export class ItemsComponent implements OnInit {
       let formControlValue = this.formGroup.get(formControlName)?.value;
       formControlValue.splice(i, 1)
       this.formGroup.get(formControlName)?.patchValue(formControlValue);
+      this.getProductDetails();
     }
-    this.formGroup.updateValueAndValidity();
     this.toggleSubCategories();
     this.toggleBrand();
   }
 
   clearFilter() {
-    this.formGroup.reset();
     this.initFormGroup();
+    this.formGroup.updateValueAndValidity();
   }
 
 
@@ -180,7 +181,7 @@ export class ItemsComponent implements OnInit {
   }
 
   search(event: any) {
-    this.formGroup.get('currentPage')?.patchValue(event);
+    this.formGroup.get('currentPage')?.patchValue(event, { emitEvent: false });
   }
 
   addCartItem(item: any) {
