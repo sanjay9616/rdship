@@ -45,4 +45,9 @@ export class HomeService {
     return this.apiService.patch(url, data);
   }
 
+  changeProductSpecification(itemId: string, data: any) {
+    let url: string = `${env.rdShip.baseUrl}${URL_LIST.API.HOME.CHANGE_SPECIFICATION.URL}/${itemId}`;
+    return this.apiService.post(url, data);
+  }
+
 }

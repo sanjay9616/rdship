@@ -67,15 +67,17 @@
                 <div class="margin-price">{{itemDetails.markedPrice | currency}}</div>
                 <div class="discount-percent">{{itemDetails?.discountPercent | decimal: 0}}% off</div>
             </div>
-            <ng-container *ngFor="let filterAttr of itemDetails?.filterAttributesList">
+            <ng-container *ngFor="let filterAttr of itemDetails?.filterAttributesList; let i = index;">
                 <div class="unit-details">
                     <div class="unit-details">
                         <div class="label">{{filterAttr?.name.split('_').join(' ')}}</div>
                         <div class="mat-radio-group">
-                            <ng-container *ngFor="let item of filterAttr?.items">
+                            <ng-container *ngFor="let item of filterAttr?.items; let j = index;">
                                 <mat-radio-group aria-label="Select an option">
                                     <div class="radio-button" [ngClass]="{ 'active' : item?.selected }">
-                                        <mat-radio-button [value]="item?.value">{{item?.value}}</mat-radio-button>
+                                        <mat-radio-button [value]="item?.value" (change)="changeSpecification(itemDetails?.itemDescription, i, j, filterAttr?.name, item?.value)">
+                                            {{item?.value}}
+                                        </mat-radio-button>
                                     </div>
                                 </mat-radio-group>
                             </ng-container>

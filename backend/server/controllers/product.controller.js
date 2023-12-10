@@ -21,10 +21,10 @@ exports.getItemInfo = (req, res) => {
         product.findOne({ _id: new ObjectId(req.params.id) })
             .then((result) => {
                 let itemDetails = getItem(result);
-                product.find({_id: {$nin: result._id}, category: result.category, subCategory: result.subCategory}).limit(30)
+                product.find({ _id: { $nin: result._id }, category: result.category, subCategory: result.subCategory }).limit(30)
                     .then((result) => {
                         let similarProducts = getItems(result);
-                        res.status(200).json({ data: {itemDetails: itemDetails, similarProducts: similarProducts}, status: 200, success: true, message: "Item data fetched successfully" })
+                        res.status(200).json({ data: { itemDetails: itemDetails, similarProducts: similarProducts }, status: 200, success: true, message: "Item data fetched successfully" })
                     })
                     .catch((err) => {
                         res.status(500).json({ data: null, status: 500, success: false, error: err, message: 'Something went wrong!' })
@@ -36,6 +36,28 @@ exports.getItemInfo = (req, res) => {
     } else {
         res.status(500).json({ data: null, status: 500, success: false, message: 'Not a valid Item id' })
     }
+}
+
+exports.changeSpecification = (req, res) => {
+    product.findOne({ itemDescription: req.params.itemDescription, activeProduct: Object(req.body) })
+        .then((result) => {
+            if (result == null) {
+                res.status(404).json({ data: null, status: 404, success: false, error: err, message: 'Not Available Item for this Specification' })
+            } else {
+                let itemDetails = getItem(result);
+                product.find({ _id: { $nin: result._id }, category: result.category, subCategory: result.subCategory }).limit(30)
+                    .then((result) => {
+                        let similarProducts = getItems(result);
+                        res.status(200).json({ data: { itemDetails: itemDetails, similarProducts: similarProducts }, status: 200, success: true, message: "Item data fetched successfully" })
+                    })
+                    .catch((err) => {
+                        res.status(500).json({ data: null, status: 500, success: false, error: err, message: 'Something went wrong!' })
+                    })
+            }
+        })
+        .catch((err) => {
+            res.status(500).json({ data: null, status: 500, success: false, error: err, message: 'Something went wrong!' })
+        })
 }
 
 removeDuplicate = (arr) => {
@@ -105,7 +127,7 @@ getItems = (dataBase) => {
 }
 
 getItem = (dataBase) => {
-    let item = {...dataBase._doc};
+    let item = { ...dataBase._doc };
     item.discountPercent = calculateDiscountPercent(item.markedPrice, item.sellingPrice);
     item.numberOfItem = Number(1);
     item.ratingsAndReviewsDetails = getRatingsAndReviewsDetails(item.ratingsAndReviews);

@@ -42,10 +42,10 @@ export class ViewItemComponent implements OnInit {
   }
 
   updateQty(addRemove: any) {
-    if(addRemove == 'add') {
+    if (addRemove == 'add') {
       this.itemDetails.numberOfItem += Number(1);
-    } else if(addRemove == 'remove') {
-      if(this.itemDetails.numberOfItem > 1) this.itemDetails.numberOfItem -= Number(1);
+    } else if (addRemove == 'remove') {
+      if (this.itemDetails.numberOfItem > 1) this.itemDetails.numberOfItem -= Number(1);
     } else {
       this.itemDetails.numberOfItem = Number(addRemove.target.value || 1);
     }
@@ -55,10 +55,10 @@ export class ViewItemComponent implements OnInit {
 
   getItemInfo() {
     this.homeService.getItemInfo(this.params).subscribe((res: any) => {
-      if(res?.status == 200 && res?.success) {
+      if (res?.status == 200 && res?.success) {
         this.itemDetails = res?.data?.itemDetails;
         this.similarProducts = res?.data?.similarProducts;
-        this.itemDetailsCopy = {...res?.data?.itemDetails};
+        this.itemDetailsCopy = { ...res?.data?.itemDetails };
         this.imgUrl = this.itemDetails?.imgUrls[0];
       } else {
         this.alertMessageService.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
@@ -83,9 +83,9 @@ export class ViewItemComponent implements OnInit {
   addItemsToCart(item: any) {
     event?.stopPropagation();
     this.homeService.addCartItem(this.authService.getUserId(), item).subscribe((res: any) => {
-      if(res?.status == 204 && res?.success) {
+      if (res?.status == 204 && res?.success) {
         this.alertMessage.addWarning('Item Already Exits in the Cart.').show();
-      } else if(res?.status == 200 && res?.success) {
+      } else if (res?.status == 200 && res?.success) {
         this.authService.setCartItems(res?.data);
         this.alertMessage.addSuccess('Item Added Successfully in the Cart.').show();
       } else {
@@ -93,6 +93,32 @@ export class ViewItemComponent implements OnInit {
       }
     }, (err: any) => {
       this.alertMessage.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
+    })
+  }
+
+  changeSpecification(itemId: string, i: number, j: number, name: any, value: any) {
+    this.itemDetails.filterAttributesList[i].items = this.itemDetails.filterAttributesList[i].items.map((item: any) => ({ value: item.value, selected: false }));
+    this.itemDetails.filterAttributesList[i].items[j].selected = true;
+    this.itemDetails.activeProduct[name] = value;
+    this.changeProductSpecification(itemId, this.itemDetails.activeProduct)
+  }
+
+  changeProductSpecification(itemDescription: string, activeProduct: any) {
+    this.homeService.changeProductSpecification(itemDescription, activeProduct).subscribe((res: any) => {
+      if (res?.status == 200 && res?.success) {
+        this.itemDetails = res?.data?.itemDetails;
+        this.similarProducts = res?.data?.similarProducts;
+        this.itemDetailsCopy = { ...res?.data?.itemDetails };
+        this.imgUrl = this.itemDetails?.imgUrls[0];
+      } else {
+        this.alertMessage.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
+      }
+    }, (err: any) => {
+      if (err?.error?.status == 400 && !err?.error?.success) {
+        this.alertMessage.addError(err?.error?.message || MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
+      } else {
+        this.alertMessage.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
+      }
     })
   }
 

@@ -26,6 +26,9 @@ export const URL_LIST = {
             },
             ITEM_INFO: {
                 URL: '/view-item'
+            },
+            CHANGE_SPECIFICATION: {
+                URL: '/product/change-specification'
             }
         },
         CART_ITEMS: {
