@@ -32,6 +32,10 @@ export class ViewCartComponent implements OnInit {
       if (res?.status == 200 && res?.success) {
         this.cartItems = res?.data;
         this.cartItemsCopy = [...res?.data.map(({ ...item }: any) => item)];
+        for (let i = 0; i < this.cartItems.length; i++) {
+          this.cartItems[i].markedPrice = Number(Number(this.cartItemsCopy[i].markedPrice) * Number(this.cartItems[i].numberOfItem));
+          this.cartItems[i].sellingPrice = Number(Number(this.cartItemsCopy[i].sellingPrice) * Number(this.cartItems[i].numberOfItem));
+        }
       } else {
         this.alertMessage.addSuccess(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
       }
@@ -48,21 +52,21 @@ export class ViewCartComponent implements OnInit {
   updateQty(i: number, addOrRemove: any, itemId: string) {
     if (addOrRemove == 'add') {
       this.cartItems[i].numberOfItem += Number(1);
-      this.cartItems[i].markedPrice = Number((Number(this.cartItemsCopy[i].markedPrice) / Number(this.cartItemsCopy[i].numberOfItem)) * (Number(this.cartItems[i].numberOfItem)));
-      this.cartItems[i].sellingPrice = Number((Number(this.cartItemsCopy[i].sellingPrice) / Number(this.cartItemsCopy[i].numberOfItem)) * (Number(this.cartItems[i].numberOfItem)));
+      this.cartItems[i].markedPrice = Number(Number(this.cartItemsCopy[i].markedPrice) * Number(this.cartItems[i].numberOfItem));
+      this.cartItems[i].sellingPrice = Number(Number(this.cartItemsCopy[i].sellingPrice) * Number(this.cartItems[i].numberOfItem));
       this.updateCartQty(i, itemId);
     } else if (addOrRemove == 'remove') {
       if (this.cartItems[i].numberOfItem > 1) {
         this.cartItems[i].numberOfItem -= Number(1);
-        this.cartItems[i].markedPrice = Number((Number(this.cartItemsCopy[i].markedPrice) / Number(this.cartItemsCopy[i].numberOfItem)) * (Number(this.cartItems[i].numberOfItem)));
-        this.cartItems[i].sellingPrice = Number((Number(this.cartItemsCopy[i].sellingPrice) / Number(this.cartItemsCopy[i].numberOfItem)) * (Number(this.cartItems[i].numberOfItem)));
+        this.cartItems[i].markedPrice = Number(Number(this.cartItemsCopy[i].markedPrice) * Number(this.cartItems[i].numberOfItem));
+        this.cartItems[i].sellingPrice = Number(Number(this.cartItemsCopy[i].sellingPrice) * Number(this.cartItems[i].numberOfItem));
         this.updateCartQty(i, itemId);
       };
     } else {
       if (addOrRemove.target.value) {
         this.cartItems[i].numberOfItem = Number(addOrRemove.target.value || 1);
-        this.cartItems[i].markedPrice = Number((Number(this.cartItemsCopy[i].markedPrice) / Number(this.cartItemsCopy[i].numberOfItem)) * (Number(this.cartItems[i].numberOfItem)));
-        this.cartItems[i].sellingPrice = Number((Number(this.cartItemsCopy[i].sellingPrice) / Number(this.cartItemsCopy[i].numberOfItem)) * (Number(this.cartItems[i].numberOfItem)));
+        this.cartItems[i].markedPrice = Number(Number(this.cartItemsCopy[i].markedPrice) * Number(this.cartItems[i].numberOfItem));
+        this.cartItems[i].sellingPrice = Number(Number(this.cartItemsCopy[i].sellingPrice) * Number(this.cartItems[i].numberOfItem));
         this.updateCartQty(i, itemId);
       }
     }
