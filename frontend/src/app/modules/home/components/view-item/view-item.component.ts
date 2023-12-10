@@ -82,7 +82,10 @@ export class ViewItemComponent implements OnInit {
 
   addItemsToCart(item: any) {
     event?.stopPropagation();
-    this.homeService.addCartItem(this.authService.getUserId(), item).subscribe((res: any) => {
+    let payload = {...item};
+    payload.markedPrice = this.itemDetailsCopy?.markedPrice;
+    payload.sellingPrice = this.itemDetailsCopy?.sellingPrice;
+    this.homeService.addCartItem(this.authService.getUserId(), payload).subscribe((res: any) => {
       if (res?.status == 204 && res?.success) {
         this.alertMessage.addWarning('Item Already Exits in the Cart.').show();
       } else if (res?.status == 200 && res?.success) {
