@@ -256,3 +256,64 @@ exports.updateCartQty = (req, res) => {
         }
     }
 }
+
+exports.addRecentlyViewItems = (req, res) => {
+    let userId = req.params.id
+    let itemId = req.body._id;
+    if (ObjectId.isValid(userId)) {
+        account.findOne({ _id: userId })
+            .then((result) => {
+                let isItemExits = result.recentlyViewItems.some((item) => item._id == req.body._id);
+                if (isItemExits) {
+                    account.updateOne({ _id: new ObjectId(userId) }, { $pull: { recentlyViewItems: { _id: itemId } } })
+                        .then((result) => {
+                            if (result.acknowledged && result.matchedCount == 1 && result.modifiedCount == 1) {
+                                account.updateOne({ _id: new ObjectId(userId) }, { $push: { recentlyViewItems: { $each: [req.body], $position: 0 } } })
+                                    .then((result) => {
+                                        if (result.acknowledged && result.matchedCount == 1 && result.modifiedCount == 1) {
+                                            account.findOne({ _id: userId })
+                                                .then((result) => {
+                                                    res.status(200).json({ data: result.recentlyViewItems, status: 200, success: true, message: 'Item Added Successfully in the Recently View.' })
+                                                })
+                                                .catch((err) => {
+                                                    res.status(500).json({ data: null, status: 500, success: false, error: err, message: 'Something went wrong!' })
+                                                })
+                                        } else {
+                                            res.status(409).json({ data: null, status: 409, success: false, error: err, message: "Can't Insert Item" })
+                                        }
+                                    })
+                                    .catch((err) => {
+                                        res.status(500).json({ data: null, status: 500, success: false, error: err, message: 'Something went wrong!' })
+                                    })
+                            } else {
+                                res.status(409).json({ data: null, status: 409, success: false, error: err, message: "Can't delete Item" })
+                            }
+                        })
+                        .catch((err) => {
+                            res.status(500).json({ data: null, status: 500, success: false, error: err, message: 'Something went wrong!' })
+                        })
+                } else {
+                    account.updateOne({ _id: new ObjectId(userId) }, { $push: { recentlyViewItems: { $each: [req.body], $position: 0 } } })
+                        .then((result) => {
+                            if (result.acknowledged && result.matchedCount == 1 && result.modifiedCount == 1) {
+                                account.findOne({ _id: userId })
+                                    .then((result) => {
+                                        res.status(200).json({ data: result.recentlyViewItems, status: 200, success: true, message: 'Item Added Successfully in the Recently View.' })
+                                    })
+                                    .catch((err) => {
+                                        res.status(500).json({ data: null, status: 500, success: false, error: err, message: 'Something went wrong!' })
+                                    })
+                            } else {
+                                res.status(500).json({ data: null, status: 500, success: false, error: err, message: 'Something went wrong!' })
+                            }
+                        })
+                        .catch((err) => {
+                            res.status(500).json({ data: null, status: 500, success: false, error: err, message: 'Something went wrong!' })
+                        })
+                }
+            })
+    } else {
+        res.status(500).json({ data: null, status: 500, success: false, message: 'Not a valid User id' })
+    }
+
+}

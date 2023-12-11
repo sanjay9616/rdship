@@ -50,4 +50,9 @@ export class HomeService {
     return this.apiService.post(url, data);
   }
 
+  addRecentlyViewItems(useId: string, data: any) {
+    let url: string = `${env.rdShip.baseUrl}${URL_LIST.API.RECENTLY_VIEW.ADD_RECENTLY_VIEW_ITEM.URL}/${useId}`;
+    return this.apiService.post(url, data);
+  }
+
 }

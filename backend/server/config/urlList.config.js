@@ -33,6 +33,11 @@ module.exports = {
             UPDATE_CART_QTY: {
                 URL: '/account/update-cart-qty/:userId/:itemId'
             },
+        },
+        RECENTLY_VIEW: {
+            ADD_RECENTLY_VIEW_ITEM: {
+                URL: "/account/add-recently-view-item/:id"
+            }
         }
     },
     DATABASE: {

@@ -6,7 +6,7 @@
         [autoSlide]="1"
         [imageSize]="{ width: '100%', height: 200 }"
         slideImage="1"
-        (imageClick)="imageClick()"
+        (imageClick)="viewOffer()"
         [imagePopup]="false">
     </ng-image-slider>
     <section class="buttom-container">
@@ -28,32 +28,35 @@
             </ng-container>
         </div>
     </section>
-    <section class="buttom-container">
+    <section class="our-sellers-container">
         <div class="similar-product-header">
             <span>OUR SELLERS</span>
         </div>
-        <div class="similar-produc-div scrollbar">
-            <ng-container *ngFor="let category of categoryList">
-                <div class="similar-items" [routerLink]="category?.routerLink">
+        <div class="similar-produc-div">
+            <ng-container *ngFor="let seller of sellerList">
+                <div class="similar-items">
                     <div class="item">
                         <div class="image-div">
-                            <img [src]="category?.url" alt="">
+                            <img [src]="seller?.url" alt="">
                         </div>
                         <div class="text-div category-div">
-                            <div class="text category-text">{{category?.type}}</div>
+                            <div class="text category-text">{{seller?.type}}</div>
+                        </div>
+                        <div class="description-div">
+                            <div class="description-text">{{seller?.text}}</div>
                         </div>
                     </div>
                 </div>
             </ng-container>
         </div>
     </section>
-    <section class="buttom-container">
+    <section *ngIf="recentlyViewedProducts?.length" class="buttom-container">
         <div class="similar-product-header">
             <span>Recently Viewed</span>
         </div>
         <div class="similar-produc-div scrollbar">
             <ng-container *ngFor="let product of recentlyViewedProducts">
-                <div class="similar-items" (click)="viewProduct(product)">
+                <div class="similar-items">
                     <div class="item">
                         <div class="favorite" (click)="$event.stopPropagation();" [ngClass]="{ 'active' : product?.isFavorite }">
                             <button mat-flat-button>
@@ -91,13 +94,13 @@
             </ng-container>
         </div>
     </section>
-    <section class="buttom-container">
+    <section *ngIf="topSellingProducts?.length" class="buttom-container">
         <div class="similar-product-header">
             <span>Top Selling Products</span>
         </div>
         <div class="similar-produc-div scrollbar">
             <ng-container *ngFor="let product of topSellingProducts">
-                <div class="similar-items" (click)="viewProduct(product)">
+                <div class="similar-items">
                     <div class="item">
                         <div class="favorite" (click)="$event.stopPropagation();" [ngClass]="{ 'active' : product?.isFavorite }">
                             <button mat-flat-button>

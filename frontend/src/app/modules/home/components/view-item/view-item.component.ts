@@ -41,6 +41,31 @@ export class ViewItemComponent implements OnInit {
     })
   }
 
+  getItemInfo() {
+    this.homeService.getItemInfo(this.params).subscribe((res: any) => {
+      if (res?.status == 200 && res?.success) {
+        this.itemDetails = res?.data?.itemDetails;
+        this.similarProducts = res?.data?.similarProducts;
+        this.itemDetailsCopy = { ...res?.data?.itemDetails };
+        this.imgUrl = this.itemDetails?.imgUrls[0];
+        this.addRecentlyViewItems(this.itemDetails);
+      } else {
+        this.alertMessageService.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
+      }
+    }, (err: any) => {
+      this.alertMessageService.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
+    })
+  }
+
+  addRecentlyViewItems(item: any) {
+    let payload = { ...item };
+    payload.markedPrice = this.itemDetailsCopy?.markedPrice;
+    payload.sellingPrice = this.itemDetailsCopy?.sellingPrice;
+    this.homeService.addRecentlyViewItems(this.authService.getUserId(), payload).subscribe((res: any) => {
+      if (res?.status == 200 && res?.success) { }
+    })
+  }
+
   updateQty(addRemove: any) {
     if (addRemove == 'add') {
       this.itemDetails.numberOfItem += Number(1);
@@ -53,36 +78,9 @@ export class ViewItemComponent implements OnInit {
     this.itemDetails.sellingPrice = this.itemDetailsCopy.sellingPrice * (this.itemDetails.numberOfItem || 1);
   }
 
-  getItemInfo() {
-    this.homeService.getItemInfo(this.params).subscribe((res: any) => {
-      if (res?.status == 200 && res?.success) {
-        this.itemDetails = res?.data?.itemDetails;
-        this.similarProducts = res?.data?.similarProducts;
-        this.itemDetailsCopy = { ...res?.data?.itemDetails };
-        this.imgUrl = this.itemDetails?.imgUrls[0];
-      } else {
-        this.alertMessageService.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
-      }
-    }, (err: any) => {
-      this.alertMessageService.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
-    })
-  }
-
-  selectImg(imgUrl: string) {
-    this.imgUrl = imgUrl;
-  }
-
-  viewMoreReview() {
-    this.isShowViewMore = true;
-  }
-
-  viewItemDetail(item: any) {
-    this.router.navigate([`view-item/${item?._id}`]);
-  }
-
   addItemsToCart(item: any) {
     event?.stopPropagation();
-    let payload = {...item};
+    let payload = { ...item };
     payload.markedPrice = this.itemDetailsCopy?.markedPrice;
     payload.sellingPrice = this.itemDetailsCopy?.sellingPrice;
     this.homeService.addCartItem(this.authService.getUserId(), payload).subscribe((res: any) => {
@@ -99,6 +97,18 @@ export class ViewItemComponent implements OnInit {
     })
   }
 
+  selectImg(imgUrl: string) {
+    this.imgUrl = imgUrl;
+  }
+
+  viewMoreReview() {
+    this.isShowViewMore = true;
+  }
+
+  viewItemDetail(item: any) {
+    this.router.navigate([`view-item/${item?._id}`]);
+  }
+
   changeSpecification(itemId: string, i: number, j: number, name: any, value: any) {
     this.itemDetails.filterAttributesList[i].items = this.itemDetails.filterAttributesList[i].items.map((item: any) => ({ value: item.value, selected: false }));
     this.itemDetails.filterAttributesList[i].items[j].selected = true;
@@ -113,6 +123,7 @@ export class ViewItemComponent implements OnInit {
         this.similarProducts = res?.data?.similarProducts;
         this.itemDetailsCopy = { ...res?.data?.itemDetails };
         this.imgUrl = this.itemDetails?.imgUrls[0];
+        this.addRecentlyViewItems(this.itemDetails);
       } else {
         this.alertMessage.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
       }

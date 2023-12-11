@@ -29,7 +29,7 @@ export const URL_LIST = {
             },
             CHANGE_SPECIFICATION: {
                 URL: '/product/change-specification'
-            }
+            },
         },
         CART_ITEMS: {
             ADD_ITEM_TO_CART: {
@@ -43,6 +43,11 @@ export const URL_LIST = {
             },
             UPDATE_CART_QTY: {
                 URL: '/account/update-cart-qty'
+            }
+        },
+        RECENTLY_VIEW: {
+            ADD_RECENTLY_VIEW_ITEM: {
+                URL: "/account/add-recently-view-item"
             }
         }
     },

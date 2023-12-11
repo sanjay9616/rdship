@@ -14,34 +14,30 @@ import { URL_LIST } from 'src/app/config/urlList';
 })
 export class HomeComponent implements OnInit {
 
-  imageObject: Array<any> = [
-    {
-      image: '/assets/img/offers/1.webp',
-      thumbImage: '/assets/img/offers/1.webp',
-      title: 'Hummingbirds are amazing creatures'
-    },
-    {
-      image: '/assets/img/offers/2.webp',
-      thumbImage: '/assets/img/offers/2.webp'
-    },
-    {
-      image: '/assets/img/offers/3.webp',
-      thumbImage: '/assets/img/offers/3.webp',
-      title: 'Hummingbirds are amazing creatures'
-    },
-  ]
   @ViewChild('nav') slider!: NgImageSliderComponent;
-  categoryList: Array<any> = [
-    { type: 'Grocery', offer: 'Upto 80% Off', text: 'Buy Now!', url: '/assets/img/grocery/1.webp', routerLink: "/category/Grocery" },
-    { type: 'Medicines', offer: 'Upto 80% Off', text: 'Buy Now!', url: '/assets/img/medicines/1.webp', routerLink: "/medicines" },
-    { type: 'Home & Furniture', offer: 'Upto 80% Off', text: 'Buy Now!', url: '/assets/img/furniture/1.webp', routerLink: "/furniture" },
-    { type: 'Electronics', offer: 'Upto 80% Off', text: 'Buy Now!', url: '/assets/img/electronics/1.webp', routerLink: "/electronics" },
-    { type: 'Fashion', offer: 'Upto 80% Off', text: 'Buy Now!', url: '/assets/img/fashion/1.webp', routerLink: "/fasion" },
-    { type: 'Agricultural', offer: 'Upto 80% Off', text: 'Buy Now!', url: '/assets/img/fashion/1.webp', routerLink: "/fasion" },
+  imageObject: Array<any> = [
+    { image: '/assets/img/offers/1.webp', thumbImage: '/assets/img/offers/1.webp', title: 'Hummingbirds are amazing creatures' },
+    { image: '/assets/img/offers/2.webp', thumbImage: '/assets/img/offers/2.webp' },
+    { image: '/assets/img/offers/3.webp', thumbImage: '/assets/img/offers/3.webp', title: 'Hummingbirds are amazing creatures' },
   ]
-  items: Array<any> = this.commonService.items;
-  recentlyViewedProducts: Array<any> = this.commonService.items.filter((item: any) => item.category === 'Grocery' && item.subCategory === 'Rice');
-  topSellingProducts: Array<any> = this.commonService.sortItemsBySelling(this.items).slice(0, 20);
+  categoryList: Array<any> = [
+    { type: 'Grocery', url: '/assets/img/grocery/1.webp', routerLink: "/category/Grocery" },
+    { type: 'Medicines', url: '/assets/img/medicines/1.webp', routerLink: "/category/Medicines" },
+    { type: 'Furniture', url: '/assets/img/furniture/1.webp', routerLink: "/category/Furniture" },
+    { type: 'Electronics', url: '/assets/img/electronics/1.webp', routerLink: "/category/Electronics" },
+    { type: 'Fashion', url: '/assets/img/fashion/1.webp', routerLink: "/category/Fashion" },
+    { type: 'Agricultural', url: '/assets/img/agricultural/1.jpg', routerLink: "/category/Agricultural" },
+  ]
+  sellerList: Array<any> = [
+    { type: 'Besure Pharmacy', url: '/assets/img/seller-list/1.webp', text: "A drug Store/Pharmacy/Community Pharmacy/chemist's is a retail shop which provides prescription drugs, among other products" },
+    { type: 'Style Fusion', url: '/assets/img/seller-list/2.jpg', text: "A budget-friendly clothing store that has colorful and trendy pieces for men and women. Their selection of graphic tees, sweatpants and joggers, and sneakers" },
+    { type: 'Fresh Fields', url: '/assets/img/seller-list/3.jpeg', text: "A agricutural products deals with the farming, production, selling, and administration of agricultural products such grains, vegetables, fruits, and cattle" },
+    { type: 'Lightning Bolt Electronics.', url: '/assets/img/seller-list/4.webp', text: "A retail establishment used for the selling or repairing of consumer electronic products such as televisions, telephones, personal computers, watch and other electronic gadgets" },
+    { type: 'Daily Delicacies Grocer', url: '/assets/img/seller-list/5.jpg', text: "A grocery shops that serve daily needs grocery items include beauty, salons, frozen foods, dry fruits, biscuit, rice, household and cleaners, oil, kitchen and others." },
+    { type: 'Neighborhood Furniture', url: '/assets/img/seller-list/6.webp', text: "A furniture shop that serve, household equipment, usually made of wood, metal, plastics, marble, glass, fabrics, or related materials and having a variety of different purposes." },
+  ]
+  recentlyViewedProducts: Array<any> = [];
+  topSellingProducts: Array<any> = [];
 
 
   constructor(private router: Router,
@@ -51,25 +47,15 @@ export class HomeComponent implements OnInit {
     private authService: AuthService
   ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
-  imageClick() {
+  viewOffer() {
     console.log(this.slider);
-  }
-
-  viewProduct(item: any) {
-    this.router.navigate([`category/${item.category}/subCategory/${item.subCategory}/itemId/${item.itemId}`]);
   }
 
   addItemsToCart(item: any) {
     event?.stopPropagation();
-    let found: boolean = this.commonService.addItemsToCart(item);
-    if (!found) {
-      this.alertMessageService.addSuccess('Item added successfully').show();
-      this.router.navigate([URL_LIST.ROUTING_PATHS.VIEW_CART]);
-    } else {
-      this.alertMessageService.addError('Item already added').show();
-    }
+
   }
 
 }

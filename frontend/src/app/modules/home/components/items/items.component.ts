@@ -173,11 +173,11 @@ export class ItemsComponent implements OnInit {
   }
 
   toggleSubCategories() {
-    this.toggleAllSubcategoriesCheckboxState = JSON.stringify(this.subCategoriesListOptions) == JSON.stringify(this.formGroup.get('subCategories')?.value);
+    this.toggleAllSubcategoriesCheckboxState = JSON.stringify(this.pageDetails?.subCategories) == JSON.stringify(this.formGroup.get('subCategories')?.value);
   }
 
   toggleBrand() {
-    this.toggleAllBrandsCheckboxState = JSON.stringify(this.brandsListOptions) == JSON.stringify(this.formGroup.get('brands')?.value);
+    this.toggleAllBrandsCheckboxState = JSON.stringify(this.pageDetails?.brands) == JSON.stringify(this.formGroup.get('brands')?.value);
   }
 
   search(event: any) {
