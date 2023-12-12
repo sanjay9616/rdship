@@ -11,15 +11,16 @@ import { URL_LIST } from 'src/app/config/urlList';
 export class MyOrdersComponent implements OnInit {
 
   constructor(private commonService: CommonService,
-    private router: Router) { }
+    private router: Router
+  ) { }
 
   orderList: Array<any> = this.commonService.items.slice(0, 2);
   isOpenFilter: boolean = false;
   statusList: Array<any> = [
-    { view: 'On the way', value: 'On the way'},
-    { view: 'Delivered', value: 'Delivered'},
-    { view: 'Cancelled', value: 'Cancelled'},
-    { view: 'Returned', value: 'Returned'},
+    { view: 'On the way', value: 'On the way' },
+    { view: 'Delivered', value: 'Delivered' },
+    { view: 'Cancelled', value: 'Cancelled' },
+    { view: 'Returned', value: 'Returned' },
   ]
 
 
@@ -28,7 +29,6 @@ export class MyOrdersComponent implements OnInit {
 
   home() {
     this.router.navigate([URL_LIST.ROUTING_PATHS.HOME]);
-
   }
 
   toggleFilter() {

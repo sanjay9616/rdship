@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonService } from 'src/app/common.service';
-import { FormControl, Validators } from '@angular/forms';
 import { AlertMessageService } from 'src/app/modules/shared/_services/alert-message.service';
-import { URL_LIST } from 'src/app/config/urlList';
 import { MatDialog } from '@angular/material/dialog';
 import { RateProductsComponent } from '../rate-products/rate-products.component';
 import { HomeService } from '../../services/home.service';
@@ -17,14 +15,14 @@ import { AuthService } from 'src/app/modules/auth/services/auth.service';
 })
 export class ViewItemComponent implements OnInit {
 
-  constructor(private commonService: CommonService,
-    private router: Router,
+  constructor(private router: Router,
     private alertMessageService: AlertMessageService,
     private activatedRoute: ActivatedRoute,
     private homeService: HomeService,
     public dialog: MatDialog,
     private authService: AuthService,
-    private alertMessage: AlertMessageService) { }
+    private alertMessage: AlertMessageService
+  ) { }
 
   params: any = {};
   itemDetails: any = {};
@@ -103,9 +101,9 @@ export class ViewItemComponent implements OnInit {
     payload.markedPrice = this.itemDetailsCopy?.markedPrice;
     payload.sellingPrice = this.itemDetailsCopy?.sellingPrice;
     this.homeService.addFavoriteItem(this.authService.getUserId(), payload).subscribe((res: any) => {
-      if(res?.status == 204 && res?.success) {
+      if (res?.status == 204 && res?.success) {
         this.alertMessage.addWarning(MESSAGES.WARNING.ALREADY_ADDED_IN_WISH_LIST).show();
-      } else if(res?.status == 200 && res?.success) {
+      } else if (res?.status == 200 && res?.success) {
         this.authService.setFevoriteItems(res?.data);
         this.alertMessage.addSuccess(MESSAGES.SUCCESS.ADDED_FAVORITE_ITEM).show();
       } else {

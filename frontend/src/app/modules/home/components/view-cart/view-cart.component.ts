@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CommonService } from 'src/app/common.service';
 import { MESSAGES } from 'src/app/config/message';
 import { URL_LIST } from 'src/app/config/urlList';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
@@ -14,11 +13,11 @@ import { HomeService } from '../../services/home.service';
 })
 export class ViewCartComponent implements OnInit {
 
-  constructor(private commonService: CommonService,
-    private alertMessage: AlertMessageService,
+  constructor(private alertMessage: AlertMessageService,
     private router: Router,
     private authService: AuthService,
-    private homeService: HomeService) { }
+    private homeService: HomeService
+  ) { }
 
   cartItems: Array<any> = [];
   cartItemsCopy: Array<any> = [];
@@ -50,6 +49,7 @@ export class ViewCartComponent implements OnInit {
   }
 
   updateQty(i: number, addOrRemove: any, itemId: string) {
+    event?.stopPropagation();
     if (addOrRemove == 'add') {
       this.cartItems[i].numberOfItem += Number(1);
       this.cartItems[i].markedPrice = Number(Number(this.cartItemsCopy[i].markedPrice) * Number(this.cartItems[i].numberOfItem));
@@ -91,6 +91,7 @@ export class ViewCartComponent implements OnInit {
   }
 
   deleteCartItem(item: any) {
+    event?.stopPropagation();
     this.homeService.deleteCartItem(this.authService.getUserId(), item._id).subscribe((res: any) => {
       if (res?.status == 200 && res?.success) {
         let itemIndex: number = this.cartItems.findIndex((cartItem) => cartItem._id == item._id);

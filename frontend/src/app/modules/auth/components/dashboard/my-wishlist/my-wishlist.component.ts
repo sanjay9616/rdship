@@ -17,9 +17,8 @@ export class MyWishlistComponent {
     private router: Router,
     private homeService: HomeService,
     private alertMessage: AlertMessageService,
-    private authService: AuthService) {
-
-  }
+    private authService: AuthService
+  ) { }
 
   wishList: Array<any> = [];
 
@@ -44,6 +43,7 @@ export class MyWishlistComponent {
   }
 
   deleteFavoriteItem(item: any) {
+    event?.stopPropagation();
     this.homeService.deleteFavoriteItem(this.authService.getUserId(), item._id).subscribe((res: any) => {
       if (res?.status == 200 && res?.success) {
         let itemIndex: number = this.wishList.findIndex((favorite) => favorite._id == item._id);

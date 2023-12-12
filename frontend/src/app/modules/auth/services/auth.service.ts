@@ -11,18 +11,10 @@ export class AuthService {
 
   static readonly USER_ID = '_id';
   static readonly AUTH_TOKEN = '_id';
-  static readonly SALESOPS_TOKEN = 'Authorization';
-  static readonly AUTHORIZATION_TOKEN = 'Authorization';
-  static readonly AUTH_USER_ID = 'idUser';
-  static readonly AUTH_BRANCH_ID = 'idBranch';
-  static readonly AUTH_COMPANY_ID = 'idCompany';
-  static readonly AUTH_APPLICATION_ID = 'application';
-  static readonly APPLICATION = 'source';
-  static readonly FINANCE_ACCESS = 'FA';
   userDetail: any = {};
   isAuthenticated: boolean = false;
   constructor(private apiService: ApiService,
-    private validationService: ValidationService) { }
+  ) { }
 
   setUserId(USER_ID: string) {
     localStorage.setItem(AuthService.AUTH_TOKEN, USER_ID);

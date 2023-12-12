@@ -11,13 +11,12 @@ import { URL_LIST } from 'src/app/config/urlList';
 export class MyCouponsComponent {
 
   constructor(private commonService: CommonService,
-    private router: Router) {
-
-  }
+    private router: Router
+  ) { }
 
   couponList: Array<any> = this.commonService.items.slice(0, 3);
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   home() {
     this.router.navigate([URL_LIST.ROUTING_PATHS.HOME]);

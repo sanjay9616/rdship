@@ -5,7 +5,6 @@ import { CommonService } from 'src/app/common.service';
 import { AlertMessageService } from 'src/app/modules/shared/_services/alert-message.service';
 import { NgImageSliderComponent } from 'ng-image-slider';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
-import { URL_LIST } from 'src/app/config/urlList';
 import { HomeService } from '../../services/home.service';
 import { MESSAGES } from 'src/app/config/message';
 
@@ -44,8 +43,6 @@ export class HomeComponent implements OnInit {
 
 
   constructor(private router: Router,
-    private location: Location,
-    private commonService: CommonService,
     private alertService: AlertMessageService,
     private authService: AuthService,
     private homeService: HomeService,
@@ -92,9 +89,9 @@ export class HomeComponent implements OnInit {
   addFavoriteItem(item: any) {
     event?.stopPropagation();
     this.homeService.addFavoriteItem(this.authService.getUserId(), item).subscribe((res: any) => {
-      if(res?.status == 204 && res?.success) {
+      if (res?.status == 204 && res?.success) {
         this.alertMessage.addWarning(MESSAGES.WARNING.ALREADY_ADDED_IN_WISH_LIST).show();
-      } else if(res?.status == 200 && res?.success) {
+      } else if (res?.status == 200 && res?.success) {
         this.authService.setFevoriteItems(res?.data);
         this.alertMessage.addSuccess(MESSAGES.SUCCESS.ADDED_FAVORITE_ITEM).show();
       } else {

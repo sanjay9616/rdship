@@ -16,7 +16,8 @@ export class MyProfileComponent implements OnInit {
 
   constructor(private authService: AuthService,
     private alertService: AlertMessageService,
-    private router: Router) { }
+    private router: Router
+  ) { }
 
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>([]);
   displayedColumns: Array<string> = ['serialNumber', 'area', 'city', 'pinCode', 'actions'];
@@ -72,7 +73,7 @@ export class MyProfileComponent implements OnInit {
 
   removeDeliveryAddress(i: number) {
     this.getAddessFromArray.removeAt(i);
-    this.saveUserInfo({address: this.formGroup.get('address')?.getRawValue()});
+    this.saveUserInfo({ address: this.formGroup.get('address')?.getRawValue() });
     this.setFormGroup();
   }
 
