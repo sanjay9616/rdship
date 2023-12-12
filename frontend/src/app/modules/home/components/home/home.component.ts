@@ -6,6 +6,8 @@ import { AlertMessageService } from 'src/app/modules/shared/_services/alert-mess
 import { NgImageSliderComponent } from 'ng-image-slider';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { URL_LIST } from 'src/app/config/urlList';
+import { HomeService } from '../../services/home.service';
+import { MESSAGES } from 'src/app/config/message';
 
 @Component({
   selector: 'app-home',
@@ -38,16 +40,33 @@ export class HomeComponent implements OnInit {
   ]
   recentlyViewedProducts: Array<any> = [];
   topSellingProducts: Array<any> = [];
+  homeDetails: any = {};
 
 
   constructor(private router: Router,
     private location: Location,
     private commonService: CommonService,
-    private alertMessageService: AlertMessageService,
-    private authService: AuthService
+    private alertService: AlertMessageService,
+    private authService: AuthService,
+    private homeService: HomeService
   ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.getHomeDetails();
+  }
+
+  getHomeDetails() {
+    this.homeService.getHomeDetails(this.authService.getUserId()).subscribe((res: any) => {
+      if (res?.status == 200 && res?.success) {
+        this.homeDetails = res?.data;
+        console.log('homeDetails', this.homeDetails);
+      } else {
+        this.alertService.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
+      }
+    }, (err: any) => {
+      this.alertService.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
+    })
+  }
 
   viewOffer() {
     console.log(this.slider);

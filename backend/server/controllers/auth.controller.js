@@ -1,5 +1,6 @@
 const { ObjectId } = require("mongodb");
 const account = require("../models/user.model");
+const product = require("../models/product.model");
 
 exports.getAuthData = (req, res) => {
     if (ObjectId.isValid(req.params.id)) {
@@ -312,8 +313,35 @@ exports.addRecentlyViewItems = (req, res) => {
                         })
                 }
             })
+            .catch((err) => {
+                res.status(500).json({ data: null, status: 500, success: false, error: err, message: 'Something went wrong!' })
+            })
     } else {
         res.status(500).json({ data: null, status: 500, success: false, message: 'Not a valid User id' })
     }
 
+}
+
+exports.getHomeDetails = (req, res) => {
+    let userId = req.params.id
+    if (ObjectId.isValid(userId)) {
+        account.findOne({ _id: new ObjectId(userId) }).limit(30)
+            .then((result) => {
+                let recentlyViewItems = result.recentlyViewItems
+                product.find().sort({ numberOfSelling: 1 }).limit(30)
+                    .then((result) => {
+                        console.log('resul22', result);
+                        res.status(200).json({ data: { recentlyViewItems: recentlyViewItems, topSellingProducts: result }, status: 200, success: true, message: 'Home Deatils Fetched Successfully.' })
+                    })
+                    .catch((err) => {
+                        res.status(500).json({ data: null, status: 500, success: false, error: err, message: 'Something went wrong!' })
+                    })
+            })
+            .catch((err) => {
+                res.status(500).json({ data: null, status: 500, success: false, error: err, message: 'Something went wrong!' })
+            })
+
+    } else {
+        res.status(500).json({ data: null, status: 500, success: false, message: 'Not a valid User id' })
+    }
 }

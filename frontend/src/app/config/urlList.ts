@@ -30,6 +30,9 @@ export const URL_LIST = {
             CHANGE_SPECIFICATION: {
                 URL: '/product/change-specification'
             },
+            HOME_DETAILS: {
+                URL: "/product/home-details"
+            }
         },
         CART_ITEMS: {
             ADD_ITEM_TO_CART: {
@@ -49,7 +52,7 @@ export const URL_LIST = {
             ADD_RECENTLY_VIEW_ITEM: {
                 URL: "/account/add-recently-view-item"
             }
-        }
+        },
     },
     ROUTING_PATHS: {
         HOME: '/',

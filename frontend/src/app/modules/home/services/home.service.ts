@@ -55,4 +55,9 @@ export class HomeService {
     return this.apiService.post(url, data);
   }
 
+  getHomeDetails(useId: string) {
+    let url: string = `${env.rdShip.baseUrl}${URL_LIST.API.HOME.HOME_DETAILS.URL}/${useId}`;
+    return this.apiService.get(url);
+  }
+
 }

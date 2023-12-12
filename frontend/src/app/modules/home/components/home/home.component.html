@@ -50,12 +50,12 @@
             </ng-container>
         </div>
     </section>
-    <section *ngIf="recentlyViewedProducts?.length" class="buttom-container">
+    <section *ngIf="homeDetails?.recentlyViewItems?.length" class="buttom-container">
         <div class="similar-product-header">
             <span>Recently Viewed</span>
         </div>
         <div class="similar-produc-div scrollbar">
-            <ng-container *ngFor="let product of recentlyViewedProducts">
+            <ng-container *ngFor="let product of homeDetails?.recentlyViewItems">
                 <div class="similar-items">
                     <div class="item">
                         <div class="favorite" (click)="$event.stopPropagation();" [ngClass]="{ 'active' : product?.isFavorite }">
@@ -94,12 +94,12 @@
             </ng-container>
         </div>
     </section>
-    <section *ngIf="topSellingProducts?.length" class="buttom-container">
+    <section *ngIf="homeDetails?.topSellingProducts?.length" class="buttom-container">
         <div class="similar-product-header">
             <span>Top Selling Products</span>
         </div>
         <div class="similar-produc-div scrollbar">
-            <ng-container *ngFor="let product of topSellingProducts">
+            <ng-container *ngFor="let product of homeDetails?.topSellingProducts">
                 <div class="similar-items">
                     <div class="item">
                         <div class="favorite" (click)="$event.stopPropagation();" [ngClass]="{ 'active' : product?.isFavorite }">

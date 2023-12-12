@@ -38,6 +38,11 @@ module.exports = {
             ADD_RECENTLY_VIEW_ITEM: {
                 URL: "/account/add-recently-view-item/:id"
             }
+        },
+        HOME: {
+            HOME_DETAILS: {
+                URL: "/product/home-details/:id"
+            }
         }
     },
     DATABASE: {

@@ -18,4 +18,5 @@ module.exports = (app) => {
     app.delete(URL_LIST.API.CART_ITEMS.DELETE_CART_ITEM.URL, auth.deleteCartItem);
     app.patch(URL_LIST.API.CART_ITEMS.UPDATE_CART_QTY.URL, auth.updateCartQty);
     app.post(URL_LIST.API.RECENTLY_VIEW.ADD_RECENTLY_VIEW_ITEM.URL, auth.addRecentlyViewItems);
+    app.get(URL_LIST.API.HOME.HOME_DETAILS.URL, auth.getHomeDetails);
 };
