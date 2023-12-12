@@ -56,10 +56,10 @@
         </div>
         <div class="similar-produc-div scrollbar">
             <ng-container *ngFor="let product of homeDetails?.recentlyViewItems">
-                <div class="similar-items">
+                <div class="similar-items" (click)="viewItemDetail(product)">
                     <div class="item">
                         <div class="favorite" (click)="$event.stopPropagation();" [ngClass]="{ 'active' : product?.isFavorite }">
-                            <button mat-flat-button>
+                            <button mat-flat-button type="button" (click)="addFavoriteItem(product)">
                                 <mat-icon>favorite</mat-icon>
                             </button>
                         </div>
@@ -87,7 +87,7 @@
                                     <span *ngIf="isLast">{{key?.value}}</span>
                                 </ng-container>
                             </button>
-                            <button mat-flat-button (click)="addItemsToCart(product)">ADD Item</button>
+                            <button mat-flat-button (click)="addCartItem(product)">ADD Item</button>
                         </div>
                     </div>
                 </div>
@@ -101,9 +101,9 @@
         <div class="similar-produc-div scrollbar">
             <ng-container *ngFor="let product of homeDetails?.topSellingProducts">
                 <div class="similar-items">
-                    <div class="item">
+                    <div class="item" (click)="viewItemDetail(product)">
                         <div class="favorite" (click)="$event.stopPropagation();" [ngClass]="{ 'active' : product?.isFavorite }">
-                            <button mat-flat-button>
+                            <button mat-flat-button type="button" (click)="addFavoriteItem(product)">
                                 <mat-icon>favorite</mat-icon>
                             </button>
                         </div>
@@ -131,7 +131,7 @@
                                     <span *ngIf="isLast">{{key?.value}}</span>
                                 </ng-container>
                             </button>
-                            <button mat-flat-button (click)="addItemsToCart(product)">ADD Item</button>
+                            <button mat-flat-button (click)="addCartItem(product)">ADD Item</button>
                         </div>
                     </div>
                 </div>

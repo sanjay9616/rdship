@@ -97,6 +97,25 @@ export class ViewItemComponent implements OnInit {
     })
   }
 
+  addFavoriteItem(item: any) {
+    event?.stopPropagation();
+    let payload = { ...item };
+    payload.markedPrice = this.itemDetailsCopy?.markedPrice;
+    payload.sellingPrice = this.itemDetailsCopy?.sellingPrice;
+    this.homeService.addFavoriteItem(this.authService.getUserId(), payload).subscribe((res: any) => {
+      if(res?.status == 204 && res?.success) {
+        this.alertMessage.addWarning(MESSAGES.WARNING.ALREADY_ADDED_IN_WISH_LIST).show();
+      } else if(res?.status == 200 && res?.success) {
+        this.authService.setFevoriteItems(res?.data);
+        this.alertMessage.addSuccess(MESSAGES.SUCCESS.ADDED_FAVORITE_ITEM).show();
+      } else {
+        this.alertMessage.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
+      }
+    }, (err: any) => {
+      this.alertMessage.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
+    })
+  }
+
   selectImg(imgUrl: string) {
     this.imgUrl = imgUrl;
   }

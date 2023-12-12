@@ -136,4 +136,8 @@ export class ViewCartComponent implements OnInit {
     return 'Free'
   }
 
+  viewItemDetail(item: any) {
+    this.router.navigate([`view-item/${item?._id}`]);
+  }
+
 }

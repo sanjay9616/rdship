@@ -408,7 +408,6 @@ exports.getHomeDetails = (req, res) => {
                 let recentlyViewItems = result.recentlyViewItems
                 product.find().sort({ numberOfSelling: 1 }).limit(30)
                     .then((result) => {
-                        console.log('resul22', result);
                         res.status(200).json({ data: { recentlyViewItems: recentlyViewItems, topSellingProducts: result }, status: 200, success: true, message: 'Home Deatils Fetched Successfully.' })
                     })
                     .catch((err) => {

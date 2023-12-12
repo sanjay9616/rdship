@@ -48,7 +48,8 @@ export class HomeComponent implements OnInit {
     private commonService: CommonService,
     private alertService: AlertMessageService,
     private authService: AuthService,
-    private homeService: HomeService
+    private homeService: HomeService,
+    private alertMessage: AlertMessageService
   ) { }
 
   ngOnInit(): void {
@@ -72,9 +73,40 @@ export class HomeComponent implements OnInit {
     console.log(this.slider);
   }
 
-  addItemsToCart(item: any) {
+  addCartItem(item: any) {
     event?.stopPropagation();
+    this.homeService.addCartItem(this.authService.getUserId(), item).subscribe((res: any) => {
+      if (res?.status == 204 && res?.success) {
+        this.alertMessage.addWarning('Item Already Exits in the Cart.').show();
+      } else if (res?.status == 200 && res?.success) {
+        this.authService.setCartItems(res?.data);
+        this.alertMessage.addSuccess('Item Added Successfully in the Cart.').show();
+      } else {
+        this.alertMessage.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
+      }
+    }, (err: any) => {
+      this.alertMessage.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
+    })
+  }
 
+  addFavoriteItem(item: any) {
+    event?.stopPropagation();
+    this.homeService.addFavoriteItem(this.authService.getUserId(), item).subscribe((res: any) => {
+      if(res?.status == 204 && res?.success) {
+        this.alertMessage.addWarning(MESSAGES.WARNING.ALREADY_ADDED_IN_WISH_LIST).show();
+      } else if(res?.status == 200 && res?.success) {
+        this.authService.setFevoriteItems(res?.data);
+        this.alertMessage.addSuccess(MESSAGES.SUCCESS.ADDED_FAVORITE_ITEM).show();
+      } else {
+        this.alertMessage.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
+      }
+    }, (err: any) => {
+      this.alertMessage.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
+    })
+  }
+
+  viewItemDetail(item: any) {
+    this.router.navigate([`view-item/${item?._id}`]);
   }
 
 }

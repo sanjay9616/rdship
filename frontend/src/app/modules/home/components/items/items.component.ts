@@ -126,6 +126,8 @@ export class ItemsComponent implements OnInit {
   clearFilter() {
     this.initFormGroup();
     this.formGroup.updateValueAndValidity();
+    this.toggleAllSubcategoriesCheckboxState = false;
+    this.toggleAllBrandsCheckboxState = false;
   }
 
 

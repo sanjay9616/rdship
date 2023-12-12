@@ -59,4 +59,8 @@ export class MyWishlistComponent {
       this.alertMessage.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
     })
   }
+
+  viewItemDetail(item: any) {
+    this.router.navigate([`view-item/${item?._id}`]);
+  }
 }

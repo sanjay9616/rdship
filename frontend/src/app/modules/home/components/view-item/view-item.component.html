@@ -7,8 +7,7 @@
                         <img [src]="imgUrl" alt="">
                     </div>
                     <div class="icons-div">
-                        <button mat-flat-button (click)="$event.stopPropagation();"
-                            [ngClass]="{ 'active' : itemDetails?.isFavorite }">
+                        <button mat-flat-button type="button" (click)="$event.stopPropagation();" [ngClass]="{ 'active' : itemDetails?.isFavorite }" (click)="addFavoriteItem(itemDetails)">
                             <mat-icon>favorite</mat-icon>
                         </button>
                         <button mat-flat-button [matMenuTriggerFor]="overallCustomerExposure">
@@ -319,7 +318,7 @@
                 <div class="item">
                     <div class="favorite" (click)="$event.stopPropagation();"
                         [ngClass]="{ 'active' : product?.isFavorite }">
-                        <button mat-flat-button>
+                        <button mat-flat-button type="button" (click)="addFavoriteItem(product)">
                             <mat-icon>favorite</mat-icon>
                         </button>
                     </div>
