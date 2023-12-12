@@ -8,8 +8,14 @@
                 </div>
                 <div class="details-container">
                     <div class="right-top-item">
-                        <div class="item-description">{{item?.itemDescription}}</div>
-                        <button mat-flat-button>Remove</button>
+                        <div class="item-description">
+                            <span>{{item?.itemDescription}} </span>
+                            <ng-container *ngFor="let key of item?.activeProduct | keyvalue; let isLast=last">
+                                <span *ngIf="!isLast" class="active-product">({{$any(key?.key).split('_').join(' ')}}: {{key?.value}}) </span>
+                                <span *ngIf="isLast" class="active-product" >({{$any(key?.key).split('_').join(' ')}}: {{key?.value}})</span>
+                            </ng-container>
+                        </div>
+                        <button mat-flat-button type="button" (click)="deleteFavoriteItem(item)">Remove</button>
                     </div>
                     <div class="badge-rating-review">
                         <div class="rating-badge">

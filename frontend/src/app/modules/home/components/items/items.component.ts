@@ -187,10 +187,25 @@ export class ItemsComponent implements OnInit {
   addCartItem(item: any) {
     this.homeService.addCartItem(this.authService.getUserId(), item).subscribe((res: any) => {
       if(res?.status == 204 && res?.success) {
-        this.alertMessage.addWarning('Item Already Exits in the Cart.').show();
+        this.alertMessage.addWarning(MESSAGES.WARNING.ALREADY_ADDED_IN_CART).show();
       } else if(res?.status == 200 && res?.success) {
         this.authService.setCartItems(res?.data);
-        this.alertMessage.addSuccess('Item Added Successfully in the Cart.').show();
+        this.alertMessage.addSuccess(MESSAGES.SUCCESS.ADDED_CART_ITEM).show();
+      } else {
+        this.alertMessage.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
+      }
+    }, (err: any) => {
+      this.alertMessage.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
+    })
+  }
+
+  addFavoriteItem(item: any) {
+    this.homeService.addFavoriteItem(this.authService.getUserId(), item).subscribe((res: any) => {
+      if(res?.status == 204 && res?.success) {
+        this.alertMessage.addWarning(MESSAGES.WARNING.ALREADY_ADDED_IN_WISH_LIST).show();
+      } else if(res?.status == 200 && res?.success) {
+        this.authService.setFevoriteItems(res?.data);
+        this.alertMessage.addSuccess(MESSAGES.SUCCESS.ADDED_FAVORITE_ITEM).show();
       } else {
         this.alertMessage.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
       }

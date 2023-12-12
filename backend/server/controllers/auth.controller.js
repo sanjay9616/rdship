@@ -183,12 +183,62 @@ exports.addCartItem = (req, res) => {
 
 }
 
+exports.addFavoriteItem = (req, res) => {
+    let userId = req.params.id
+    if (ObjectId.isValid(userId)) {
+        account.findOne({ _id: userId })
+            .then((result) => {
+                let favoriteItems = result.wishList
+                let isItemExits = result.wishList.some((item) => item._id == req.body._id);
+                if (isItemExits) {
+                    res.status(200).json({ data: favoriteItems, status: 204, success: true, message: 'Item Already Exits in the Favorite List.' });
+                } else {
+                    account.updateOne({ _id: userId }, { $push: { wishList: req.body } })
+                        .then((result) => {
+                            if (result.acknowledged && result.matchedCount == 1 && result.modifiedCount == 1) {
+                                account.findOne({ _id: userId })
+                                    .then((result) => {
+                                        res.status(200).json({ data: result.wishList, status: 200, success: true, message: 'Item Added Successfully in the Wish List.' })
+                                    })
+                                    .catch((err) => {
+                                        res.status(500).json({ data: null, status: 500, success: false, error: err, message: 'Something went wrong!' })
+                                    })
+                            } else {
+                                res.status(500).json({ data: null, status: 500, success: false, error: err, message: 'Something went wrong!' })
+                            }
+                        })
+                        .catch((err) => {
+                            res.status(500).json({ data: null, status: 500, success: false, error: err, message: 'Something went wrong!' })
+                        })
+                }
+            })
+    } else {
+        res.status(500).json({ data: null, status: 500, success: false, message: 'Not a valid User id' })
+    }
+
+}
+
 exports.getCartItems = (req, res) => {
     let userId = req.params.id
     if (ObjectId.isValid(userId)) {
         account.findOne({ _id: userId })
             .then((result) => {
                 res.status(200).json({ data: result.cartItems, status: 200, success: true, message: 'Cart Items Fetched Successfully.' });
+            })
+            .catch((err) => {
+                res.status(500).json({ data: null, status: 500, success: false, error: err, message: 'Something went wrong!' })
+            })
+    } else {
+        res.status(500).json({ data: null, status: 500, success: false, message: 'Not a valid User id' })
+    }
+}
+
+exports.getFavoriteItems = (req, res) => {
+    let userId = req.params.id
+    if (ObjectId.isValid(userId)) {
+        account.findOne({ _id: userId })
+            .then((result) => {
+                res.status(200).json({ data: result.wishList, status: 200, success: true, message: 'Wish List Items Fetched Successfully.' });
             })
             .catch((err) => {
                 res.status(500).json({ data: null, status: 500, success: false, error: err, message: 'Something went wrong!' })
@@ -212,6 +262,34 @@ exports.deleteCartItem = (req, res) => {
                     account.findOne({ _id: userId })
                         .then((result) => {
                             res.status(200).json({ data: result.cartItems, status: 200, success: true, message: 'Item Deleted Successfully.' })
+                        })
+                        .catch((err) => {
+                            res.status(500).json({ data: null, status: 500, success: false, error: err, message: 'Something went wrong!' })
+                        })
+                } else if (result.acknowledged && result.modifiedCount == 0 && result.matchedCount == 1) {
+                    res.status(409).json({ data: null, status: 409, success: false, message: "Can't delete Item" })
+                }
+            })
+            .catch((err) => {
+                res.status(500).json({ data: null, status: 500, success: false, error: err, message: 'Something Went Wrong!' })
+            })
+    }
+}
+
+exports.deleteFavoriteItem = (req, res) => {
+    let userId = req.params.userId
+    let itemId = req.params.itemId
+    if (!ObjectId.isValid(userId)) {
+        res.status(500).json({ data: null, status: 500, success: false, message: 'Not a valid User Id' })
+    } else if (!ObjectId.isValid(userId)) {
+        res.status(500).json({ data: null, status: 500, success: false, message: 'Not a valid Item Id' })
+    } else {
+        account.updateOne({ _id: new ObjectId(userId) }, { $pull: { wishList: { _id: itemId } } })
+            .then((result) => {
+                if (result.acknowledged && result.matchedCount == 1 && result.modifiedCount == 1) {
+                    account.findOne({ _id: userId })
+                        .then((result) => {
+                            res.status(200).json({ data: result.wishList, status: 200, success: true, message: 'Item Deleted Successfully.' })
                         })
                         .catch((err) => {
                             res.status(500).json({ data: null, status: 500, success: false, error: err, message: 'Something went wrong!' })

@@ -10,7 +10,7 @@ export const MESSAGES = {
         LOGIN_FIRST: "Please Login First, You Don't Have Permission.",
         ENTER_NEW_DETAILS: "Not Updated Any Details.",
         QTY_GREATER_THEN_ONE: "Item Quantity Shoul Greater Then 1.",
-        CANNOT_UPDATE_QTY: "Item Quantity Can't be Update."
+        CANNOT_UPDATE_QTY: "Item Quantity Can't be Update.",
     },
     SUCCESS: {
         ACCOUNT_CREATED: 'Account Created Successfully.',
@@ -20,6 +20,12 @@ export const MESSAGES = {
         PASSWORD_UPDATED: 'Password Updated Successfully.',
         PROFILE_UPDATED: "Profile Updated Successfully.",
         ITEM_DELETED: "Item Deleted Successfully.",
-        CART_QTY_UPDATED: "Quantity Updated Successfully."
+        CART_QTY_UPDATED: "Quantity Updated Successfully.",
+        ADDED_FAVORITE_ITEM: "Item Added in the Wish List Successfully.",
+        ADDED_CART_ITEM: "Item Added in the Cart Successfully.",
+    },
+    WARNING: {
+        ALREADY_ADDED_IN_CART: "Item Already Exits in the Cart.",
+        ALREADY_ADDED_IN_WISH_LIST: "Item Already Exits in the Wish List.",
     }
 }

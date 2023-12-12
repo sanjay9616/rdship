@@ -135,7 +135,7 @@
                         <div class="item">
                             <div class="favorite" (click)="$event.stopPropagation();"
                                 [ngClass]="{ 'active' : item?.isFavorite }">
-                                <button mat-flat-button>
+                                <button mat-flat-button (click)="addFavoriteItem(item)">
                                     <mat-icon>favorite</mat-icon>
                                 </button>
                             </div>

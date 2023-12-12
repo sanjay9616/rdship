@@ -53,6 +53,17 @@ export const URL_LIST = {
                 URL: "/account/add-recently-view-item"
             }
         },
+        FAVORITE_ITEMS: {
+            ADD_FAVORITE_ITEM: {
+                URL: '/account/add-favorite-item'
+            },
+            GET_FAVORITE_ITEMS: {
+                URL: '/account/get-favorite-items'
+            },
+            DELETE_FAVORITE_ITEM: {
+                URL: '/account/delete-favorite-item'
+            },
+        },
     },
     ROUTING_PATHS: {
         HOME: '/',

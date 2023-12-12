@@ -52,6 +52,14 @@ export class AuthService {
     this.userDetail.cartItems = items;
   }
 
+  getFevoriteItems() {
+    return this.userDetail.wishList;
+  }
+
+  setFevoriteItems(items: Array<any>) {
+    this.userDetail.wishList = items;
+  }
+
   clearUserDetail() {
     this.userDetail = {};
     this.isAuthenticated = false;

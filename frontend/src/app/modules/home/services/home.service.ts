@@ -30,13 +30,28 @@ export class HomeService {
     return this.apiService.post(url, data);
   }
 
+  addFavoriteItem(id: string, data: any) {
+    let url: string = `${env.rdShip.baseUrl}${URL_LIST.API.FAVORITE_ITEMS.ADD_FAVORITE_ITEM.URL}/${id}`;
+    return this.apiService.post(url, data);
+  }
+
   getCartItems(id: string) {
     let url: string = `${env.rdShip.baseUrl}${URL_LIST.API.CART_ITEMS.GET_CART_ITEMS.URL}/${id}`;
     return this.apiService.get(url);
   }
 
+  getFavoriteItems(id: string) {
+    let url: string = `${env.rdShip.baseUrl}${URL_LIST.API.FAVORITE_ITEMS.GET_FAVORITE_ITEMS.URL}/${id}`;
+    return this.apiService.get(url);
+  }
+
   deleteCartItem(userId: string, itemId: string) {
     let url: string = `${env.rdShip.baseUrl}${URL_LIST.API.CART_ITEMS.DELETE_CART_ITEM.URL}/${userId}/${itemId}`;
+    return this.apiService.delete(url);
+  }
+
+  deleteFavoriteItem(userId: string, itemId: string) {
+    let url: string = `${env.rdShip.baseUrl}${URL_LIST.API.FAVORITE_ITEMS.DELETE_FAVORITE_ITEM.URL}/${userId}/${itemId}`;
     return this.apiService.delete(url);
   }
 
