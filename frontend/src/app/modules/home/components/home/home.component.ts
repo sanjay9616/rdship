@@ -37,10 +37,8 @@ export class HomeComponent implements OnInit {
     { type: 'Daily Delicacies Grocer', url: '/assets/img/seller-list/5.jpg', text: "A grocery shops that serve daily needs grocery items include beauty, salons, frozen foods, dry fruits, biscuit, rice, household and cleaners, oil, kitchen and others." },
     { type: 'Neighborhood Furniture', url: '/assets/img/seller-list/6.webp', text: "A furniture shop that serve, household equipment, usually made of wood, metal, plastics, marble, glass, fabrics, or related materials and having a variety of different purposes." },
   ]
-  recentlyViewedProducts: Array<any> = [];
+  recentlyViewItems: Array<any> = [];
   topSellingProducts: Array<any> = [];
-  homeDetails: any = {};
-
 
   constructor(private router: Router,
     private alertService: AlertMessageService,
@@ -56,8 +54,8 @@ export class HomeComponent implements OnInit {
   getHomeDetails() {
     this.homeService.getHomeDetails(this.authService.getUserId()).subscribe((res: any) => {
       if (res?.status == 200 && res?.success) {
-        this.homeDetails = res?.data;
-        console.log('homeDetails', this.homeDetails);
+        this.recentlyViewItems = this.authService.addIsFavoriteAndIsCartItemsKey(res?.data?.recentlyViewItems);
+        this.topSellingProducts = this.authService.addIsFavoriteAndIsCartItemsKey(res?.data?.topSellingProducts);
       } else {
         this.alertService.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
       }
@@ -86,20 +84,37 @@ export class HomeComponent implements OnInit {
     })
   }
 
-  addFavoriteItem(item: any) {
+  addRemoveFavoriteItem(item: any) {
     event?.stopPropagation();
-    this.homeService.addFavoriteItem(this.authService.getUserId(), item).subscribe((res: any) => {
-      if (res?.status == 204 && res?.success) {
-        this.alertMessage.addWarning(MESSAGES.WARNING.ALREADY_ADDED_IN_WISH_LIST).show();
-      } else if (res?.status == 200 && res?.success) {
-        this.authService.setFevoriteItems(res?.data);
-        this.alertMessage.addSuccess(MESSAGES.SUCCESS.ADDED_FAVORITE_ITEM).show();
-      } else {
+    if (item?.isFavorite) {
+      this.homeService.deleteFavoriteItem(this.authService.getUserId(), item._id).subscribe((res: any) => {
+        if (res?.status == 200 && res?.success) {
+          this.authService.setFevoriteItems(res?.data);
+          this.recentlyViewItems = this.authService.addIsFavoriteAndIsCartItemsKey(this.recentlyViewItems);
+          this.topSellingProducts = this.authService.addIsFavoriteAndIsCartItemsKey(this.topSellingProducts);
+          this.alertMessage.addSuccess(MESSAGES.SUCCESS.FAVORITE_ITEM_DELETED).show();
+        } else {
+          this.alertMessage.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
+        }
+      }, (err: any) => {
         this.alertMessage.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
-      }
-    }, (err: any) => {
-      this.alertMessage.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
-    })
+      })
+    } else {
+      this.homeService.addFavoriteItem(this.authService.getUserId(), item).subscribe((res: any) => {
+        if (res?.status == 204 && res?.success) {
+          this.alertMessage.addWarning(MESSAGES.WARNING.ALREADY_ADDED_IN_WISH_LIST).show();
+        } else if (res?.status == 200 && res?.success) {
+          this.authService.setFevoriteItems(res?.data);
+          this.recentlyViewItems = this.authService.addIsFavoriteAndIsCartItemsKey(this.recentlyViewItems);
+          this.topSellingProducts = this.authService.addIsFavoriteAndIsCartItemsKey(this.topSellingProducts);
+          this.alertMessage.addSuccess(MESSAGES.SUCCESS.ADDED_FAVORITE_ITEM).show();
+        } else {
+          this.alertMessage.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
+        }
+      }, (err: any) => {
+        this.alertMessage.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
+      })
+    }
   }
 
   viewItemDetail(item: any) {

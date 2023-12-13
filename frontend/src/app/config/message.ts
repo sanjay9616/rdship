@@ -20,6 +20,7 @@ export const MESSAGES = {
         PASSWORD_UPDATED: 'Password Updated Successfully.',
         PROFILE_UPDATED: "Profile Updated Successfully.",
         ITEM_DELETED: "Item Deleted Successfully.",
+        FAVORITE_ITEM_DELETED: "Item Deleted from Wish List Successfully.",
         CART_QTY_UPDATED: "Quantity Updated Successfully.",
         ADDED_FAVORITE_ITEM: "Item Added in the Wish List Successfully.",
         ADDED_CART_ITEM: "Item Added in the Cart Successfully.",

@@ -50,16 +50,16 @@
             </ng-container>
         </div>
     </section>
-    <section *ngIf="homeDetails?.recentlyViewItems?.length" class="buttom-container">
+    <section *ngIf="recentlyViewItems?.length" class="buttom-container">
         <div class="similar-product-header">
             <span>Recently Viewed</span>
         </div>
         <div class="similar-produc-div scrollbar">
-            <ng-container *ngFor="let product of homeDetails?.recentlyViewItems">
+            <ng-container *ngFor="let product of recentlyViewItems">
                 <div class="similar-items" (click)="viewItemDetail(product)">
                     <div class="item">
                         <div class="favorite" (click)="$event.stopPropagation();" [ngClass]="{ 'active' : product?.isFavorite }">
-                            <button mat-flat-button type="button" (click)="addFavoriteItem(product)">
+                            <button mat-flat-button type="button" (click)="addRemoveFavoriteItem(product)">
                                 <mat-icon>favorite</mat-icon>
                             </button>
                         </div>
@@ -81,29 +81,30 @@
                             </div>
                         </div>
                         <div class="button-section">
-                            <button mat-flat-button [disabled]="true">
+                            <button mat-flat-button [disabled]="true" class="item-details-btn">
                                 <ng-container *ngFor="let key of product?.activeProduct | keyvalue; let isLast=last">
                                     <span *ngIf="!isLast">{{key?.value}} * </span>
                                     <span *ngIf="isLast">{{key?.value}}</span>
                                 </ng-container>
                             </button>
-                            <button mat-flat-button (click)="addCartItem(product)">ADD Item</button>
+                            <button *ngIf="!product?.isCart" mat-flat-button class="add-item-btn" (click)="addCartItem(product)">ADD Item</button>
+                            <button *ngIf="product?.isCart" mat-flat-button class="shop-now-btn" (click)="$event.stopPropagation()">Shop Now</button>
                         </div>
                     </div>
                 </div>
             </ng-container>
         </div>
     </section>
-    <section *ngIf="homeDetails?.topSellingProducts?.length" class="buttom-container">
+    <section *ngIf="topSellingProducts?.length" class="buttom-container">
         <div class="similar-product-header">
             <span>Top Selling Products</span>
         </div>
         <div class="similar-produc-div scrollbar">
-            <ng-container *ngFor="let product of homeDetails?.topSellingProducts">
+            <ng-container *ngFor="let product of topSellingProducts">
                 <div class="similar-items">
                     <div class="item" (click)="viewItemDetail(product)">
                         <div class="favorite" (click)="$event.stopPropagation();" [ngClass]="{ 'active' : product?.isFavorite }">
-                            <button mat-flat-button type="button" (click)="addFavoriteItem(product)">
+                            <button mat-flat-button type="button" (click)="addRemoveFavoriteItem(product)">
                                 <mat-icon>favorite</mat-icon>
                             </button>
                         </div>
@@ -125,13 +126,14 @@
                             </div>
                         </div>
                         <div class="button-section">
-                            <button mat-flat-button [disabled]="true">
+                            <button mat-flat-button [disabled]="true" class="item-details-btn">
                                 <ng-container *ngFor="let key of product?.activeProduct | keyvalue; let isLast=last">
                                     <span *ngIf="!isLast">{{key?.value}} * </span>
                                     <span *ngIf="isLast">{{key?.value}}</span>
                                 </ng-container>
                             </button>
-                            <button mat-flat-button (click)="addCartItem(product)">ADD Item</button>
+                            <button *ngIf="!product?.isCart" mat-flat-button  class="add-item-btn" (click)="addCartItem(product)">ADD Item</button>
+                            <button *ngIf="product?.isCart" mat-flat-button class="shop-now-btn" (click)="$event.stopPropagation()">Shop Now</button>
                         </div>
                     </div>
                 </div>

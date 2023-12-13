@@ -40,7 +40,7 @@
                                 <button mat-flat-button (click)="updateQty(i, 'remove', item?._id)">
                                     <mat-icon>remove</mat-icon>
                                 </button>
-                                <input type="number" naturalNumbersOnly [value]="item?.numberOfItem" (input)="updateQty(i, $event, item?._id)">
+                                <input type="number" naturalNumbersOnly [value]="item?.numberOfItem" (input)="updateQty(i, $event, item?._id)" (click)="$event.stopPropagation()">
                                 <button mat-flat-button (click)="updateQty(i, 'add', item?._id)">
                                     <mat-icon>add</mat-icon>
                                 </button>
