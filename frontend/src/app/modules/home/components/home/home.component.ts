@@ -75,6 +75,8 @@ export class HomeComponent implements OnInit {
         this.alertMessage.addWarning('Item Already Exits in the Cart.').show();
       } else if (res?.status == 200 && res?.success) {
         this.authService.setCartItems(res?.data);
+        this.recentlyViewItems = this.authService.addIsFavoriteAndIsCartItemsKey(this.recentlyViewItems);
+        this.topSellingProducts = this.authService.addIsFavoriteAndIsCartItemsKey(this.topSellingProducts);
         this.alertMessage.addSuccess('Item Added Successfully in the Cart.').show();
       } else {
         this.alertMessage.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();

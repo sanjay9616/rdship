@@ -126,14 +126,14 @@
                             </div>
                         </div>
                         <div class="button-section">
-                            <button mat-flat-button [disabled]="true" class="item-details-btn">
+                            <button mat-flat-button type="button" [disabled]="true" class="item-details-btn">
                                 <ng-container *ngFor="let key of product?.activeProduct | keyvalue; let isLast=last">
                                     <span *ngIf="!isLast">{{key?.value}} * </span>
                                     <span *ngIf="isLast">{{key?.value}}</span>
                                 </ng-container>
                             </button>
-                            <button *ngIf="!product?.isCart" mat-flat-button  class="add-item-btn" (click)="addCartItem(product)">ADD Item</button>
-                            <button *ngIf="product?.isCart" mat-flat-button class="shop-now-btn" (click)="$event.stopPropagation()">Shop Now</button>
+                            <button *ngIf="!product?.isCart" mat-flat-button type="button"  class="add-item-btn" (click)="addCartItem(product)">ADD Item</button>
+                            <button *ngIf="product?.isCart" mat-flat-button type="button" class="shop-now-btn" (click)="$event.stopPropagation()">Shop Now</button>
                         </div>
                     </div>
                 </div>

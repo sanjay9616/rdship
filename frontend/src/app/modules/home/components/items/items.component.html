@@ -135,7 +135,7 @@
                         <div class="item">
                             <div class="favorite" (click)="$event.stopPropagation();"
                                 [ngClass]="{ 'active' : item?.isFavorite }">
-                                <button mat-flat-button (click)="addFavoriteItem(item)">
+                                <button mat-flat-button (click)="addRemoveFavoriteItem(item)">
                                     <mat-icon>favorite</mat-icon>
                                 </button>
                             </div>
@@ -158,13 +158,14 @@
                                 </div>
                             </div>
                             <div class="button-section">
-                                <button mat-flat-button [disabled]="true">
+                                <button mat-flat-button [disabled]="true" class="item-details-btn">
                                     <ng-container *ngFor="let key of item?.activeProduct | keyvalue; let isLast=last">
                                         <span *ngIf="!isLast">{{key?.value}} * </span>
                                         <span *ngIf="isLast">{{key?.value}}</span>
                                     </ng-container>
                                 </button>
-                                <button mat-flat-button (click)="addCartItem(item)" (click)="$event.stopPropagation();">ADD Item</button>
+                                <button *ngIf="!item?.isCart" mat-flat-button class="add-item-btn" (click)="$event.stopPropagation();" (click)="addCartItem(item)">ADD Item</button>
+                                <button *ngIf="item?.isCart" mat-flat-button class="shop-now-btn" (click)="$event.stopPropagation();">Shop Now</button>
                             </div>
                         </div>
                     </div>

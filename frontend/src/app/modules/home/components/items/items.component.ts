@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import {  distinctUntilChanged, startWith } from 'rxjs/operators';
+import { distinctUntilChanged, startWith } from 'rxjs/operators';
 import { MESSAGES } from 'src/app/config/message';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { AlertMessageService } from 'src/app/modules/shared/_services/alert-message.service';
@@ -99,6 +99,7 @@ export class ItemsComponent implements OnInit {
     this.homeService.getProductDetails(this.formGroup?.value).subscribe((res: any) => {
       if (res?.status == 200 && res?.success) {
         this.pageDetails = res?.data;
+        this.pageDetails.items = this.authService.addIsFavoriteAndIsCartItemsKey(this.pageDetails.items);
         this.subCategoryMultiFilterCtrlValueChanges();
         this.brandMultiFilterCtrlValueChanges();
         this.formGroup.get('currentPage')?.patchValue(1, { emitEvent: false });
@@ -188,10 +189,11 @@ export class ItemsComponent implements OnInit {
 
   addCartItem(item: any) {
     this.homeService.addCartItem(this.authService.getUserId(), item).subscribe((res: any) => {
-      if(res?.status == 204 && res?.success) {
+      if (res?.status == 204 && res?.success) {
         this.alertMessage.addWarning(MESSAGES.WARNING.ALREADY_ADDED_IN_CART).show();
-      } else if(res?.status == 200 && res?.success) {
+      } else if (res?.status == 200 && res?.success) {
         this.authService.setCartItems(res?.data);
+        this.pageDetails.items = this.authService.addIsFavoriteAndIsCartItemsKey(this.pageDetails.items);
         this.alertMessage.addSuccess(MESSAGES.SUCCESS.ADDED_CART_ITEM).show();
       } else {
         this.alertMessage.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
@@ -201,19 +203,34 @@ export class ItemsComponent implements OnInit {
     })
   }
 
-  addFavoriteItem(item: any) {
-    this.homeService.addFavoriteItem(this.authService.getUserId(), item).subscribe((res: any) => {
-      if(res?.status == 204 && res?.success) {
-        this.alertMessage.addWarning(MESSAGES.WARNING.ALREADY_ADDED_IN_WISH_LIST).show();
-      } else if(res?.status == 200 && res?.success) {
-        this.authService.setFevoriteItems(res?.data);
-        this.alertMessage.addSuccess(MESSAGES.SUCCESS.ADDED_FAVORITE_ITEM).show();
-      } else {
+  addRemoveFavoriteItem(item: any) {
+    if (item?.isFavorite) {
+      this.homeService.deleteFavoriteItem(this.authService.getUserId(), item._id).subscribe((res: any) => {
+        if (res?.status == 200 && res?.success) {
+          this.authService.setFevoriteItems(res?.data);
+          this.pageDetails.items = this.authService.addIsFavoriteAndIsCartItemsKey(this.pageDetails.items);
+          this.alertMessage.addSuccess(MESSAGES.SUCCESS.FAVORITE_ITEM_DELETED).show();
+        } else {
+          this.alertMessage.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
+        }
+      }, (err: any) => {
         this.alertMessage.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
-      }
-    }, (err: any) => {
-      this.alertMessage.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
-    })
+      })
+    } else {
+      this.homeService.addFavoriteItem(this.authService.getUserId(), item).subscribe((res: any) => {
+        if (res?.status == 204 && res?.success) {
+          this.alertMessage.addWarning(MESSAGES.WARNING.ALREADY_ADDED_IN_WISH_LIST).show();
+        } else if (res?.status == 200 && res?.success) {
+          this.authService.setFevoriteItems(res?.data);
+          this.pageDetails.items = this.authService.addIsFavoriteAndIsCartItemsKey(this.pageDetails.items);
+          this.alertMessage.addSuccess(MESSAGES.SUCCESS.ADDED_FAVORITE_ITEM).show();
+        } else {
+          this.alertMessage.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
+        }
+      }, (err: any) => {
+        this.alertMessage.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
+      })
+    }
   }
 
   viewItemDetail(item: any) {

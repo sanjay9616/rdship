@@ -928,23 +928,31 @@
                         border: 1px solid #f0f0f0;
                         font-weight: 500;
                         border-radius: 5px;
+                        font-size: 12px;
+                    }
 
-                        &:first-child {
-                            cursor: not-allowed;
-                            color: #878787;
-                            font-size: 12px;
-                            padding: 0 5px;
+                    .item-details-btn {
+                        cursor: not-allowed;
+                        color: #878787;
+                        padding: 0 5px;
+                    }
+
+                    .add-item-btn {
+                        color: #db4a2c;
+
+                        &:hover {
+                            background-color: #db4a2c;
+                            color: #FFFFFF;
                         }
+                    }
 
-                        &:last-child {
-                            color: #db4a2c;
-                            font-size: 14px;
+                    .shop-now-btn {
+                        color: #ff9f00;
+                        background-color: #FFFFFF;
 
-                            &:hover {
-                                background-color: #db4a2c;
-                                color: #FFFFFF;
-                            }
-
+                        &:hover {
+                            background-color: #ff9f00;
+                            color: #FFFFFF;
                         }
                     }
 

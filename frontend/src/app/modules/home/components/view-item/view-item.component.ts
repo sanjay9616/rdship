@@ -46,6 +46,8 @@ export class ViewItemComponent implements OnInit {
         this.similarProducts = res?.data?.similarProducts;
         this.itemDetailsCopy = { ...res?.data?.itemDetails };
         this.imgUrl = this.itemDetails?.imgUrls[0];
+        this.itemDetails = this.authService.addIsFavoriteAndIsCartItemKey(this.itemDetails);
+        this.similarProducts = this.authService.addIsFavoriteAndIsCartItemsKey(this.similarProducts);
         this.addRecentlyViewItems(this.itemDetails);
       } else {
         this.alertMessageService.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
@@ -76,7 +78,7 @@ export class ViewItemComponent implements OnInit {
     this.itemDetails.sellingPrice = this.itemDetailsCopy.sellingPrice * (this.itemDetails.numberOfItem || 1);
   }
 
-  addItemsToCart(item: any) {
+  addCartItem(item: any, isViewItem: boolean) {
     event?.stopPropagation();
     let payload = { ...item };
     payload.markedPrice = this.itemDetailsCopy?.markedPrice;
@@ -86,6 +88,8 @@ export class ViewItemComponent implements OnInit {
         this.alertMessage.addWarning('Item Already Exits in the Cart.').show();
       } else if (res?.status == 200 && res?.success) {
         this.authService.setCartItems(res?.data);
+        if (isViewItem) this.itemDetails = this.authService.addIsFavoriteAndIsCartItemKey(this.itemDetails);
+        if (!isViewItem) this.similarProducts = this.authService.addIsFavoriteAndIsCartItemsKey(this.similarProducts);
         this.alertMessage.addSuccess('Item Added Successfully in the Cart.').show();
       } else {
         this.alertMessage.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
@@ -95,23 +99,42 @@ export class ViewItemComponent implements OnInit {
     })
   }
 
-  addFavoriteItem(item: any) {
+  addRemoveFavoriteItem(item: any, isViewItem: boolean) {
     event?.stopPropagation();
-    let payload = { ...item };
-    payload.markedPrice = this.itemDetailsCopy?.markedPrice;
-    payload.sellingPrice = this.itemDetailsCopy?.sellingPrice;
-    this.homeService.addFavoriteItem(this.authService.getUserId(), payload).subscribe((res: any) => {
-      if (res?.status == 204 && res?.success) {
-        this.alertMessage.addWarning(MESSAGES.WARNING.ALREADY_ADDED_IN_WISH_LIST).show();
-      } else if (res?.status == 200 && res?.success) {
-        this.authService.setFevoriteItems(res?.data);
-        this.alertMessage.addSuccess(MESSAGES.SUCCESS.ADDED_FAVORITE_ITEM).show();
-      } else {
+    if (item?.isFavorite) {
+      this.homeService.deleteFavoriteItem(this.authService.getUserId(), item._id).subscribe((res: any) => {
+        if (res?.status == 200 && res?.success) {
+          this.authService.setFevoriteItems(res?.data);
+          if (isViewItem) this.itemDetails = this.authService.addIsFavoriteAndIsCartItemKey(this.itemDetails);
+          if (!isViewItem) this.similarProducts = this.authService.addIsFavoriteAndIsCartItemsKey(this.similarProducts);
+          this.alertMessage.addSuccess(MESSAGES.SUCCESS.FAVORITE_ITEM_DELETED).show();
+        } else {
+          this.alertMessage.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
+        }
+      }, (err: any) => {
         this.alertMessage.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
+      })
+    } else {
+      let payload = { ...item };
+      if (isViewItem) {
+        payload.markedPrice = this.itemDetailsCopy?.markedPrice;
+        payload.sellingPrice = this.itemDetailsCopy?.sellingPrice;
       }
-    }, (err: any) => {
-      this.alertMessage.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
-    })
+      this.homeService.addFavoriteItem(this.authService.getUserId(), payload).subscribe((res: any) => {
+        if (res?.status == 204 && res?.success) {
+          this.alertMessage.addWarning(MESSAGES.WARNING.ALREADY_ADDED_IN_WISH_LIST).show();
+        } else if (res?.status == 200 && res?.success) {
+          this.authService.setFevoriteItems(res?.data);
+          if (isViewItem) this.itemDetails = this.authService.addIsFavoriteAndIsCartItemKey(this.itemDetails);
+          if (!isViewItem) this.itemDetails = this.authService.addIsFavoriteAndIsCartItemsKey(this.similarProducts);
+          this.alertMessage.addSuccess(MESSAGES.SUCCESS.ADDED_FAVORITE_ITEM).show();
+        } else {
+          this.alertMessage.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
+        }
+      }, (err: any) => {
+        this.alertMessage.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
+      })
+    }
   }
 
   selectImg(imgUrl: string) {
@@ -139,6 +162,8 @@ export class ViewItemComponent implements OnInit {
         this.itemDetails = res?.data?.itemDetails;
         this.similarProducts = res?.data?.similarProducts;
         this.itemDetailsCopy = { ...res?.data?.itemDetails };
+        this.itemDetails = this.authService.addIsFavoriteAndIsCartItemKey(this.itemDetails);
+        this.similarProducts = this.authService.addIsFavoriteAndIsCartItemsKey(this.similarProducts);
         this.imgUrl = this.itemDetails?.imgUrls[0];
         this.addRecentlyViewItems(this.itemDetails);
       } else {

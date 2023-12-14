@@ -75,6 +75,14 @@ export class AuthService {
     return items;
   }
 
+  addIsFavoriteAndIsCartItemKey(item: any) {
+    let cartItemsIds = this.userDetail?.cartItems.map((item: any) => item?._id);
+    let wishListIds = this.userDetail?.wishList.map((item: any) => item?._id);
+    item.isFavorite = wishListIds.includes(item._id);
+    item.isCart = cartItemsIds.includes(item._id);
+    return item;
+  }
+
   login(data: any) {
     let url: string = `${env.rdShip.baseUrl}${URL_LIST.API.ACCOUNT.LOGIN.URL}`;
     return this.apiService.post(url, data);

@@ -7,7 +7,7 @@
                         <img [src]="imgUrl" alt="">
                     </div>
                     <div class="icons-div">
-                        <button mat-flat-button type="button" (click)="$event.stopPropagation();" [ngClass]="{ 'active' : itemDetails?.isFavorite }" (click)="addFavoriteItem(itemDetails)">
+                        <button mat-flat-button type="button" (click)="$event.stopPropagation();" [ngClass]="{ 'active' : itemDetails?.isFavorite }" (click)="addRemoveFavoriteItem(itemDetails, true)">
                             <mat-icon>favorite</mat-icon>
                         </button>
                         <button mat-flat-button [matMenuTriggerFor]="overallCustomerExposure">
@@ -287,7 +287,7 @@
                     </button>
                 </div>
             </div>
-            <button mat-flat-button class="primary add-to-cart-btn" (click)="addItemsToCart(itemDetails)">
+            <button mat-flat-button class="primary add-to-cart-btn" (click)="addCartItem(itemDetails, true)">
                 <mat-icon>shopping_cart</mat-icon>
                 <span>ADD TO CART</span>
             </button>
@@ -318,7 +318,7 @@
                 <div class="item">
                     <div class="favorite" (click)="$event.stopPropagation();"
                         [ngClass]="{ 'active' : product?.isFavorite }">
-                        <button mat-flat-button type="button" (click)="addFavoriteItem(product)">
+                        <button mat-flat-button type="button" (click)="addRemoveFavoriteItem(product, false)">
                             <mat-icon>favorite</mat-icon>
                         </button>
                     </div>
@@ -341,13 +341,15 @@
                         </div>
                     </div>
                     <div class="button-section">
-                        <button mat-flat-button [disabled]="true">
+                        <button mat-flat-button type="button" [disabled]="true" class="item-details-btn">
                             <ng-container *ngFor="let key of product?.activeProduct | keyvalue; let isLast=last">
                                 <span *ngIf="!isLast">{{key?.value}} * </span>
                                 <span *ngIf="isLast">{{key?.value}}</span>
                             </ng-container>
                         </button>
-                        <button mat-flat-button (click)="addItemsToCart(product)">ADD Item</button>
+                        <!-- <button mat-flat-button (click)="addCartItem(product, false)">ADD Item</button> -->
+                        <button *ngIf="!product?.isCart" mat-flat-button type="button" class="add-item-btn" (click)="addCartItem(product, false)">ADD Item</button>
+                        <button *ngIf="product?.isCart" mat-flat-button type="button" class="shop-now-btn" (click)="$event.stopPropagation()">Shop Now</button>
                     </div>
                 </div>
             </div>
