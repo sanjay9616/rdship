@@ -10,11 +10,11 @@ import { URL_LIST } from 'src/app/config/urlList';
 })
 export class MyCouponsComponent {
 
+  couponList: Array<any> = this.commonService.items.slice(0, 3);
+
   constructor(private commonService: CommonService,
     private router: Router
   ) { }
-
-  couponList: Array<any> = this.commonService.items.slice(0, 3);
 
   ngOnInit(): void { }
 

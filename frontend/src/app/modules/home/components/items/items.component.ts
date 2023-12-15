@@ -14,12 +14,6 @@ import { HomeService } from '../../services/home.service';
 })
 export class ItemsComponent implements OnInit {
 
-  constructor(private activatedRoute: ActivatedRoute,
-    private alertMessage: AlertMessageService,
-    private homeService: HomeService,
-    private router: Router,
-    private authService: AuthService) { }
-
   formGroup!: FormGroup;
   isOpenFilers: boolean = false;
   toggleAllBrandsCheckboxState: boolean = false;
@@ -59,6 +53,12 @@ export class ItemsComponent implements OnInit {
   pageDetails: any = {};
   subCategoryMultiFilterCtrl: FormControl = new FormControl(null);
   brandMultiFilterCtrl: FormControl = new FormControl(null);
+
+  constructor(private activatedRoute: ActivatedRoute,
+    private alertMessage: AlertMessageService,
+    private homeService: HomeService,
+    private router: Router,
+    private authService: AuthService) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((routeParams: any) => {

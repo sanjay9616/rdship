@@ -13,6 +13,7 @@ export class AuthService {
   static readonly AUTH_TOKEN = '_id';
   userDetail: any = {};
   isAuthenticated: boolean = false;
+
   constructor(private apiService: ApiService,
   ) { }
 

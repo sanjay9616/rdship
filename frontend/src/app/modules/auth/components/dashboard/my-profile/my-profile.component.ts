@@ -14,15 +14,15 @@ import { AuthService } from '../../../services/auth.service';
 })
 export class MyProfileComponent implements OnInit {
 
-  constructor(private authService: AuthService,
-    private alertService: AlertMessageService,
-    private router: Router
-  ) { }
-
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>([]);
   displayedColumns: Array<string> = ['serialNumber', 'area', 'city', 'pinCode', 'actions'];
   formGroup!: FormGroup;
   userInfo: any = this.authService.getUserDetail();
+
+  constructor(private authService: AuthService,
+    private alertService: AlertMessageService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.initFormGroup();

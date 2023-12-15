@@ -1,14 +1,3 @@
-// ::ng-deep .mdc-text-field--disabled .mdc-notched-outline__leading,
-// ::ng-deep .mdc-text-field--disabled .mdc-notched-outline__notch,
-// ::ng-deep .mdc-text-field--disabled .mdc-notched-outline__trailing {
-//     border: 1px solid #BCBCBC !important;
-// }
-
-// ::ng-deep .mat-mdc-form-field-input-control.mat-mdc-form-field-input-control {
-//     color: black;
-
-// }
-
 ::ng-deep .mdc-text-field--disabled {
     background-color: #fafafa !important;
     border-radius: 4px !important;
@@ -200,9 +189,6 @@
                 padding: 0 10px;
             }
 
-            // input:focus:required:invalid {
-            //     border: 1px solid red;
-            // }
             input:required:invalid {
                 border: 1px solid red;
             }

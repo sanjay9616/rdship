@@ -70,7 +70,9 @@
                 left: 53px;
                 z-index: 1;
 
-                .cart-count {}
+                .cart-count {
+                    font-size: 12px;
+                }
             }
 
             button {
@@ -187,9 +189,6 @@
     --mat-mdc-button-persistent-ripple-color: unset;
 }
 
-// .search-box-container-mobile {
-//     display: none;
-// }
 .menu-option {
     cursor: pointer;
     display: flex;
@@ -213,31 +212,6 @@
         background-color: #F2F2F2;
     }
 }
-
-// @media screen and (max-width: 767px) {
-//     .search-box-container-desktop {
-//         display: none !important;
-//     }
-
-//     .search-box-container-mobile {
-//         display: block !important;
-//         margin-top: 0.5rem;
-
-//         input {
-//             width: 100%;
-//         }
-//     }
-// }
-// ::ng-deep .mat-menu-panel {
-//     border-radius: 0 !important;
-//     min-height: unset !important;
-//     min-width: unset !important;
-
-//     .mat-menu-content {
-//         padding: 0 !important;
-//         margin: 0 !important;
-//     }
-// }
 
 ::ng-deep .mat-mdc-button-touch-target {
     height: 100% !important;

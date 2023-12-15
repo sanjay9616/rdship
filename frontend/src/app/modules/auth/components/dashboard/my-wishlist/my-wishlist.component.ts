@@ -13,14 +13,15 @@ import { AuthService } from '../../../services/auth.service';
   styleUrls: ['./my-wishlist.component.scss']
 })
 export class MyWishlistComponent {
+
+  wishList: Array<any> = [];
+
   constructor(private commonService: CommonService,
     private router: Router,
     private homeService: HomeService,
     private alertMessage: AlertMessageService,
     private authService: AuthService
   ) { }
-
-  wishList: Array<any> = [];
 
   ngOnInit(): void {
     this.getFavoriteItems();

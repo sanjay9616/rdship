@@ -13,14 +13,14 @@ import { HomeService } from '../../services/home.service';
 })
 export class ViewCartComponent implements OnInit {
 
+  cartItems: Array<any> = [];
+  cartItemsCopy: Array<any> = [];
+
   constructor(private alertMessage: AlertMessageService,
     private router: Router,
     private authService: AuthService,
     private homeService: HomeService
   ) { }
-
-  cartItems: Array<any> = [];
-  cartItemsCopy: Array<any> = [];
 
   ngOnInit(): void {
     if (localStorage.getItem('_id')) this.getCartItems();

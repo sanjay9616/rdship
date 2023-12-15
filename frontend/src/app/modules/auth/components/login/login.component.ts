@@ -14,14 +14,14 @@ import { URL_LIST } from 'src/app/config/urlList';
 })
 export class LoginComponent implements OnInit {
 
+  formGroup!: FormGroup;
+  showPassword: boolean = false;
+
   constructor(private authService: AuthService,
     private commonService: CommonService,
     private router: Router,
     private alertService: AlertMessageService,
     private authservice: AuthService) { }
-
-  formGroup!: FormGroup;
-  showPassword: boolean = false;
 
   ngOnInit(): void {
     this.initFormGroup();

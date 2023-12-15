@@ -347,7 +347,6 @@
                                 <span *ngIf="isLast">{{key?.value}}</span>
                             </ng-container>
                         </button>
-                        <!-- <button mat-flat-button (click)="addCartItem(product, false)">ADD Item</button> -->
                         <button *ngIf="!product?.isCart" mat-flat-button type="button" class="add-item-btn" (click)="addCartItem(product, false)">ADD Item</button>
                         <button *ngIf="product?.isCart" mat-flat-button type="button" class="shop-now-btn" (click)="$event.stopPropagation()">Shop Now</button>
                     </div>

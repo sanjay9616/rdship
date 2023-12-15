@@ -10,12 +10,12 @@ import { URL_LIST } from 'src/app/config/urlList';
 })
 export class AllNotificationsComponent {
 
+  notificationList: Array<any> = this.commonService.items.slice(0, 3);
+
   constructor(private commonService: CommonService,
     private router: Router) {
 
   }
-
-  notificationList: Array<any> = this.commonService.items.slice(0, 3);
 
   ngOnInit(): void {}
 

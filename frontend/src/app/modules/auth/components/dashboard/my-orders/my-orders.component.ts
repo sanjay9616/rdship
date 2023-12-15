@@ -10,10 +10,6 @@ import { URL_LIST } from 'src/app/config/urlList';
 })
 export class MyOrdersComponent implements OnInit {
 
-  constructor(private commonService: CommonService,
-    private router: Router
-  ) { }
-
   orderList: Array<any> = this.commonService.items.slice(0, 2);
   isOpenFilter: boolean = false;
   statusList: Array<any> = [
@@ -23,9 +19,11 @@ export class MyOrdersComponent implements OnInit {
     { view: 'Returned', value: 'Returned' },
   ]
 
+  constructor(private commonService: CommonService,
+    private router: Router
+  ) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   home() {
     this.router.navigate([URL_LIST.ROUTING_PATHS.HOME]);

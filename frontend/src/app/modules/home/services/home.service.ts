@@ -9,6 +9,7 @@ export class HomeService {
 
   userDetail: any = {};
   isAuthenticated: boolean = false;
+
   constructor(private apiService: ApiService,
   ) { }
 

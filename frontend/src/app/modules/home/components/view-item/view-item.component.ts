@@ -15,6 +15,13 @@ import { AuthService } from 'src/app/modules/auth/services/auth.service';
 })
 export class ViewItemComponent implements OnInit {
 
+  params: any = {};
+  itemDetails: any = {};
+  itemDetailsCopy: any = {};
+  similarProducts: Array<any> = [];
+  isShowViewMore: boolean = false;
+  imgUrl: string = '';
+
   constructor(private router: Router,
     private alertMessageService: AlertMessageService,
     private activatedRoute: ActivatedRoute,
@@ -23,13 +30,6 @@ export class ViewItemComponent implements OnInit {
     private authService: AuthService,
     private alertMessage: AlertMessageService
   ) { }
-
-  params: any = {};
-  itemDetails: any = {};
-  itemDetailsCopy: any = {};
-  similarProducts: Array<any> = [];
-  isShowViewMore: boolean = false;
-  imgUrl: string = '';
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((routeParams: any) => {
