@@ -183,7 +183,13 @@ export class ViewItemComponent implements OnInit {
       width: '50%',
       maxHeight: 'unset',
       panelClass: 'rate-products',
+      data: this.itemDetails._id,
     });
+    dialogRef.afterClosed().subscribe((result) => {
+      this.itemDetails = this.authService.addIsFavoriteAndIsCartItemKey(result);
+      this.itemDetailsCopy = { ...result };
+      this.itemDetails = this.authService.addIsFavoriteAndIsCartItemKey(this.itemDetails);
+    })
   }
 
 }

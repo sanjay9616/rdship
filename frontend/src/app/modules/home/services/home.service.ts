@@ -73,4 +73,9 @@ export class HomeService {
     return this.apiService.get(url);
   }
 
+  submitProductReview(userId: string, itemId: string, data: any) {
+    let url: string = `${env.rdShip.baseUrl}${URL_LIST.API.REVIEW.SUBMIT_PRODUCT_REVIEW.URL}/${userId}/${itemId}`;
+    return this.apiService.post(url, data);
+  }
+
 }

@@ -14,8 +14,18 @@ const user = new schema({
     filterAttributesList: Array,
     imgUrls: Array,
     highLights: Array,
-    ratingsAndReviews: Array,
+    ratingsAndReviews: new Array({
+        rating: Number,
+        review: String,
+        date: Number,
+        userId: String,
+        name: String,
+        likes: Array,
+        isVerifiedPurchase: Boolean,
+        disLike: Array,
+    }),
     specifications: Object,
+    ratingsAndReviewsDetails: Object,
 }, { versionKey: false });
 
 module.exports = mongoose.model("product", user, "product");

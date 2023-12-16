@@ -24,6 +24,7 @@ export const MESSAGES = {
         CART_QTY_UPDATED: "Quantity Updated Successfully.",
         ADDED_FAVORITE_ITEM: "Item Added in the Wish List Successfully.",
         ADDED_CART_ITEM: "Item Added in the Cart Successfully.",
+        REVIEW_SUBMITTED: "Item Review Submitted Successfully.",
     },
     WARNING: {
         ALREADY_ADDED_IN_CART: "Item Already Exits in the Cart.",

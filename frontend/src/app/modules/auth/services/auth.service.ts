@@ -66,6 +66,10 @@ export class AuthService {
     return this.isAuthenticated;
   }
 
+  getIsUserVerified() {
+    return this.userDetail.isVerified;
+  }
+
   addIsFavoriteAndIsCartItemsKey(items: Array<any>) {
     let cartItemsIds = this.userDetail?.cartItems.map((item: any) => item?._id);
     let wishListIds = this.userDetail?.wishList.map((item: any) => item?._id);

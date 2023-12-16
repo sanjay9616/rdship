@@ -48,6 +48,11 @@ export const URL_LIST = {
                 URL: '/account/update-cart-qty'
             }
         },
+        REVIEW: {
+            SUBMIT_PRODUCT_REVIEW: {
+                URL: '/product/review'
+            }
+        },
         RECENTLY_VIEW: {
             ADD_RECENTLY_VIEW_ITEM: {
                 URL: "/account/add-recently-view-item"

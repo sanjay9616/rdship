@@ -206,13 +206,13 @@
                                 <div class="like-dislike-div like">
                                     <button mat-flat-button>
                                         <mat-icon>thumb_up</mat-icon>
-                                        <span class="count">0</span>
+                                        <span class="count">{{rating?.likes?.length}}</span>
                                     </button>
                                 </div>
                                 <div class="like-dislike-div dislike">
                                     <button mat-flat-button>
                                         <mat-icon>thumb_down</mat-icon>
-                                        <span class="count">0</span>
+                                        <span class="count">{{rating?.disLikes?.length}}</span>
                                     </button>
                                 </div>
                             </span>
@@ -227,7 +227,7 @@
                                 <mat-icon [ngClass]="{ 'active' : rating.rating >= 4 }">star</mat-icon>
                                 <mat-icon [ngClass]="{ 'active' : rating.rating >= 5 }">star</mat-icon>
                             </div>
-                            <div class="verified-purchase">Verified Purchase</div>
+                            <div class="verified-purchase">{{rating?.isVerifiedPurchase ? 'Verified Purchase' : 'Not Verified Purchase'}}</div>
                         </div>
                         <div class="name">{{rating?.name}}</div>
                         <div class="date">{{rating?.rating | date: 'dd-MMM-yyyy'}}</div>
@@ -249,7 +249,7 @@
                         </div>
                     </div>
                 </ng-container>
-                <button *ngIf="!isShowViewMore && itemDetails?.ratingsAndReviews?.length" mat-flat-button class="view-more-review"
+                <button *ngIf="!isShowViewMore && itemDetails?.ratingsAndReviews?.length > 2" mat-flat-button class="view-more-review"
                     (click)="viewMoreReview()">
                     VIEW {{itemDetails?.ratingsAndReviewsDetails?.numberOfReview - 2}} MORE HELPFUL REVIEW >
                 </button>

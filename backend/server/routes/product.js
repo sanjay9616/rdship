@@ -10,4 +10,5 @@ module.exports = (app) => {
     app.post('/product/getProduct', product.getAllProducts);
     app.get('/view-item/:id', product.getItemInfo);
     app.post('/product/change-specification/:itemDescription', product.changeSpecification);
+    app.post('/product/review/:userId/:itemId', product.submitProductReview);
 };

@@ -13,12 +13,12 @@
     <div class="raview-heading">Review this product</div>
     <div class="review-body">
         <mat-form-field appearance="outline">
-            <textarea style="resize: none" matInput rows="5"></textarea>
+            <textarea style="resize: none" matInput rows="5" [formControl]="review"></textarea>
             <span class="remaining-char">400/500 character</span>
         </mat-form-field>
     </div>
     <div class="btn-div">
         <button mat-flat-button type="button">Cancel</button>
-        <button mat-flat-button type="button">Submit</button>
+        <button mat-flat-button type="button" (click)="submitProductReview()">Submit</button>
     </div>
 </div>
