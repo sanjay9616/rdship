@@ -358,14 +358,14 @@ exports.addRecentlyViewItems = (req, res) => {
                                                     res.status(500).json({ data: null, status: 500, success: false, error: err, message: 'Something went wrong!' })
                                                 })
                                         } else {
-                                            res.status(409).json({ data: null, status: 409, success: false, error: err, message: "Can't Insert Item" })
+                                            res.status(409).json({ data: null, status: 409, success: false, message: "Can't Insert Item" })
                                         }
                                     })
                                     .catch((err) => {
                                         res.status(500).json({ data: null, status: 500, success: false, error: err, message: 'Something went wrong!' })
                                     })
                             } else {
-                                res.status(409).json({ data: null, status: 409, success: false, error: err, message: "Can't delete Item" })
+                                res.status(409).json({ data: null, status: 409, success: false, message: "Can't delete Item" })
                             }
                         })
                         .catch((err) => {

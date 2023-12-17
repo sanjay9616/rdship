@@ -25,6 +25,7 @@ export const MESSAGES = {
         ADDED_FAVORITE_ITEM: "Item Added in the Wish List Successfully.",
         ADDED_CART_ITEM: "Item Added in the Cart Successfully.",
         REVIEW_SUBMITTED: "Item Review Submitted Successfully.",
+        VOTE_SUBMITTED: "Item Review Vote Updated successfully",
     },
     WARNING: {
         ALREADY_ADDED_IN_CART: "Item Already Exits in the Cart.",

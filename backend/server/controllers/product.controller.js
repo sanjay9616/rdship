@@ -108,21 +108,149 @@ exports.submitProductReview = (req, res) => {
                         }
                     },
                     { upsert: true })
-                        .then((result) => {
-                            product.findOne({ _id: new ObjectId(itemId) })
+                    .then((result) => {
+                        product.findOne({ _id: new ObjectId(itemId) })
+                            .then((result) => {
+                                res.status(200).json({ data: result, status: 200, success: true, message: "Item Review Updated successfully" })
+                            })
+                            .catch((err) => {
+                                res.status(500).json({ data: null, status: 500, success: false, error: err, message: 'Something went wrong!' })
+                            })
+                    })
+                    .catch((err) => {
+                        res.status(500).json({ data: null, status: 500, success: false, error: err, message: 'Something went wrong!' })
+                    })
+            })
+    }
+}
+
+exports.productVote = (req, res) => {
+    let userId = req.params.userId;
+    let itemId = req.params.itemId;
+    let ratingId = req.params.ratingId;
+    let vote = req.params.vote;
+    if (!ObjectId.isValid(userId)) {
+        res.status(500).json({ data: null, status: 500, success: false, message: 'Not a valid User Id' })
+    } else if (!ObjectId.isValid(itemId)) {
+        res.status(500).json({ data: null, status: 500, success: false, message: 'Not a valid Item Id' })
+    } else if (!ObjectId.isValid(ratingId)) {
+        res.status(500).json({ data: null, status: 500, success: false, message: 'Not a valid Rating Id' })
+    } else {
+        product.findOne({ _id: new ObjectId(itemId) })
+            .then((result) => {
+                let like = result.ratingsAndReviews.filter((rating) => rating._id == ratingId)[0].likes;
+                let disLikes = result.ratingsAndReviews.filter((rating) => rating._id == ratingId)[0].disLikes;
+                if (vote == 'UP') {
+                    if (like.includes(userId)) {
+                        res.status(409).json({ data: null, status: 409, success: false, message: 'Already You Have Liked this Review.' })
+                    } else if (!like.includes(userId)) {
+                        if (disLikes.includes(userId)) {
+                            findIndex = disLikes.findIndex((disLike) => disLike == userId)
+                            if (findIndex > -1) disLikes.splice(findIndex, 1)
+                            like.push(userId)
+                            product.updateOne({ _id: new ObjectId(itemId), "ratingsAndReviews._id": new ObjectId(ratingId) }, { $set: { "ratingsAndReviews.$.likes": like, "ratingsAndReviews.$.disLikes": disLikes } })
                                 .then((result) => {
-                                    res.status(200).json({ data: result, status: 200, success: true, message: "Item Review Updated successfully" })
+                                    if (result.acknowledged && result.modifiedCount == 1 && result.matchedCount == 1) {
+                                        product.findOne({ _id: new ObjectId(itemId) })
+                                            .then((result) => {
+                                                res.status(200).json({ data: result, status: 200, success: true, message: "Item Review Vote Updated successfully" })
+                                            })
+                                            .catch((err) => {
+                                                res.status(500).json({ data: null, status: 500, success: false, error: err, message: 'Something went wrong!' })
+                                            })
+                                    } else {
+                                        res.status(500).json({ data: null, status: 500, success: false, error: err, message: 'Something went wrong!' })
+                                    }
                                 })
                                 .catch((err) => {
                                     res.status(500).json({ data: null, status: 500, success: false, error: err, message: 'Something went wrong!' })
                                 })
-                        })
-                        .catch((err) => {
+                        } else if (!disLikes.includes(userId)) {
+                            like.push(userId)
+                            product.updateOne({ _id: new ObjectId(itemId), "ratingsAndReviews._id": new ObjectId(ratingId) }, { $set: { "ratingsAndReviews.$.likes": like, "ratingsAndReviews.$.disLikes": disLikes } })
+                                .then((result) => {
+                                    if (result.acknowledged && result.modifiedCount == 1 && result.matchedCount == 1) {
+                                        product.findOne({ _id: new ObjectId(itemId) })
+                                            .then((result) => {
+                                                res.status(200).json({ data: result, status: 200, success: true, message: "Item Review Vote Updated successfully" })
+                                            })
+                                            .catch((err) => {
+                                                res.status(500).json({ data: null, status: 500, success: false, error: err, message: 'Something went wrong!' })
+                                            })
+                                    } else {
+                                        res.status(500).json({ data: null, status: 500, success: false, error: err, message: 'Something went wrong!' })
+                                    }
+                                })
+                                .catch((err) => {
+                                    res.status(500).json({ data: null, status: 500, success: false, error: err, message: 'Something went wrong!' })
+                                })
+                        } else {
                             res.status(500).json({ data: null, status: 500, success: false, error: err, message: 'Something went wrong!' })
-                        })
+                        }
+                    } else {
+                        res.status(500).json({ data: null, status: 500, success: false, error: err, message: 'Something went wrong!' })
+                    }
+                } else if (vote == 'DOWN') {
+                    if (disLikes.includes(userId)) {
+                        res.status(409).json({ data: null, status: 409, success: false, message: 'Already You Have Disliked this Review.' })
+                    } else if (!disLikes.includes(userId)) {
+                        if (like.includes(userId)) {
+                            findIndex = like.findIndex((like) => like == userId)
+                            if (findIndex > -1) like.splice(findIndex, 1)
+                            disLikes.push(userId)
+                            product.updateOne({ _id: new ObjectId(itemId), "ratingsAndReviews._id": new ObjectId(ratingId) }, { $set: { "ratingsAndReviews.$.likes": like, "ratingsAndReviews.$.disLikes": disLikes } })
+                                .then((result) => {
+                                    if (result.acknowledged && result.modifiedCount == 1 && result.matchedCount == 1) {
+                                        product.findOne({ _id: new ObjectId(itemId) })
+                                            .then((result) => {
+                                                res.status(200).json({ data: result, status: 200, success: true, message: "Item Review Vote Updated successfully" })
+                                            })
+                                            .catch((err) => {
+                                                res.status(500).json({ data: null, status: 500, success: false, error: err, message: 'Something went wrong!' })
+                                            })
+                                    } else {
+                                        res.status(500).json({ data: null, status: 500, success: false, error: err, message: 'Something went wrong!' })
+                                    }
+                                })
+                                .catch((err) => {
+                                    res.status(500).json({ data: null, status: 500, success: false, error: err, message: 'Something went wrong!' })
+                                })
+                        } else if (!like.includes(userId)) {
+                            disLikes.push(userId)
+                            product.updateOne({ _id: new ObjectId(itemId), "ratingsAndReviews._id": new ObjectId(ratingId) }, { $set: { "ratingsAndReviews.$.likes": like, "ratingsAndReviews.$.disLikes": disLikes } })
+                                .then((result) => {
+                                    if (result.acknowledged && result.modifiedCount == 1 && result.matchedCount == 1) {
+                                        product.findOne({ _id: new ObjectId(itemId) })
+                                            .then((result) => {
+                                                res.status(200).json({ data: result, status: 200, success: true, message: "Item Review Vote Updated successfully" })
+                                            })
+                                            .catch((err) => {
+                                                res.status(500).json({ data: null, status: 500, success: false, error: err, message: 'Something went wrong!' })
+                                            })
+                                    } else {
+                                        res.status(500).json({ data: null, status: 500, success: false, error: err, message: 'Something went wrong!' })
+                                    }
+                                })
+                                .catch((err) => {
+                                    res.status(500).json({ data: null, status: 500, success: false, error: err, message: 'Something went wrong!' })
+                                })
+                        } else {
+                            res.status(500).json({ data: null, status: 500, success: false, error: err, message: 'Something went wrong!' })
+                        }
+                    } else {
+                        res.status(500).json({ data: null, status: 500, success: false, error: err, message: 'Something went wrong!' })
+                    }
+                } else {
+                    res.status(500).json({ data: null, status: 500, success: false, error: err, message: 'Note a Valid Vote, Please Send UP/DOWN.' })
+                }
+            })
+            .catch((err) => {
+                res.status(500).json({ data: null, status: 500, success: false, error: err, message: 'Something went wrong!' })
             })
     }
+
 }
+
 removeDuplicate = (arr) => {
     let uniqueArr = [];
     for (let i = 0; i < arr.length; i++) {

@@ -21,6 +21,7 @@ export class ViewItemComponent implements OnInit {
   similarProducts: Array<any> = [];
   isShowViewMore: boolean = false;
   imgUrl: string = '';
+  userId: string = this.authService.getUserId();
 
   constructor(private router: Router,
     private alertMessageService: AlertMessageService,
@@ -188,8 +189,30 @@ export class ViewItemComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       this.itemDetails = this.authService.addIsFavoriteAndIsCartItemKey(result);
       this.itemDetailsCopy = { ...result };
-      this.itemDetails = this.authService.addIsFavoriteAndIsCartItemKey(this.itemDetails);
     })
+  }
+
+  productVote(ratingId: string, vote: string) {
+    if (!this.authService.getIsAuthenticated()) {
+      this.alertMessage.addError(MESSAGES.ERROR.LOGIN_FIRST).show();
+    } else {
+      this.homeService.productVote(this.authService.getUserId(), this.itemDetails._id, ratingId, vote, {}).subscribe((res: any) => {
+        if (res?.status == 200 && res?.success) {
+          this.itemDetails = this.authService.addIsFavoriteAndIsCartItemKey(res?.data);
+          this.itemDetailsCopy = { ...res?.data };
+          this.alertMessage.addSuccess(MESSAGES.SUCCESS.VOTE_SUBMITTED).show();
+        } else {
+          this.alertMessage.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
+        }
+      }, (err: any) => {
+        if (err?.error?.status == 409) {
+          this.alertMessage.addWarning(err?.error?.message || MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
+        } else {
+          this.alertMessage.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
+        }
+      })
+    }
+
   }
 
 }

@@ -22,7 +22,7 @@ const user = new schema({
         name: String,
         likes: Array,
         isVerifiedPurchase: Boolean,
-        disLike: Array,
+        disLikes: Array,
     }),
     specifications: Object,
     ratingsAndReviewsDetails: Object,

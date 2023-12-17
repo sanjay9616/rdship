@@ -51,6 +51,9 @@ export const URL_LIST = {
         REVIEW: {
             SUBMIT_PRODUCT_REVIEW: {
                 URL: '/product/review'
+            },
+            VOTE: {
+                URL: '/product/vote'
             }
         },
         RECENTLY_VIEW: {

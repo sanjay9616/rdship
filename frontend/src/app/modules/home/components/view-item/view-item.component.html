@@ -56,9 +56,9 @@
                     <span class="rating">{{itemDetails?.ratingsAndReviewsDetails?.overAllRating | decimal: 1}}</span>
                     <mat-icon>star</mat-icon>
                 </div>
-                <div class="ratings">{{itemDetails?.ratingsAndReviewsDetails?.numberOfRating}} Ratings</div>
+                <div class="ratings">{{itemDetails?.ratingsAndReviewsDetails?.numberOfRating || 0}} Ratings</div>
                 <div class="and">&</div>
-                <div class="reviews">{{itemDetails?.ratingsAndReviewsDetails?.numberOfReview}} Reviews</div>
+                <div class="reviews">{{itemDetails?.ratingsAndReviewsDetails?.numberOfReview || 0}} Reviews</div>
             </div>
             <div class="extra-off">Extra {{(itemDetails.markedPrice - itemDetails.sellingPrice) | currency}} off</div>
             <div class="price-details">
@@ -73,8 +73,8 @@
                         <div class="mat-radio-group">
                             <ng-container *ngFor="let item of filterAttr?.items; let j = index;">
                                 <mat-radio-group aria-label="Select an option">
-                                    <div class="radio-button" [ngClass]="{ 'active' : item?.selected }">
-                                        <mat-radio-button [value]="item?.value" (change)="changeSpecification(itemDetails?.itemDescription, i, j, filterAttr?.name, item?.value)">
+                                    <div class="radio-button" [ngClass]="{ 'active' : item?.selected }" (click)="changeSpecification(itemDetails?.itemDescription, i, j, filterAttr?.name, item?.value)">
+                                        <mat-radio-button [value]="item?.value">
                                             {{item?.value}}
                                         </mat-radio-button>
                                     </div>
@@ -116,8 +116,8 @@
                             <mat-icon>star</mat-icon>
                         </div>
                         <div class="rating-summary">Average Rating based on
-                            {{itemDetails?.ratingsAndReviewsDetails?.numberOfRating}} ratings and
-                            {{itemDetails?.ratingsAndReviewsDetails?.numberOfReview}} reviews</div>
+                            {{itemDetails?.ratingsAndReviewsDetails?.numberOfRating || 0}} ratings and
+                            {{itemDetails?.ratingsAndReviewsDetails?.numberOfReview || 0}} reviews</div>
                     </div>
                     <div class="right-section">
                         <div class="progressbar-container">
@@ -204,13 +204,13 @@
                         <div class="review-content">{{rating?.review}}
                             <span class="like-dislike">
                                 <div class="like-dislike-div like">
-                                    <button mat-flat-button>
+                                    <button mat-flat-button type="button" [disabled]="rating?.likes?.includes(userId)" (click)="productVote(rating?._id, 'UP')">
                                         <mat-icon>thumb_up</mat-icon>
                                         <span class="count">{{rating?.likes?.length}}</span>
                                     </button>
                                 </div>
                                 <div class="like-dislike-div dislike">
-                                    <button mat-flat-button>
+                                    <button mat-flat-button type="button" [disabled]="rating?.disLikes?.includes(userId)" (click)="productVote(rating?._id, 'DOWN')">
                                         <mat-icon>thumb_down</mat-icon>
                                         <span class="count">{{rating?.disLikes?.length}}</span>
                                     </button>

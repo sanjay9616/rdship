@@ -43,7 +43,7 @@ export class RateProductsComponent implements OnInit {
         name: this.authService.getUserDetail().name || 'Unknown User',
         isVerifiedPurchase: this.authService.getIsUserVerified(),
         likes: [],
-        disLike: [],
+        disLikes: [],
       }
       this.homeServie.submitProductReview(payload?.userId, this.itemId, payload).subscribe((res: any) => {
         if (res?.status == 200 && res?.success) {
