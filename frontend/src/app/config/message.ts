@@ -11,6 +11,8 @@ export const MESSAGES = {
         ENTER_NEW_DETAILS: "Not Updated Any Details.",
         QTY_GREATER_THEN_ONE: "Item Quantity Shoul Greater Then 1.",
         CANNOT_UPDATE_QTY: "Item Quantity Can't be Update.",
+        WRITE_QUESTION: "Please Write Question.",
+        WRITE_REVIEW: "Please Select Rating and Write Review.",
     },
     SUCCESS: {
         ACCOUNT_CREATED: 'Account Created Successfully.',
@@ -26,7 +28,8 @@ export const MESSAGES = {
         ADDED_CART_ITEM: "Item Added in the Cart Successfully.",
         REVIEW_SUBMITTED: "Item Review Submitted Successfully.",
         QUESTION_SUBMITTED: "Question Submitted Successfully.",
-        VOTE_SUBMITTED: "Item Review Vote Updated successfully",
+        REVIEW_VOTE_SUBMITTED: "Item Review Vote Updated successfully",
+        QUESTION_VOTE_SUBMITTED: "Item Question Vote Updated successfully",
     },
     WARNING: {
         ALREADY_ADDED_IN_CART: "Item Already Exits in the Cart.",

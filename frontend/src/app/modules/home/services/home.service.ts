@@ -88,4 +88,9 @@ export class HomeService {
     return this.apiService.patch(url, data);
   }
 
+  questionVote(userId: string, itemId: string, questionId: string, vote: string, data: any) {
+    let url: string = `${env.rdShip.baseUrl}${URL_LIST.API.QUESTION_ANSWER.VOTE.URL}/${userId}/${itemId}/${questionId}/${vote}`;
+    return this.apiService.patch(url, data);
+  }
+
 }

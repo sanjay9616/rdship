@@ -272,15 +272,15 @@
                             </div>
                             <div class="like-dislike">
                                 <div class="like-dislike-div like">
-                                    <button mat-flat-button type="button">
+                                    <button mat-flat-button type="button" [disabled]="question?.likes?.includes(userId)" (click)="questionVote(question?._id, 'UP')">
                                         <mat-icon>thumb_up</mat-icon>
-                                        <span class="count">{{question?.likes?.length || 0}}</span>
+                                        <span class="count">{{question?.likes?.length}}</span>
                                     </button>
                                 </div>
                                 <div class="like-dislike-div dislike">
-                                    <button mat-flat-button type="button">
+                                    <button mat-flat-button type="button" [disabled]="question?.disLikes?.includes(userId)" (click)="questionVote(question?._id, 'DOWN')">
                                         <mat-icon>thumb_down</mat-icon>
-                                        <span class="count">{{question?.disLikes?.length || 0}}</span>
+                                        <span class="count">{{question?.disLikes?.length}}</span>
                                     </button>
                                 </div>
                             </div>

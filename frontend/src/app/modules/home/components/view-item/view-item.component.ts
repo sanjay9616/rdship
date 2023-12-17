@@ -214,7 +214,29 @@ export class ViewItemComponent implements OnInit {
         if (res?.status == 200 && res?.success) {
           this.itemDetails = this.authService.addIsFavoriteAndIsCartItemKey(res?.data);
           this.itemDetailsCopy = { ...res?.data };
-          this.alertMessage.addSuccess(MESSAGES.SUCCESS.VOTE_SUBMITTED).show();
+          this.alertMessage.addSuccess(MESSAGES.SUCCESS.REVIEW_VOTE_SUBMITTED).show();
+        } else {
+          this.alertMessage.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
+        }
+      }, (err: any) => {
+        if (err?.error?.status == 409) {
+          this.alertMessage.addWarning(err?.error?.message || MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
+        } else {
+          this.alertMessage.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
+        }
+      })
+    }
+  }
+
+  questionVote(questionId: string, vote: string) {
+    if (!this.authService.getIsAuthenticated()) {
+      this.alertMessage.addError(MESSAGES.ERROR.LOGIN_FIRST).show();
+    } else {
+      this.homeService.questionVote(this.authService.getUserId(), this.itemDetails._id, questionId, vote, {}).subscribe((res: any) => {
+        if (res?.status == 200 && res?.success) {
+          this.itemDetails = this.authService.addIsFavoriteAndIsCartItemKey(res?.data);
+          this.itemDetailsCopy = { ...res?.data };
+          this.alertMessage.addSuccess(MESSAGES.SUCCESS.QUESTION_VOTE_SUBMITTED).show();
         } else {
           this.alertMessage.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
         }

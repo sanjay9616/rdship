@@ -59,6 +59,9 @@ export const URL_LIST = {
         QUESTION_ANSWER: {
             SUBMIT_QUESTION: {
                 URL: '/product/question'
+            },
+            VOTE: {
+                URL: '/product/question/vote'
             }
         },
         RECENTLY_VIEW: {

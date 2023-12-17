@@ -13,4 +13,5 @@ module.exports = (app) => {
     app.post('/product/review/:userId/:itemId', product.submitProductReview);
     app.post('/product/question/:userId/:itemId', product.submitQuestion);
     app.patch('/product/review/vote/:userId/:itemId/:ratingId/:vote', product.ratingVote);
+    app.patch('/product/question/vote/:userId/:itemId/:questionId/:vote', product.questionVote);
 };

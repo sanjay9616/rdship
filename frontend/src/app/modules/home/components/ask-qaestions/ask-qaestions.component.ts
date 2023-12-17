@@ -26,7 +26,7 @@ export class AskQaestionsComponent {
   submitQestion() {
     if (!this.authService.getIsAuthenticated()) {
       this.alertMessage.addError(MESSAGES.ERROR.LOGIN_FIRST).show();
-    } else {
+    } else if (this.question?.value?.length) {
       let payload = {
         question: this.question?.value,
         date: new Date().getTime(),
@@ -46,6 +46,8 @@ export class AskQaestionsComponent {
       }, (err: any) => {
         this.alertMessage.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
       })
+    } else {
+      this.alertMessage.addError(MESSAGES.ERROR.WRITE_QUESTION).show()
     }
   }
 }

@@ -34,7 +34,7 @@ export class RateProductsComponent implements OnInit {
   submitProductReview() {
     if (!this.authService.getIsAuthenticated()) {
       this.alertMessage.addError(MESSAGES.ERROR.LOGIN_FIRST).show();
-    } else {
+    } else if(this.review?.value?.length && this.rating) {
       let payload = {
         review: this.review?.value,
         rating: this.rating,
@@ -55,6 +55,8 @@ export class RateProductsComponent implements OnInit {
       }, (err: any) => {
         this.alertMessage.addError(MESSAGES.ERROR.SOMETHING_WENT_WRONG).show();
       })
+    } else {
+      this.alertMessage.addError(MESSAGES.ERROR.WRITE_REVIEW).show();
     }
   }
 }
