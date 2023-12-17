@@ -7,6 +7,7 @@ import { RateProductsComponent } from '../rate-products/rate-products.component'
 import { HomeService } from '../../services/home.service';
 import { MESSAGES } from 'src/app/config/message';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
+import { AskQaestionsComponent } from '../ask-qaestions/ask-qaestions.component';
 
 @Component({
   selector: 'app-view-item',
@@ -212,7 +213,19 @@ export class ViewItemComponent implements OnInit {
         }
       })
     }
+  }
 
+  askQuestions() {
+    const dialogRef = this.dialog.open(AskQaestionsComponent, {
+      width: '50%',
+      maxHeight: 'unset',
+      panelClass: 'rate-products',
+      data: this.itemDetails._id,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      this.itemDetails = this.authService.addIsFavoriteAndIsCartItemKey(result);
+      this.itemDetailsCopy = { ...result };
+    })
   }
 
 }

@@ -1,0 +1,15 @@
+<div class="ask-questions-container">
+    <div class="ask-questions-header">
+        <div class="heading-3">Ask Your Questions</div>
+    </div>
+    <div class="ask-questions-body">
+        <mat-form-field appearance="outline">
+            <textarea style="resize: none" matInput rows="5" [formControl]="question"></textarea>
+            <span class="remaining-char">{{500 - question.value?.length}}/500 character</span>
+        </mat-form-field>
+    </div>
+    <div class="ask-questions-footer">
+        <button mat-flat-button type="button" mat-dialog-close>Cancel</button>
+        <button mat-flat-button type="button" (click)="submitQestion()">Submit</button>
+    </div>
+</div>

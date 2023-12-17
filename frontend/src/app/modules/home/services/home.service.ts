@@ -78,6 +78,11 @@ export class HomeService {
     return this.apiService.post(url, data);
   }
 
+  submitQuestion(userId: string, itemId: string, data: any) {
+    let url: string = `${env.rdShip.baseUrl}${URL_LIST.API.QUESTION_ANSWER.SUBMIT_QUESTION.URL}/${userId}/${itemId}`;
+    return this.apiService.post(url, data);
+  }
+
   productVote(userId: string, itemId: string, ratingId: string, vote: string, data: any) {
     let url: string = `${env.rdShip.baseUrl}${URL_LIST.API.REVIEW.VOTE.URL}/${userId}/${itemId}/${ratingId}/${vote}`;
     return this.apiService.patch(url, data);

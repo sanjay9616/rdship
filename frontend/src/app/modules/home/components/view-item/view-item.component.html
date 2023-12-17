@@ -234,15 +234,15 @@
                         <div class="review-content">{{rating?.review}}
                             <span class="like-dislike">
                                 <div class="like-dislike-div like">
-                                    <button mat-flat-button>
+                                    <button mat-flat-button type="button" [disabled]="rating?.likes?.includes(userId)" (click)="productVote(rating?._id, 'UP')">
                                         <mat-icon>thumb_up</mat-icon>
-                                        <span class="count">0</span>
+                                        <span class="count">{{rating?.likes?.length}}</span>
                                     </button>
                                 </div>
                                 <div class="like-dislike-div dislike">
-                                    <button mat-flat-button>
+                                    <button mat-flat-button type="button" [disabled]="rating?.disLikes?.includes(userId)" (click)="productVote(rating?._id, 'DOWN')">
                                         <mat-icon>thumb_down</mat-icon>
-                                        <span class="count">0</span>
+                                        <span class="count">{{rating?.disLikes?.length}}</span>
                                     </button>
                                 </div>
                             </span>
@@ -255,15 +255,38 @@
                 </button>
             </div>
             <div class="asked-questions-container">
-                <div class="heading-3">Questions and Answers</div>
-                <div class="questions-answer">
-                    <div class="question">Q1: What is the maximum weight carrying capacity?</div>
-                    <div class="answer">Ans: Upto 125kgs.</div>
+                <div class="upper-div">
+                    <div class="heading-3">Frequently Asked Questions</div>
+                    <button mat-flat-button type="button" (click)="askQuestions()">Ask Now</button>
                 </div>
-                <div class="questions-answer">
-                    <div class="question">Q2: What is the maximum weight carrying capacity?</div>
-                    <div class="answer">Ans: Upto 125kgs.</div>
-                </div>
+                <ng-container *ngFor="let question of itemDetails?.questionsAndAnswers; let i = index">
+                    <ng-container *ngIf="question.question?.length && question.answer?.length">
+                        <div class="questions-answer-div">
+                            <div class="questions-answer">
+                                <div class="question" [title]="question?.question">
+                                    Q{{i + 1}}: {{question?.question}}
+                                </div>
+                                <div class="answer" [title]="question?.answer">
+                                    Ans: {{question?.answer}}
+                                </div>
+                            </div>
+                            <div class="like-dislike">
+                                <div class="like-dislike-div like">
+                                    <button mat-flat-button type="button">
+                                        <mat-icon>thumb_up</mat-icon>
+                                        <span class="count">{{question?.likes?.length || 0}}</span>
+                                    </button>
+                                </div>
+                                <div class="like-dislike-div dislike">
+                                    <button mat-flat-button type="button">
+                                        <mat-icon>thumb_down</mat-icon>
+                                        <span class="count">{{question?.disLikes?.length || 0}}</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </ng-container>
             </div>
         </div>
     </div>

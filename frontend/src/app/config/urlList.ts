@@ -56,6 +56,11 @@ export const URL_LIST = {
                 URL: '/product/vote'
             }
         },
+        QUESTION_ANSWER: {
+            SUBMIT_QUESTION: {
+                URL: '/product/question'
+            }
+        },
         RECENTLY_VIEW: {
             ADD_RECENTLY_VIEW_ITEM: {
                 URL: "/account/add-recently-view-item"

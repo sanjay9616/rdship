@@ -3089,6 +3089,7 @@ export class CommonService {
                     "Vegetarian"
                 ],
                 "ratingsAndReviews": [],
+                "questionsAndAnswers": [],
                 "specifications": {
                     "Brand": "Sunfeast",
                     "Model Name": "Dark Fantasy Choco Fills",
@@ -3163,6 +3164,7 @@ export class CommonService {
                     "Vegetarian"
                 ],
                 "ratingsAndReviews": [],
+                "questionsAndAnswers": [],
                 "specifications": {
                     "Brand": "Sunfeast",
                     "Model Name": "Dark Fantasy Choco Fills",
@@ -3237,6 +3239,7 @@ export class CommonService {
                     "Vegetarian"
                 ],
                 "ratingsAndReviews": [],
+                "questionsAndAnswers": [],
                 "specifications": {
                     "Brand": "Sunfeast",
                     "Model Name": "Dark Fantasy Choco Fills",
@@ -3311,6 +3314,7 @@ export class CommonService {
                     "Vegetarian"
                 ],
                 "ratingsAndReviews": [],
+                "questionsAndAnswers": [],
                 "specifications": {
                     "Brand": "Sunfeast",
                     "Model Name": "Dark Fantasy Choco Fills",
@@ -3374,6 +3378,7 @@ export class CommonService {
                     "Vegetarian"
                 ],
                 "ratingsAndReviews": [],
+                "questionsAndAnswers": [],
                 "specifications": {
                     "Brand": "BRITANNIA",
                     "Model Name": "Marie Gold Biscuits 1 kg",
@@ -3435,6 +3440,7 @@ export class CommonService {
                     "Manufactured date 01 Dec 2022"
                 ],
                 "ratingsAndReviews": [],
+                "questionsAndAnswers": [],
                 "specifications": {
                     "Brand": "Healthy Rice Villa",
                     "Model Name": "DIVINE Silky Chap Parboiled Rice",
@@ -3499,6 +3505,7 @@ export class CommonService {
                     "Vegetarian"
                 ],
                 "ratingsAndReviews": [],
+                "questionsAndAnswers": [],
                 "specifications": {
                     "Brand": "McVitie's",
                     "Model Name": "Dark Cookie Cream Biscuit with Goodness of Cocoa and Chocolate flavoured cream,",
@@ -3558,6 +3565,7 @@ export class CommonService {
                     "Manufactured date 01 Dec 2022"
                 ],
                 "ratingsAndReviews": [],
+                "questionsAndAnswers": [],
                 "specifications": {
                     "Brand": "Unbranded",
                     "Model Name": "Jeera / Ambemohar /",
@@ -3622,6 +3630,7 @@ export class CommonService {
                     "Vegetarian"
                 ],
                 "ratingsAndReviews": [],
+                "questionsAndAnswers": [],
                 "specifications": {
                     "Brand": "ORION",
                     "Model Name": "Choco Pie",
@@ -3684,6 +3693,7 @@ export class CommonService {
                     "Vegetarian"
                 ],
                 "ratingsAndReviews": [],
+                "questionsAndAnswers": [],
                 "specifications": {
                     "Brand": "Haldiram's",
                     "Model Name": "Kaju Butter Cookies",
@@ -3746,6 +3756,7 @@ export class CommonService {
                     "Manufactured date 01 Dec 2022"
                 ],
                 "ratingsAndReviews": [],
+                "questionsAndAnswers": [],
                 "specifications": {
                     "Brand": "INDIA GATE",
                     "Model Name": "Weight Watchers Special",
@@ -3809,6 +3820,7 @@ export class CommonService {
                     "Manufactured date 01 Dec 2022"
                 ],
                 "ratingsAndReviews": [],
+                "questionsAndAnswers": [],
                 "specifications": {
                     "Brand": "Thanjai Organics",
                     "Model Name": "Thooyamalli Rice ( Jasmine Rice ) ",
@@ -3872,6 +3884,7 @@ export class CommonService {
                     "Manufactured date 01 Dec 2022"
                 ],
                 "ratingsAndReviews": [],
+                "questionsAndAnswers": [],
                 "specifications": {
                     "Brand": "INDIA GATE",
                     "Model Name": "Premium",
@@ -3936,6 +3949,7 @@ export class CommonService {
                     "Vegetarian"
                 ],
                 "ratingsAndReviews": [],
+                "questionsAndAnswers": [],
                 "specifications": {
                     "Brand": "UNIBIC",
                     "Model Name": "Choco Kiss",
@@ -3998,6 +4012,7 @@ export class CommonService {
                     "Manufactured date 01 Dec 2022"
                 ],
                 "ratingsAndReviews": [],
+                "questionsAndAnswers": [],
                 "specifications": {
                     "Brand": "DAIVIK ORGANIC",
                     "Model Name": "Karuppu Kavuni Rice-Black Rice, 500 g",
@@ -4064,6 +4079,7 @@ export class CommonService {
                     "Vegetarian"
                 ],
                 "ratingsAndReviews": [],
+                "questionsAndAnswers": [],
                 "specifications": {
                     "Pack of": "1",
                     "Brand": "PARLE",
@@ -4127,6 +4143,7 @@ export class CommonService {
                     "Vegetarian"
                 ],
                 "ratingsAndReviews": [],
+                "questionsAndAnswers": [],
                 "specifications": {
                     "Brand": "DiaBliss",
                     "Model Name": "Diabetic Friendly Millet Cookies with Moringa Leaf 150g",
@@ -4189,6 +4206,7 @@ export class CommonService {
                     "Vegetarian"
                 ],
                 "ratingsAndReviews": [],
+                "questionsAndAnswers": [],
                 "specifications": {
                     "Brand": "PATANJALI",
                     "Model Name": "NA",
@@ -4250,6 +4268,7 @@ export class CommonService {
                     "Vegetarian"
                 ],
                 "ratingsAndReviews": [],
+                "questionsAndAnswers": [],
                 "specifications": {
                     "Brand": "Priyagold",
                     "Model Name": "Butter Delite Namkeen Biscuits",
@@ -4309,6 +4328,7 @@ export class CommonService {
                     "Maximum Shelf Life: 12 months"
                 ],
                 "ratingsAndReviews": [],
+                "questionsAndAnswers": [],
                 "specifications": {
                     "Brand": "Naturesmith",
                     "Model Name": "Arborio Rice",
@@ -4372,6 +4392,7 @@ export class CommonService {
                     "Non-vegetarian"
                 ],
                 "ratingsAndReviews": [],
+                "questionsAndAnswers": [],
                 "specifications": {
                     "Brand": "Sunfeast",
                     "Model Name": "Dark Fantasy Yumfills",
@@ -4435,6 +4456,7 @@ export class CommonService {
                     "Manufactured date 10 Jun 2023"
                 ],
                 "ratingsAndReviews": [],
+                "questionsAndAnswers": [],
                 "specifications": {
                     "Pack of": "1",
                     "Brand": "Flipkart Supermart",
@@ -4496,6 +4518,7 @@ export class CommonService {
                     "Manufactured date 01 Jun 2023"
                 ],
                 "ratingsAndReviews": [],
+                "questionsAndAnswers": [],
                 "specifications": {
                     "Pack of": "1",
                     "Brand": "CHEF'S BASKET",
@@ -4562,6 +4585,7 @@ export class CommonService {
                     "Manufactured date 01 Nov 2022"
                 ],
                 "ratingsAndReviews": [],
+                "questionsAndAnswers": [],
                 "specifications": {
                     "Pack of": "1",
                     "Brand": "WeiKFiELD",
@@ -4625,6 +4649,7 @@ export class CommonService {
                     "Vegetarian"
                 ],
                 "ratingsAndReviews": [],
+                "questionsAndAnswers": [],
                 "specifications": {
                     "Brand": "BRITANNIA",
                     "Model Name": "Nutri Choice Sugar Free",
@@ -4689,6 +4714,7 @@ export class CommonService {
                     "Vegetarian"
                 ],
                 "ratingsAndReviews": [],
+                "questionsAndAnswers": [],
                 "specifications": {
                     "Brand": "BRITANNIA",
                     "Model Name": "50-50 Maska Chaska",

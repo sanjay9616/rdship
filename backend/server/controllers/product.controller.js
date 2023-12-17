@@ -121,6 +121,38 @@ exports.submitProductReview = (req, res) => {
                         res.status(500).json({ data: null, status: 500, success: false, error: err, message: 'Something went wrong!' })
                     })
             })
+            .catch((err) => {
+                res.status(500).json({ data: null, status: 500, success: false, error: err, message: 'Something went wrong!' })
+            })
+    }
+}
+
+exports.submitQuestion = (req, res) => {
+    let userId = req.params.userId;
+    let itemId = req.params.itemId;
+    let body = req.body
+    if (!ObjectId.isValid(userId)) {
+        res.status(500).json({ data: null, status: 500, success: false, message: 'Not a valid User id' })
+    } else if (!ObjectId.isValid(itemId)) {
+        res.status(500).json({ data: null, status: 500, success: false, message: 'Not a valid Item id' })
+    } else {
+        product.updateOne({ _id: new ObjectId(itemId) }, { $push: { questionsAndAnswers: {...body, answer: ''} } })
+            .then((result) => {
+                if (result.acknowledged && result.modifiedCount == 1 && result.matchedCount == 1) {
+                    product.findOne({ _id: new ObjectId(itemId) })
+                        .then((result) => {
+                            res.status(200).json({ data: result, status: 200, success: true, message: "Question Submitted Successfully" })
+                        })
+                        .catch((err) => {
+                            res.status(500).json({ data: null, status: 500, success: false, error: err, message: 'Something Went Wrong!' })
+                        })
+                } else {
+                    res.status(500).json({ data: null, status: 500, success: false, error: err, message: 'Something Went Wrong!' })
+                }
+            })
+            .catch((err) => {
+                res.status(500).json({ data: null, status: 500, success: false, error: err, message: 'Something Went Wrong!' })
+            })
     }
 }
 

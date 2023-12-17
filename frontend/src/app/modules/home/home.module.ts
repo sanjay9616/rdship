@@ -14,6 +14,7 @@ import { ViewItemComponent } from "./components/view-item/view-item.component";
 import { NgImageSliderModule } from "ng-image-slider";
 import { RateProductsComponent } from './components/rate-products/rate-products.component';
 import { NgxMatSelectSearchModule } from "ngx-mat-select-search";
+import { AskQaestionsComponent } from './components/ask-qaestions/ask-qaestions.component';
 
 @NgModule({
     declarations: [
@@ -23,6 +24,7 @@ import { NgxMatSelectSearchModule } from "ngx-mat-select-search";
         ViewCartComponent,
         ViewItemComponent,
         RateProductsComponent,
+        AskQaestionsComponent,
     ],
     imports: [
         routing,

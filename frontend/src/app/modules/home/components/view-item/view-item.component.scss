@@ -334,6 +334,7 @@
                         color: #d9232d;
                         height: 30px;
                         line-height: 30px;
+                        font-size: 12px;
                     }
 
                 }
@@ -517,6 +518,8 @@
                                     display: flex;
                                     align-items: center;
                                     justify-content: center;
+                                    color: #ccc;
+                                    background-color: #FFFFFF;
 
                                     .mat-icon {
                                         padding: 0;
@@ -527,6 +530,11 @@
                                         padding-left: 4px;
                                     }
 
+                                }
+
+                                ::ng-deep button:disabled,
+                                button[disabled] {
+                                    color: #2874f0 !important;
                                 }
                             }
 
@@ -552,30 +560,97 @@
                 border: 1px solid #ccc;
                 border-radius: 4px;
 
-                .heading-3 {
-                    font-size: 16px;
-                    font-weight: 500;
-                    color: #212121;
-                    padding-bottom: 0.5rem;
-                    margin-top: 0.5rem;
+                .upper-div {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+
+                    .heading-3 {
+                        font-size: 16px;
+                        font-weight: 500;
+                        color: #212121;
+                        padding-bottom: 0.5rem;
+                        margin-top: 0.5rem;
+                    }
+
+                    button {
+                        background-color: #fae0e1;
+                        color: #d9232d;
+                        height: 30px;
+                        line-height: 30px;
+                        font-size: 12px;
+                    }
                 }
 
-                .questions-answer {
+
+                .questions-answer-div {
                     margin-top: 0.5rem;
                     padding-top: 0.5rem;
                     border-top: 1px dashed #c7c7c7;
-                    ;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
 
-                    .question {
-                        font-size: 14px;
-                        font-weight: 500;
+                    .questions-answer {
+                        width: calc(100% - 105px);
+                        .question {
+                            font-size: 14px;
+                            font-weight: 500;
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                        }
+
+                        .answer {
+                            font-size: 14px;
+                            color: #6f6f6f;
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                        }
                     }
+                    .like-dislike {
+                        display: flex;
+                        align-items: center;
+                        .like-dislike-div {
+                            display: flex;
+                            align-items: center;
+                            border: 1px solid #ccc;
+                            border-radius: 4px;
 
-                    .answer {
-                        font-size: 14px;
-                        color: #6f6f6f;
+                            button {
+                                padding: 0;
+                                width: 45px;
+                                min-width: unset;
+                                height: 30px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                color: #ccc;
+                                background-color: #FFFFFF;
+                                font-size: 12px;
+
+                                .mat-icon {
+                                    padding: 0;
+                                    margin: 0;
+                                }
+
+                                .count {
+                                    padding-left: 4px;
+                                }
+
+                            }
+
+                            ::ng-deep button:disabled,
+                            button[disabled] {
+                                color: #2874f0 !important;
+                            }
+                        }
+
+                        .dislike {
+                            margin-left: 0.5rem;
+                        }
                     }
-
                 }
 
             }

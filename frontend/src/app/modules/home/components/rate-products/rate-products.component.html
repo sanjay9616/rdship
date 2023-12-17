@@ -14,7 +14,7 @@
     <div class="review-body">
         <mat-form-field appearance="outline">
             <textarea style="resize: none" matInput rows="5" [formControl]="review"></textarea>
-            <span class="remaining-char">400/500 character</span>
+            <span class="remaining-char">{{500 - review.value?.length}}/500 character</span>
         </mat-form-field>
     </div>
     <div class="btn-div">
