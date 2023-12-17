@@ -156,7 +156,7 @@ exports.submitQuestion = (req, res) => {
     }
 }
 
-exports.productVote = (req, res) => {
+exports.ratingVote = (req, res) => {
     let userId = req.params.userId;
     let itemId = req.params.itemId;
     let ratingId = req.params.ratingId;

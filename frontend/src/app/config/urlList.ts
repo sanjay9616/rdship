@@ -53,7 +53,7 @@ export const URL_LIST = {
                 URL: '/product/review'
             },
             VOTE: {
-                URL: '/product/vote'
+                URL: '/product/review/vote'
             }
         },
         QUESTION_ANSWER: {

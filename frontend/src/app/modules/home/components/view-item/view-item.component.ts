@@ -193,11 +193,24 @@ export class ViewItemComponent implements OnInit {
     })
   }
 
-  productVote(ratingId: string, vote: string) {
+  askQuestions() {
+    const dialogRef = this.dialog.open(AskQaestionsComponent, {
+      width: '50%',
+      maxHeight: 'unset',
+      panelClass: 'rate-products',
+      data: this.itemDetails._id,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      this.itemDetails = this.authService.addIsFavoriteAndIsCartItemKey(result);
+      this.itemDetailsCopy = { ...result };
+    })
+  }
+
+  ratingVote(ratingId: string, vote: string) {
     if (!this.authService.getIsAuthenticated()) {
       this.alertMessage.addError(MESSAGES.ERROR.LOGIN_FIRST).show();
     } else {
-      this.homeService.productVote(this.authService.getUserId(), this.itemDetails._id, ratingId, vote, {}).subscribe((res: any) => {
+      this.homeService.ratingVote(this.authService.getUserId(), this.itemDetails._id, ratingId, vote, {}).subscribe((res: any) => {
         if (res?.status == 200 && res?.success) {
           this.itemDetails = this.authService.addIsFavoriteAndIsCartItemKey(res?.data);
           this.itemDetailsCopy = { ...res?.data };
@@ -213,19 +226,6 @@ export class ViewItemComponent implements OnInit {
         }
       })
     }
-  }
-
-  askQuestions() {
-    const dialogRef = this.dialog.open(AskQaestionsComponent, {
-      width: '50%',
-      maxHeight: 'unset',
-      panelClass: 'rate-products',
-      data: this.itemDetails._id,
-    });
-    dialogRef.afterClosed().subscribe((result) => {
-      this.itemDetails = this.authService.addIsFavoriteAndIsCartItemKey(result);
-      this.itemDetailsCopy = { ...result };
-    })
   }
 
 }

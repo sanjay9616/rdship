@@ -12,5 +12,5 @@ module.exports = (app) => {
     app.post('/product/change-specification/:itemDescription', product.changeSpecification);
     app.post('/product/review/:userId/:itemId', product.submitProductReview);
     app.post('/product/question/:userId/:itemId', product.submitQuestion);
-    app.patch('/product/vote/:userId/:itemId/:ratingId/:vote', product.productVote);
+    app.patch('/product/review/vote/:userId/:itemId/:ratingId/:vote', product.ratingVote);
 };
