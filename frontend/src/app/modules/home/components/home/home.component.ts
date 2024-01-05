@@ -7,6 +7,8 @@ import { NgImageSliderComponent } from 'ng-image-slider';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { HomeService } from '../../services/home.service';
 import { MESSAGES } from 'src/app/config/message';
+import { environment as env, environment } from "src/environments/environment";
+
 
 @Component({
   selector: 'app-home',
@@ -49,6 +51,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.getHomeDetails();
+    console.log('home-----', env.rdShip.baseUrl);
   }
 
   getHomeDetails() {
